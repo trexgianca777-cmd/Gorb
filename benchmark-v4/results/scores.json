@@ -1,0 +1,680 @@
+{
+  "plain": {
+    "01-code-evaluator-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      }
+    },
+    "02-code-sjson": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      }
+    },
+    "03-code-wildcard": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=14/14"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=14/14"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=14/14"
+      }
+    },
+    "04-code-base-convert": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      }
+    },
+    "05-knights-knaves-5": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='b'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='b'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='b'"
+      }
+    },
+    "06-scheduling-trap-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='eve'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='eve'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='eve'"
+      }
+    },
+    "07-zebra-lite": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='dog'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='dog'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='dog'"
+      }
+    },
+    "08-arithmetic-traps-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[1144.63]"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[1144.63]"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[1144.63]"
+      }
+    },
+    "09-adversarial-alpha-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "sentences=5/5, dup_words=0, count_seven=1/1"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "sentences=5/5, dup_words=0, count_seven=1/1"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "sentences=5/5, dup_words=0, count_seven=1/1"
+      }
+    },
+    "10-adversarial-paragraphs-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4"
+      }
+    },
+    "11-adversarial-list": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "lines=7/7, count_done=1/1"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "lines=7/7, count_done=1/1"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "lines=7/7, count_done=1/1"
+      }
+    },
+    "12-longctx-conflicting-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[8.7]"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[8.7]"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[8.7]"
+      }
+    },
+    "13-longctx-count": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[9.0]"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[9.0]"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[9.0]"
+      }
+    },
+    "14-temporal": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "digits='20260427'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "digits='20260427'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "digits='20260427'"
+      }
+    },
+    "15-code-caesar": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      }
+    },
+    "16-code-roman": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      }
+    }
+  },
+  "revise": {
+    "01-code-evaluator-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      }
+    },
+    "02-code-sjson": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      }
+    },
+    "03-code-wildcard": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=14/14"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=14/14"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=14/14"
+      }
+    },
+    "04-code-base-convert": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      }
+    },
+    "05-knights-knaves-5": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='b'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='b'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='b'"
+      }
+    },
+    "06-scheduling-trap-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='eve'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='eve'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='eve'"
+      }
+    },
+    "07-zebra-lite": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='dog'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='dog'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='dog'"
+      }
+    },
+    "08-arithmetic-traps-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[1144.63]"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[1144.63]"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[1144.63]"
+      }
+    },
+    "09-adversarial-alpha-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "sentences=5/5, dup_words=0, count_seven=1/1"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "sentences=5/5, dup_words=0, count_seven=1/1"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "sentences=5/5, dup_words=0, count_seven=1/1"
+      }
+    },
+    "10-adversarial-paragraphs-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4"
+      }
+    },
+    "11-adversarial-list": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "lines=7/7, count_done=1/1"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "lines=7/7, count_done=1/1"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "lines=7/7, count_done=1/1"
+      }
+    },
+    "12-longctx-conflicting-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[8.7]"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[8.7]"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[8.7]"
+      }
+    },
+    "13-longctx-count": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[9.0]"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[9.0]"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[9.0]"
+      }
+    },
+    "14-temporal": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "digits='20260427'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "digits='20260427'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "digits='20260427'"
+      }
+    },
+    "15-code-caesar": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      }
+    },
+    "16-code-roman": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      }
+    }
+  },
+  "route": {
+    "01-code-evaluator-2": {
+      "rep1/openai_gpt-oss-20b": {
+        "pass": false,
+        "detail": "tests_passed=11/12"
+      },
+      "rep2/openai_gpt-oss-20b": {
+        "pass": false,
+        "detail": "tests_passed=11/12"
+      },
+      "rep3/openai_gpt-oss-20b": {
+        "pass": false,
+        "detail": "tests_passed=11/12"
+      }
+    },
+    "02-code-sjson": {
+      "rep1/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep2/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep3/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      }
+    },
+    "03-code-wildcard": {
+      "rep1/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=14/14"
+      },
+      "rep2/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=14/14"
+      },
+      "rep3/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=14/14"
+      }
+    },
+    "04-code-base-convert": {
+      "rep1/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep2/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep3/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      }
+    },
+    "05-knights-knaves-5": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='b'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='b'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='b'"
+      }
+    },
+    "06-scheduling-trap-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='eve'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='eve'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='eve'"
+      }
+    },
+    "07-zebra-lite": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='dog'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='dog'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "normalized='dog'"
+      }
+    },
+    "08-arithmetic-traps-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[1144.63]"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[1144.63]"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[1144.63]"
+      }
+    },
+    "09-adversarial-alpha-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "sentences=5/5, dup_words=0, count_seven=1/1"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "sentences=5/5, dup_words=0, count_seven=1/1"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "sentences=5/5, dup_words=0, count_seven=1/1"
+      }
+    },
+    "10-adversarial-paragraphs-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4"
+      }
+    },
+    "11-adversarial-list": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "lines=7/7, count_done=1/1"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "lines=7/7, count_done=1/1"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "lines=7/7, count_done=1/1"
+      }
+    },
+    "12-longctx-conflicting-2": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[8.7]"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[8.7]"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[8.7]"
+      }
+    },
+    "13-longctx-count": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[9.0]"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[9.0]"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "numbers_found=[9.0]"
+      }
+    },
+    "14-temporal": {
+      "rep1/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "digits='20260427'"
+      },
+      "rep2/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "digits='20260427'"
+      },
+      "rep3/openai_gpt-oss-120b": {
+        "pass": true,
+        "detail": "digits='20260427'"
+      }
+    },
+    "15-code-caesar": {
+      "rep1/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep2/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      },
+      "rep3/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=10/10"
+      }
+    },
+    "16-code-roman": {
+      "rep1/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep2/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      },
+      "rep3/openai_gpt-oss-20b": {
+        "pass": true,
+        "detail": "tests_passed=12/12"
+      }
+    }
+  }
+}

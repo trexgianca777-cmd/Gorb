@@ -1,0 +1,19 @@
+{
+  "mechanism": "mh",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "sentences=5/5, total_words=50/50",
+      "framing": "initial"
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 90,
+      "completion_chars": 353
+    }
+  ],
+  "task": "r5-fifty-words",
+  "rep": "1"
+}

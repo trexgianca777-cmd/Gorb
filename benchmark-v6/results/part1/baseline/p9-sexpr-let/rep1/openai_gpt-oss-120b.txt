@@ -1,0 +1,77 @@
+```python
+def seval(s: str) -> float:
+    import re
+    tokens = re.findall(r'\(|\)|[^\s()]+', s)
+
+    def eval_expr(i: int, env: dict) -> tuple[float, int]:
+        token = tokens[i]
+        if token == '(':
+            head = tokens[i + 1]
+            # LET form
+            if head == 'let':
+                # parse bindings list
+                i = i + 2                     # skip '(' and 'let'
+                if tokens[i] != '(':
+                    raise SyntaxError('Expected "(" after let')
+                i += 1                         # skip '(' that starts bindings
+                local = env.copy()
+                while tokens[i] != ')':
+                    if tokens[i] != '(':
+                        raise SyntaxError('Expected "(" in binding')
+                    var = tokens[i + 1]
+                    val, i = eval_expr(i + 2, local)   # evaluate value
+                    if tokens[i] != ')':
+                        raise SyntaxError('Expected ")" after binding')
+                    i += 1                     # skip ')'
+                    local[var] = val
+                i += 1                         # skip ')' that ends bindings list
+                # body
+                result, i = eval_expr(i, local)
+                if tokens[i] != ')':
+                    raise SyntaxError('Expected ")" after let body')
+                return result, i + 1
+            # OPERATOR form
+            else:
+                op = head
+                i = i + 2                     # skip '(' and operator
+                args = []
+                while tokens[i] != ')':
+                    val, i = eval_expr(i, env)
+                    args.append(val)
+                i += 1                         # skip ')'
+                if op == '+':
+                    return sum(args), i
+                if op == '*':
+                    prod = 1.0
+                    for a in args:
+                        prod *= a
+                    return prod, i
+                if op == '-':
+                    if len(args) == 1:
+                        return -args[0], i
+                    res = args[0]
+                    for a in args[1:]:
+                        res -= a
+                    return res, i
+                if op == '/':
+                    if len(args) == 1:
+                        return 1.0 / args[0], i
+                    res = args[0]
+                    for a in args[1:]:
+                        res /= a
+                    return res, i
+                raise ValueError(f'Unknown operator {op}')
+        else:
+            # number or variable
+            try:
+                return float(token), i + 1
+            except ValueError:
+                if token in env:
+                    return env[token], i + 1
+                raise NameError(f'Undefined variable {token}')
+
+    value, next_i = eval_expr(0, {})
+    if next_i != len(tokens):
+        raise SyntaxError('Extra tokens after complete expression')
+    return float(value)
+```

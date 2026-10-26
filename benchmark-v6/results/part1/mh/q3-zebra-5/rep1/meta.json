@@ -1,0 +1,19 @@
+{
+  "mechanism": "mh",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "digits='3'",
+      "framing": "initial"
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 651,
+      "completion_chars": 2
+    }
+  ],
+  "task": "q3-zebra-5",
+  "rep": "1"
+}

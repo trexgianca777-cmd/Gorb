@@ -1,0 +1,43 @@
+```python
+def seval(expr: str) -> float:
+    import re
+    tokens = re.findall(r'\(|\)|[^\s()]+', expr)
+
+    def parse(i: int):
+        token = tokens[i]
+        if token == '(':
+            op = tokens[i + 1]
+            i += 2
+            args = []
+            while tokens[i] != ')':
+                val, i = parse(i)
+                args.append(val)
+            i += 1  # skip ')'
+            if op == '+':
+                return float(sum(args)), i
+            if op == '*':
+                prod = 1.0
+                for a in args:
+                    prod *= a
+                return prod, i
+            if op == '-':
+                if len(args) == 1:
+                    return -args[0], i
+                res = args[0]
+                for a in args[1:]:
+                    res -= a
+                return float(res), i
+            if op == '/':
+                if len(args) == 1:
+                    return 1.0 / args[0], i
+                res = args[0]
+                for a in args[1:]:
+                    res /= a
+                return float(res), i
+            raise ValueError(f'unknown operator {op}')
+        else:
+            return float(token), i + 1
+
+    result, _ = parse(0)
+    return result
+```

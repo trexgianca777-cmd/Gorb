@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="520" font-family="monospace" font-size="13">
+<rect width="860" height="520" fill="#0d1117"/>
+<text x="30" y="34" fill="#e6edf3" font-size="17">SwarmZero — data flow</text>
+<text x="30" y="56" fill="#8b949e" font-size="11">swarm-call.sh: fan-out + reliability. Roles, grading, synthesis live in the calling layer.</text>
+
+<!-- Prompt in -->
+<rect x="30" y="90" width="180" height="60" rx="6" fill="#161b22" stroke="#58a6ff"/>
+<text x="120" y="114" fill="#e6edf3" text-anchor="middle">prompt</text>
+<text x="120" y="132" fill="#8b949e" text-anchor="middle" font-size="11">+ SWARM_SYSTEM</text>
+
+<!-- Normalize -->
+<rect x="250" y="90" width="180" height="60" rx="6" fill="#161b22" stroke="#58a6ff"/>
+<text x="340" y="114" fill="#e6edf3" text-anchor="middle">normalize_prompt()</text>
+<text x="340" y="132" fill="#8b949e" text-anchor="middle" font-size="11">NFKC, whitespace fold</text>
+
+<!-- Cache check -->
+<rect x="470" y="90" width="180" height="60" rx="6" fill="#161b22" stroke="#d29922"/>
+<text x="560" y="114" fill="#e6edf3" text-anchor="middle">cache lookup</text>
+<text x="560" y="132" fill="#8b949e" text-anchor="middle" font-size="11">exact prompt+model hit?</text>
+
+<!-- arrows top row -->
+<line x1="210" y1="120" x2="250" y2="120" stroke="#8b949e" marker-end="url(#a)"/>
+<line x1="430" y1="120" x2="470" y2="120" stroke="#8b949e" marker-end="url(#a)"/>
+
+<!-- Cache hit path -->
+<text x="700" y="114" fill="#3fb950" font-size="11">hit → return</text>
+<text x="700" y="132" fill="#3fb950" font-size="11">$0, instant</text>
+<line x1="650" y1="110" x2="690" y2="110" stroke="#3fb950" marker-end="url(#a)"/>
+
+<!-- miss down to fan-out -->
+<text x="560" y="175" fill="#8b949e" font-size="11">miss → fan out</text>
+<line x1="560" y1="150" x2="560" y2="195" stroke="#8b949e" marker-end="url(#a)"/>
+
+<!-- Model slots -->
+<rect x="30" y="200" width="800" height="130" rx="6" fill="#161b22" stroke="#30363d"/>
+<text x="50" y="224" fill="#8b949e" font-size="11">one slot per model in roster — parallel calls</text>
+
+<rect x="50" y="240" width="230" height="70" rx="6" fill="#0d1117" stroke="#58a6ff"/>
+<text x="165" y="262" fill="#e6edf3" text-anchor="middle">health check</text>
+<text x="165" y="280" fill="#8b949e" text-anchor="middle" font-size="11">cooldown? Retry-After?</text>
+<text x="165" y="296" fill="#8b949e" text-anchor="middle" font-size="11">hourly load</text>
+
+<rect x="315" y="240" width="230" height="70" rx="6" fill="#0d1117" stroke="#58a6ff"/>
+<text x="430" y="262" fill="#e6edf3" text-anchor="middle">call with retry</text>
+<text x="430" y="280" fill="#8b949e" text-anchor="middle" font-size="11">capped backoff</text>
+<text x="430" y="296" fill="#8b949e" text-anchor="middle" font-size="11">timeout 120s</text>
+
+<rect x="580" y="240" width="230" height="70" rx="6" fill="#0d1117" stroke="#d29922"/>
+<text x="695" y="262" fill="#e6edf3" text-anchor="middle">on failure:</text>
+<text x="695" y="280" fill="#8b949e" text-anchor="middle" font-size="11">redelegate slot →</text>
+<text x="695" y="296" fill="#8b949e" text-anchor="middle" font-size="11">healthiest substitute</text>
+
+<line x1="280" y1="275" x2="315" y2="275" stroke="#8b949e" marker-end="url(#a)"/>
+<line x1="545" y1="275" x2="580" y2="275" stroke="#8b949e" marker-end="url(#a)"/>
+
+<!-- collect -->
+<line x1="430" y1="330" x2="430" y2="365" stroke="#8b949e" marker-end="url(#a)"/>
+<rect x="250" y="370" width="360" height="52" rx="6" fill="#161b22" stroke="#58a6ff"/>
+<text x="430" y="392" fill="#e6edf3" text-anchor="middle">collect: one output file per model</text>
+<text x="430" y="410" fill="#8b949e" text-anchor="middle" font-size="11">+ write cache entry</text>
+
+<!-- calling layer -->
+<line x1="430" y1="422" x2="430" y2="452" stroke="#8b949e" marker-end="url(#a)"/>
+<rect x="30" y="456" width="800" height="44" rx="6" fill="#161b22" stroke="#a371f7" stroke-dasharray="6 3"/>
+<text x="430" y="483" fill="#a371f7" text-anchor="middle">calling layer (not in script): role prompts → grading → cynic audit → synthesis</text>
+
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="#8b949e"/></marker></defs>
+</svg>

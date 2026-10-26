@@ -1,0 +1,149 @@
+import re
+
+def parse_sjson(text):
+    # Token types
+    STRING, NUMBER, TRUE, FALSE, NULL, LBRACE, RBRACE, LBRACKET, RBRACKET, COLON, COMMA, EOF = (
+        'STRING', 'NUMBER', 'TRUE', 'FALSE', 'NULL',
+        'LBRACE', 'RBRACE', 'LBRACKET', 'RBRACKET', 'COLON', 'COMMA', 'EOF'
+    )
+
+    # Lexer
+    def lexer(s):
+        i, n = 0, len(s)
+        while i < n:
+            c = s[i]
+            if c.isspace():
+                i += 1
+                continue
+            if c == '{':
+                yield (LBRACE, '{'); i += 1; continue
+            if c == '}':
+                yield (RBRACE, '}'); i += 1; continue
+            if c == '[':
+                yield (LBRACKET, '['); i += 1; continue
+            if c == ']':
+                yield (RBRACKET, ']'); i += 1; continue
+            if c == ':':
+                yield (COLON, ':'); i += 1; continue
+            if c == ',':
+                yield (COMMA, ','); i += 1; continue
+            if c == '"':
+                i += 1
+                start = i
+                sb = []
+                while i < n:
+                    ch = s[i]
+                    if ch == '\\':
+                        i += 1
+                        if i >= n:
+                            raise ValueError('Invalid escape')
+                        esc = s[i]
+                        if esc == '"':
+                            sb.append('"')
+                        elif esc == '\\':
+                            sb.append('\\')
+                        else:
+                            raise ValueError(f'Unsupported escape \\{esc}')
+                    elif ch == '"':
+                        i += 1
+                        break
+                    else:
+                        sb.append(ch)
+                    i += 1
+                else:
+                    raise ValueError('Unterminated string')
+                yield (STRING, ''.join(sb))
+                continue
+            if c == '-' or c.isdigit():
+                start = i
+                if c == '-':
+                    i += 1
+                    if i >= n or not s[i].isdigit():
+                        raise ValueError('Invalid number')
+                while i < n and s[i].isdigit():
+                    i += 1
+                yield (NUMBER, int(s[start:i]))
+                continue
+            if s.startswith('true', i):
+                yield (TRUE, True); i += 4; continue
+            if s.startswith('false', i):
+                yield (FALSE, False); i += 5; continue
+            if s.startswith('null', i):
+                yield (NULL, None); i += 4; continue
+            raise ValueError(f'Unexpected character {c!r} at position {i}')
+        yield (EOF, None)
+
+    tokens = lexer(text)
+    current_token, current_value = next(tokens)
+
+    def expect(t_type):
+        nonlocal current_token, current_value
+        if current_token != t_type:
+            raise ValueError(f'Expected {t_type} but got {current_token}')
+        val = current_value
+        current_token, current_value = next(tokens)
+        return val
+
+    def parse_value():
+        nonlocal current_token, current_value
+        if current_token == STRING:
+            return expect(STRING)
+        if current_token == NUMBER:
+            return expect(NUMBER)
+        if current_token == TRUE:
+            return expect(TRUE)
+        if current_token == FALSE:
+            return expect(FALSE)
+        if current_token == NULL:
+            return expect(NULL)
+        if current_token == LBRACKET:
+            return parse_array()
+        if current_token == LBRACE:
+            return parse_object()
+        raise ValueError(f'Unexpected token {current_token}')
+
+    def parse_array():
+        expect(LBRACKET)
+        arr = []
+        if current_token == RBRACKET:
+            expect(RBRACKET)
+            return arr
+        while True:
+            arr.append(parse_value())
+            if current_token == COMMA:
+                expect(COMMA)
+                continue
+            if current_token == RBRACKET:
+                expect(RBRACKET)
+                break
+            raise ValueError('Expected , or ] in array')
+        return arr
+
+    def parse_object():
+        expect(LBRACE)
+        obj = {}
+        if current_token == RBRACE:
+            expect(RBRACE)
+            return obj
+        while True:
+            if current_token != STRING:
+                raise ValueError('Object keys must be strings')
+            key = expect(STRING)
+            expect(COLON)
+            obj[key] = parse_value()
+            if current_token == COMMA:
+                expect(COMMA)
+                continue
+            if current_token == RBRACE:
+                expect(RBRACE)
+                break
+            raise ValueError('Expected , or } in object')
+        return obj
+
+    result = parse_value()
+    if current_token != EOF:
+        raise ValueError('Extra data after valid JSON')
+    return result
+
+# Example usage:
+# print(parse_sjson('{"a": [1, 2, {"b": null}], "c": true}'))

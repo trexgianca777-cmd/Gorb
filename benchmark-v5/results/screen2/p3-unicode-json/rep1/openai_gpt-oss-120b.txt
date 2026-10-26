@@ -1,0 +1,169 @@
+```python
+def parse_sjson(text: str):
+    i = 0
+    n = len(text)
+
+    def skip_ws():
+        nonlocal i
+        while i < n and text[i] in ' \t\r\n':
+            i += 1
+
+    def parse_value():
+        skip_ws()
+        if i >= n:
+            raise ValueError("Unexpected end of input")
+        ch = text[i]
+        if ch == '{':
+            return parse_object()
+        if ch == '[':
+            return parse_array()
+        if ch == '"':
+            return parse_string()
+        if ch == 't':
+            return parse_literal('true', True)
+        if ch == 'f':
+            return parse_literal('false', False)
+        if ch == 'n':
+            return parse_literal('null', None)
+        if ch == '-' or ch.isdigit():
+            return parse_number()
+        raise ValueError(f"Unexpected character {ch!r} at position {i}")
+
+    def parse_literal(lit, value):
+        nonlocal i
+        if text[i:i+len(lit)] != lit:
+            raise ValueError(f"Expected {lit} at position {i}")
+        i += len(lit)
+        return value
+
+    def parse_number():
+        nonlocal i
+        start = i
+        if text[i] == '-':
+            i += 1
+        if i < n and text[i] == '0':
+            i += 1
+        else:
+            if i >= n or not text[i].isdigit():
+                raise ValueError(f"Invalid number at position {i}")
+            while i < n and text[i].isdigit():
+                i += 1
+        if i < n and text[i] == '.':
+            i += 1
+            if i >= n or not text[i].isdigit():
+                raise ValueError(f"Invalid fractional part at position {i}")
+            while i < n and text[i].isdigit():
+                i += 1
+        if i < n and text[i] in 'eE':
+            i += 1
+            if i < n and text[i] in '+-':
+                i += 1
+            if i >= n or not text[i].isdigit():
+                raise ValueError(f"Invalid exponent at position {i}")
+            while i < n and text[i].isdigit():
+                i += 1
+        num_str = text[start:i]
+        return int(num_str) if '.' not in num_str and 'e' not in num_str and 'E' not in num_str else float(num_str)
+
+    def parse_string():
+        nonlocal i
+        i += 1  # skip opening quote
+        sb = []
+        while i < n:
+            ch = text[i]
+            if ch == '"':
+                i += 1
+                return ''.join(sb)
+            if ch == '\\':
+                i += 1
+                if i >= n:
+                    raise ValueError("Invalid escape at end of string")
+                esc = text[i]
+                if esc == '"':
+                    sb.append('"')
+                elif esc == '\\':
+                    sb.append('\\')
+                elif esc == '/':
+                    sb.append('/')
+                elif esc == 'b':
+                    sb.append('\b')
+                elif esc == 'f':
+                    sb.append('\f')
+                elif esc == 'n':
+                    sb.append('\n')
+                elif esc == 'r':
+                    sb.append('\r')
+                elif esc == 't':
+                    sb.append('\t')
+                elif esc == 'u':
+                    i += 1
+                    hex_digits = text[i:i+4]
+                    if len(hex_digits) != 4 or not all(c in '0123456789abcdefABCDEF' for c in hex_digits):
+                        raise ValueError(f"Invalid Unicode escape at position {i}")
+                    sb.append(chr(int(hex_digits, 16)))
+                    i += 3  # additional increment at end of loop
+                else:
+                    raise ValueError(f"Invalid escape character \\{esc} at position {i}")
+            else:
+                sb.append(ch)
+            i += 1
+        raise ValueError("Unterminated string")
+
+    def parse_array():
+        nonlocal i
+        i += 1  # skip '['
+        skip_ws()
+        arr = []
+        if i < n and text[i] == ']':
+            i += 1
+            return arr
+        while True:
+            arr.append(parse_value())
+            skip_ws()
+            if i >= n:
+                raise ValueError("Unterminated array")
+            if text[i] == ',':
+                i += 1
+                skip_ws()
+                continue
+            if text[i] == ']':
+                i += 1
+                return arr
+            raise ValueError(f"Expected ',' or ']' in array at position {i}")
+
+    def parse_object():
+        nonlocal i
+        i += 1  # skip '{'
+        skip_ws()
+        obj = {}
+        if i < n and text[i] == '}':
+            i += 1
+            return obj
+        while True:
+            skip_ws()
+            if i >= n or text[i] != '"':
+                raise ValueError(f"Expected string key at position {i}")
+            key = parse_string()
+            skip_ws()
+            if i >= n or text[i] != ':':
+                raise ValueError(f"Expected ':' after key at position {i}")
+            i += 1
+            value = parse_value()
+            obj[key] = value
+            skip_ws()
+            if i >= n:
+                raise ValueError("Unterminated object")
+            if text[i] == ',':
+                i += 1
+                continue
+            if text[i] == '}':
+                i += 1
+                return obj
+            raise ValueError(f"Expected ',' or '}' in object at position {i}")
+
+    result = parse_value()
+    skip_ws()
+    if i != n:
+        raise ValueError(f"Extra data after valid JSON at position {i}")
+    return result
+```

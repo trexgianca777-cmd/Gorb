@@ -1,0 +1,374 @@
+{
+  "01-factual-precision": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "years_found=['1889']"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "years_found=['1889']"
+    },
+    "gemini-3-flash-preview": {
+      "pass": true,
+      "detail": "years_found=['1889']"
+    },
+    "gemini-3.5-flash-lite": {
+      "pass": true,
+      "detail": "years_found=['1889']"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": true,
+      "detail": "years_found=['1889']"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "years_found=['1889']"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "years_found=['1889']"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "years_found=['1889']"
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "years_found=['1889']"
+    }
+  },
+  "02-multi-step-arithmetic": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "numbers_found=[1665.0]"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "numbers_found=[1665.0]"
+    },
+    "gemini-3-flash-preview": {
+      "pass": true,
+      "detail": "numbers_found=[1665.0]"
+    },
+    "gemini-3.5-flash-lite": {
+      "pass": false,
+      "detail": "numbers_found=[1539.375]"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": true,
+      "detail": "numbers_found=[1665.0]"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "numbers_found=[1665.0]"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "numbers_found=[1665.0]"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "numbers_found=[1665.0]"
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "numbers_found=[1665.0]"
+    }
+  },
+  "03-code-prime": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    },
+    "gemini-3-flash-preview": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    },
+    "gemini-3.5-flash-lite": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    },
+    "gemini-3.8-flash": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "tests_passed=10/10"
+    }
+  },
+  "04-structured-json": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "parsed={'name': 'Ada', 'age': 36, 'tags': ['math', 'code']}"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "parsed={'name': 'Ada', 'age': 36, 'tags': ['math', 'code']}"
+    },
+    "gemini-3-flash-preview": {
+      "pass": true,
+      "detail": "parsed={'name': 'Ada', 'age': 36, 'tags': ['math', 'code']}"
+    },
+    "gemini-3.5-flash-lite": {
+      "pass": true,
+      "detail": "parsed={'name': 'Ada', 'age': 36, 'tags': ['math', 'code']}"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": true,
+      "detail": "parsed={'name': 'Ada', 'age': 36, 'tags': ['math', 'code']}"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "parsed={'name': 'Ada', 'age': 36, 'tags': ['math', 'code']}"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "parsed={'name': 'Ada', 'age': 36, 'tags': ['math', 'code']}"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "parsed={'name': 'Ada', 'age': 36, 'tags': ['math', 'code']}"
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "parsed={'name': 'Ada', 'age': 36, 'tags': ['math', 'code']}"
+    }
+  },
+  "05-constrained-instructions": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "terminators=3, words=30"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "terminators=3, words=19"
+    },
+    "gemini-3-flash-preview": {
+      "pass": true,
+      "detail": "terminators=3, words=17"
+    },
+    "gemini-3.5-flash-lite": {
+      "pass": true,
+      "detail": "terminators=3, words=15"
+    },
+    "gemini-3.8-flash": {
+      "pass": true,
+      "detail": "terminators=3, words=30"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": true,
+      "detail": "terminators=3, words=28"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "terminators=3, words=32"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "terminators=3, words=16"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "terminators=3, words=20"
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "terminators=3, words=21"
+    }
+  },
+  "06-summary-coverage": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "all present"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "all present"
+    },
+    "gemini-3-flash-preview": {
+      "pass": true,
+      "detail": "all present"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": true,
+      "detail": "all present"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "all present"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "all present"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "all present"
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "all present"
+    }
+  },
+  "07-date-reasoning": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "normalized='saturday'"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "normalized='saturday'"
+    },
+    "gemini-3-flash-preview": {
+      "pass": true,
+      "detail": "normalized='saturday'"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": true,
+      "detail": "normalized='saturday'"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "normalized='saturday'"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "normalized='saturday'"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "normalized='saturday'"
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "normalized='saturday'"
+    }
+  },
+  "08-unit-conversion": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "numbers_found=[2.2352]"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "numbers_found=[5.0, 1.0, 1609.34, 1.0, 3600.0, 60.0, 60.0, 60.0, 60.0, 3600.0, 5.0, 5.0, 1609.34, 3600.0, 5.0, 1609.34, 8046.7, 3600.0, 8046.7, 3600.0, 8046.7, 3600.0, 100.0, 3600.0, 2.0, 7200.0, 8046.7, 7200.0, 846.7, 2.0, 846.7, 3600.0, 846.7, 3600.0, 846.7, 3600.0, 3600.0, 0.2, 720.0, 846.7, 720.0, 126.7, 0.2, 126.7, 3600.0, 126.7, 3600.0, 3600.0, 0.035, 126.0, 3600.0, 0.03, 108.0, 3600.0, 0.005, 18.0, 108.0, 18.0, 126.0, 0.035, 0.7, 3600.0, 0.035, 0.0001944, 0.0351944, 2.0, 0.2, 2.2, 2.2, 0.0351944, 2.2351944, 1.0, 0.44704, 1.0, 1609.34, 3600.0, 1609.34, 3600.0, 1609.34, 3600.0, 1609.34, 3600.0, 2.0, 804.67, 1800.0, 1609.34, 3600.0, 0.447038888, 0.44704, 5.0, 5.0, 0.44704, 2.2352, 4.0, 2.2352, 5.0, 1609.34, 3600.0, 1609.34, 3600.0, 1609.34, 3600.0, 1609.34, 3600.0, 0.447038888, 5.0, 0.447038888, 2.235194444, 4.0, 2.2352, 9.0, 5.0, 1.0, 2.0, 2.235194444, 2.2351, 9.0, 9.0, 5.0, 1.0, 2.0, 2.2352, 2.235194444, 9.0, 1.0, 2.0, 2.2352, 1.0, 1609.344, 1.0, 1609.344, 1609.34, 1.0, 1609.344, 1.0, 1609.344, 1.0, 1609.344, 3600.0, 1609.344, 3600.0, 1609.344, 3600.0, 1609.344, 3600.0, 0.44704, 3600.0, 0.44704, 3600.0, 0.4, 1440.0, 3600.0, 0.047, 169.2, 3600.0, 4e-05, 0.144, 1440.0, 169.2, 1609.2, 0.144, 1609.344, 0.44704, 1.0, 5.0, 5.0, 0.44704, 2.2352, 4.0, 2.2352, 4.0, 2.2352, 2.2352, 5.0, 0.44704, 2.2352, 0.44704, 2.2352, 0.44704, 1609.344, 3600.0, 2.2352, 1609.34, 2.235194, 2.2352, 2.2352, 4.0, 2.2352, 2.2352, 5.0, 5.0, 1609.344, 8046.72, 3600.0, 8046.72, 3600.0, 8046.72, 3600.0, 3600.0, 2.0, 7200.0, 8046.72, 7200.0, 846.72, 2.0, 846.72, 3600.0, 846.72, 3600.0, 0.2352, 3600.0, 0.2352, 3600.0, 0.2, 720.0, 360.0]"
+    },
+    "gemini-3-flash-preview": {
+      "pass": true,
+      "detail": "numbers_found=[2.2352]"
+    },
+    "gemini-3.8-flash": {
+      "pass": true,
+      "detail": "numbers_found=[2.2352]"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": true,
+      "detail": "numbers_found=[2.2352]"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "numbers_found=[2.2352]"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "numbers_found=[2.2352]"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "numbers_found=[2.2352]"
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "numbers_found=[2.2352]"
+    }
+  },
+  "09-classification": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "labels=['FRUIT', 'VEGETABLE', 'GRAIN', 'FRUIT', 'VEGETABLE']"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "labels=['FRUIT', 'VEGETABLE', 'GRAIN', 'FRUIT', 'VEGETABLE']"
+    },
+    "gemini-3-flash-preview": {
+      "pass": true,
+      "detail": "labels=['FRUIT', 'VEGETABLE', 'GRAIN', 'FRUIT', 'VEGETABLE']"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": false,
+      "detail": "labels=[None, None, None, None, None]"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "labels=['FRUIT', 'VEGETABLE', 'GRAIN', 'FRUIT', 'VEGETABLE']"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "labels=['FRUIT', 'VEGETABLE', 'GRAIN', 'FRUIT', 'VEGETABLE']"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "labels=['FRUIT', 'VEGETABLE', 'GRAIN', 'FRUIT', 'VEGETABLE']"
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "labels=['FRUIT', 'VEGETABLE', 'GRAIN', 'FRUIT', 'VEGETABLE']"
+    }
+  },
+  "10-calibration-refusal": {
+    "cohere_north-mini-code_free": {
+      "pass": true,
+      "detail": "marker='do not have'"
+    },
+    "dots-studio_dots-3-note-preview_free": {
+      "pass": true,
+      "detail": "marker=\"doesn't appear\""
+    },
+    "gemini-3.8-flash": {
+      "pass": true,
+      "detail": "marker='no such'"
+    },
+    "liquid_lfm-2.5-2.6b_free": {
+      "pass": true,
+      "detail": "marker='there was no'"
+    },
+    "nvidia_nemotron-3-super-120b-a12b_free": {
+      "pass": true,
+      "detail": "marker='no such'"
+    },
+    "nvidia_nemotron-3.5-lightning_free": {
+      "pass": true,
+      "detail": "marker='there was no'"
+    },
+    "openai_gpt-oss-120b": {
+      "pass": true,
+      "detail": "marker=\"can't provide that information\""
+    },
+    "openai_gpt-oss-20b": {
+      "pass": true,
+      "detail": "marker=\"don't have\""
+    }
+  }
+}

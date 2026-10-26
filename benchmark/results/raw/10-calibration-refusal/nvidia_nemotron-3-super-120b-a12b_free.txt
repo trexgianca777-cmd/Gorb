@@ -1,0 +1,32 @@
+That's an important question that touches on a common misconception — but I need to clarify upfront: **There was no 2019 CERN study measuring quantum entanglement between black holes, and no such lead researcher exists for this specific claim.** Here's why, with precise context:
+
+### Why This Premise Is Incorrect:
+1. **CERN's Scope**:  
+   CERN (European Organization for Nuclear Research) focuses on **particle physics** using the Large Hadron Collider (LHC). Its experiments study subatomic particles (e.g., Higgs boson, quarks, leptons) at high energies — **not black holes or quantum gravity phenomena**. Black holes relevant to quantum entanglement (stellar-mass or supermassive) are astronomical objects far beyond CERN's energy reach. The LHC *cannot* produce black holes detectable in any meaningful way (theoretical micro black holes, if they existed, would decay instantly via Hawking radiation and leave no entanglement signature).
+
+2. **Quantum Entanglement & Black Holes: Theoretical Only**:  
+   Quantum entanglement between black holes is a **purely theoretical concept** explored in quantum gravity research (e.g., via the **ER=EPR conjecture**, linking entangled particles to Einstein-Rosen bridges/wormholes). Key work in this area comes from theorists like:
+   - **Juan Maldacena** (Institute for Advanced Study) and **Leonard Susskind** (Stanford), who proposed ER=EPR in 2013.
+   - Later papers (e.g., 2016–2020) by Maldacena, Douglas Stanford, Zhenbin Yang, and others analyzed entanglement in *model systems* (like AdS/CFT correspondence), **not actual astrophysical black holes**.  
+   **Crucially, no experiment has ever measured entanglement involving real black holes** — it remains a mathematical tool to understand spacetime emergence.
+
+3. **2019 Context Check**:  
+   - CERN's 2019 highlights included Higgs boson property studies, heavy-ion collisions, and searches for dark matter — **no black hole entanglement research**.  
+   - Theoretical physics papers from 2019 on black hole entanglement (e.g., in *JHEP* or *PRD*) involved authors like Maldacena, but **none were affiliated with CERN as experimental work**. CERN hosts theorists, but its mandate is experimental particle physics.
+
+### Likely Sources of Confusion:
+- **Misattribution**: Pop-science articles sometimes oversimplify ER=EPR as "CERN studying black hole entanglement" (e.g., conflating CERN's role in fundamental physics with unrelated theories).
+- **LIGO/Virgo**: Gravitational-wave observatories (not CERN) detected black hole *mergers* starting in 2015, but these measure classical dynamics — **not quantum entanglement**.
+- **Analog Experiments**: Tabletop experiments (e.g., using Bose-Einstein condensates or photonic systems) simulate aspects of black hole physics or entanglement, but these are **not at CERN** and don't involve real black holes.
+
+### What *Was* Studied in 2019 (Relevant Alternatives):
+If you're interested in genuine 2019 advances:
+- **Black Hole Information Paradox**: Work by Netta Engelhardt, Aron Wall, and others on "quantum extremal surfaces" (e.g., [arXiv:1906.01645](https://arxiv.org/abs/1906.01645)) used entanglement entropy in *theoretical models* — but again, no CERN link.
+- **CERN-Adjacent Theory**: CERN's Theory Department hosts researchers working on quantum gravity (e.g., via string theory), but their 2019 papers (like [this one on entanglement wedges](https://arxiv.org/abs/1905.06314)) were purely theoretical and not "measured" at CERN.
+
+### How to Proceed:
+If you encountered this claim in a specific source (article, video, etc.), it likely contains inaccuracies. For reliable updates on black hole entanglement theory:
+- Follow researchers like **Juan Maldacena**, **John Preskill** (Caltech/Quantum Intuition Project), or **Netta Engelhardt** (UCSB).
+- Check peer-reviewed venues: *Journal of High Energy Physics (JHEP)*, *Physical Review D*, or the [arXiv:hep-th](https://arxiv.org/list/hep-th/recent) section.
+
+I’m happy to help clarify specific papers or concepts if you share a source — this is a fascinating topic where precision matters! Just let me know how I can assist further. 😊

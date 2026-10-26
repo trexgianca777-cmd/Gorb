@@ -1,0 +1,7 @@
+{
+  "mechanism": "selfcon",
+  "skipped": "not single-answer",
+  "calls": 0,
+  "task": "w2-word-count",
+  "rep": "1"
+}

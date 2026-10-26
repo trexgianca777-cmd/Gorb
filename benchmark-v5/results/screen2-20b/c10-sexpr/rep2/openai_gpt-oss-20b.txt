@@ -1,0 +1,45 @@
+```python
+def seval(expr: str) -> float:
+    tokens = iter(expr.replace('(', ' ( ').replace(')', ' ) ').split())
+
+    def parse():
+        tok = next(tokens)
+        if tok == '(':
+            op = next(tokens)
+            if op in ('+', '*'):
+                vals = [parse()]
+                while True:
+                    nxt = next(tokens)
+                    if nxt == ')':
+                        break
+                    else:
+                        # push back
+                        tokens = (x for x in [nxt] + list(tokens))
+                        vals.append(parse())
+                return sum(vals) if op == '+' else prod(vals)
+            elif op in ('-', '/'):
+                vals = [parse()]
+                while True:
+                    nxt = next(tokens)
+                    if nxt == ')':
+                        break
+                    else:
+                        tokens = (x for x in [nxt] + list(tokens))
+                        vals.append(parse())
+                if op == '-':
+                    return -vals[0] if len(vals) == 1 else vals[0] - sum(vals[1:])
+                else:  # '/'
+                    return vals[0] if len(vals) == 1 else \
+                        reduce(lambda a, b: a / b, vals[1:], vals[0])
+        else:
+            return int(tok)
+
+    def prod(lst):
+        r = 1
+        for x in lst:
+            r *= x
+        return r
+
+    from functools import reduce
+    return float(parse())
+```

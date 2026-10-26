@@ -1,0 +1,54 @@
+def add_business_days(date_str, n):
+    # Helper to determine if a year is leap
+    def is_leap(y):
+        return y % 400 == 0 or (y % 4 == 0 and y % 100 != 0)
+
+    # Days in month
+    def month_days(y, m):
+        if m == 2:
+            return 29 if is_leap(y) else 28
+        if m in (4, 6, 9, 11):
+            return 30
+        return 31
+
+    # Zeller's congruence to get weekday (0=Monday, 6=Sunday)
+    def weekday(y, m, d):
+        if m < 3:
+            m += 12
+            y -= 1
+        K = y % 100
+        J = y // 100
+        h = (d + (13 * (m + 1)) // 5 + K + K // 4 + J // 4 + 5 * J) % 7
+        # h: 0=Saturday, 1=Sunday, 2=Monday, ...
+        return (h + 5) % 7  # convert to 0=Monday
+
+    y, m, d = map(int, date_str.split('-'))
+
+    if n == 0:
+        return f"{y:04d}-{m:02d}-{d:02d}"
+
+    step = 1 if n > 0 else -1
+    remaining = abs(n)
+
+    while remaining:
+        # move one calendar day
+        d += step
+        if d > month_days(y, m):
+            d = 1
+            m += 1
+            if m > 12:
+                m = 1
+                y += 1
+        elif d < 1:
+            m -= 1
+            if m < 1:
+                m = 12
+                y -= 1
+            d = month_days(y, m)
+
+        # count if weekday
+        if weekday(y, m, d) < 5:  # Monday-Friday
+            remaining -= 1
+
+    return f"{y:04d}-{m:02d}-{d:02d}"
+

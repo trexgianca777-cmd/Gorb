@@ -1,0 +1,26 @@
+{
+  "mechanism": "revise",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "sentences=5/5, sent_1_words=5/6, sent_2_words=5/6, sent_3_words=6/6, sent_4_words=6/6, sent_5_words=6/6",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "sentences=5/5, sent_1_words=6/6, sent_2_words=6/6, sent_3_words=6/6, sent_4_words=7/6, sent_5_words=6/6",
+      "repeated": false
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "sentences=5/5, sent_1_words=6/6, sent_2_words=6/6, sent_3_words=6/6, sent_4_words=7/6, sent_5_words=6/6",
+      "repeated": false
+    }
+  ],
+  "calls": 3,
+  "task": "w2-word-count",
+  "rep": "1"
+}

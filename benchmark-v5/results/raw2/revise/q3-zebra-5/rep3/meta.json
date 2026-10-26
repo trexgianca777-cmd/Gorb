@@ -1,0 +1,20 @@
+{
+  "mechanism": "revise",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "digits='5'",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": true,
+      "detail": "digits='3'",
+      "repeated": false
+    }
+  ],
+  "calls": 2,
+  "task": "q3-zebra-5",
+  "rep": "3"
+}

@@ -1,0 +1,59 @@
+{
+  "mechanism": "mh",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "normalized='tffftt'",
+      "framing": "initial"
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "normalized='tffftt'",
+      "framing": "minimal"
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "normalized='tffftt'",
+      "framing": "rewrite"
+    },
+    {
+      "attempt": 4,
+      "pass": false,
+      "detail": "normalized='tffftt'",
+      "framing": "minimal"
+    },
+    {
+      "attempt": 5,
+      "pass": false,
+      "detail": "normalized='tffftt'",
+      "framing": "rewrite"
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 505,
+      "completion_chars": 8
+    },
+    {
+      "prompt_chars": 748,
+      "completion_chars": 8
+    },
+    {
+      "prompt_chars": 807,
+      "completion_chars": 8
+    },
+    {
+      "prompt_chars": 748,
+      "completion_chars": 8
+    },
+    {
+      "prompt_chars": 807,
+      "completion_chars": 8
+    }
+  ],
+  "task": "l1-knights-6",
+  "rep": "1"
+}

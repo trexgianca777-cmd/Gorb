@@ -1,0 +1,39 @@
+```python
+def rle_decode(s: str) -> str:
+    """
+    Decode a run-length encoded string.
+
+    The encoding format is: <count><character>, where <count> is one or more decimal digits.
+    Example: '3A12B1C' -> 'AAA' + 'B'*12 + 'C' -> 'AAABBBBBBBBBBBB C'.
+
+    Parameters
+    ----------
+    s : str
+        The run-length encoded string (contains only digits and letters).
+
+    Returns
+    -------
+    str
+        The decoded string.
+    """
+    result = []
+    i = 0
+    n = len(s)
+
+    while i < n:
+        # Parse the count (one or more digits)
+        count_start = i
+        while i < n and s[i].isdigit():
+            i += 1
+        count = int(s[count_start:i])  # slice is safe because at least one digit exists
+
+        # Next character is the symbol to repeat
+        if i >= n:
+            raise ValueError("Invalid encoding: count without following character")
+        char = s[i]
+        i += 1
+
+        result.append(char * count)
+
+    return ''.join(result)
+```

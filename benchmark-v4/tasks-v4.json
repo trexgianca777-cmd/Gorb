@@ -1,0 +1,593 @@
+{
+  "benchmark": "swarm-capability-probe-v4",
+  "created": "2026-10-18",
+  "notes": "Adversarial suite v4. v3 (8 tasks) found no mechanism beating plain gpt-oss-120b but n=8 made nothing significant and run-to-run variance was large. v4 doubles the tasks (16), runs every task 3x per mechanism, and tests three mechanisms: plain 120b baseline, per-task best routing (code tasks -> nemotron-super, from v3 evidence), and the revise loop with 120b as generator. All scorers mechanical, no LLM-as-judge. Every task verified: reference-good passes, plausible-bad fails.",
+  "tasks": [
+    {
+      "id": "01-code-evaluator-2",
+      "surface": "Hard code \u2014 expression parser, ** power, double unary, no eval",
+      "prompt": "Write a Python function named evaluate that takes one string argument: an arithmetic expression. The expression contains non-negative integers and the operators +, -, *, /, ** (power), and parentheses. Power is right-associative: 2**3**2 means 2**(3**2). The - operator may also be unary (negation): it can appear at the start of the expression, immediately after another operator, or immediately after an opening parenthesis; two unary minuses in a row are allowed (--3 equals 3). Division is float division. Whitespace may appear anywhere and must be ignored. Return the numeric result as a float. Do NOT use eval(), exec(), or the ast module. Respond with ONLY the code, no explanation and no markdown fences.",
+      "scorer": "code_function_numeric_tests",
+      "function": "evaluate",
+      "tolerance": 1e-06,
+      "ban_eval": true,
+      "expected": "all 12 hidden tests pass",
+      "hidden_tests": [
+        [
+          "2+3*4",
+          14.0
+        ],
+        [
+          "2**3",
+          8.0
+        ],
+        [
+          "2**3**2",
+          512.0
+        ],
+        [
+          "--3+5",
+          8.0
+        ],
+        [
+          "5--3",
+          8.0
+        ],
+        [
+          "(-3)**2",
+          9.0
+        ],
+        [
+          "2*(3+4*(5-2))",
+          30.0
+        ],
+        [
+          "7/2",
+          3.5
+        ],
+        [
+          " 2 ** 3 ",
+          8.0
+        ],
+        [
+          "-(2+3)*2",
+          -10.0
+        ],
+        [
+          "4/2/2",
+          1.0
+        ],
+        [
+          "3+-2",
+          1.0
+        ]
+      ],
+      "notes": "Fresh traps vs v3: right-assoc ** (2**3**2=512), double unary --3, 5--3, 3+-2. Expected values verified against Python eval as ground truth."
+    },
+    {
+      "id": "02-code-sjson",
+      "surface": "Hard code \u2014 simplified JSON parser, escapes + nesting, no json module",
+      "prompt": "Write a Python function named parse_sjson that takes one string argument: a simplified JSON document. It must parse and return the corresponding Python object: double-quoted strings (supporting the \\\" and \\\\ escapes), integers (optionally negative), the literals true, false, null (mapping to True, False, None), arrays, and objects; arrays and objects may nest arbitrarily; whitespace between tokens must be ignored. Do NOT use the json module, eval(), exec(), or the ast module. Respond with ONLY the code, no explanation and no markdown fences.",
+      "scorer": "code_function_deep_tests",
+      "function": "parse_sjson",
+      "ban_eval": true,
+      "ban_modules": [
+        "json"
+      ],
+      "expected": "all 10 hidden tests pass",
+      "hidden_tests": [
+        [
+          "{\"a\": 1}",
+          {
+            "a": 1
+          }
+        ],
+        [
+          "[1, 2, 3]",
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        [
+          "{\"a\": [1, {\"b\": null}]}",
+          {
+            "a": [
+              1,
+              {
+                "b": null
+              }
+            ]
+          }
+        ],
+        [
+          "\"hello \\\"world\\\"\"",
+          "hello \"world\""
+        ],
+        [
+          "{\"t\": true, \"f\": false}",
+          {
+            "t": true,
+            "f": false
+          }
+        ],
+        [
+          "[-12, 0]",
+          [
+            -12,
+            0
+          ]
+        ],
+        [
+          "[]",
+          []
+        ],
+        [
+          "{}",
+          {}
+        ],
+        [
+          "\"a\\\\b\"",
+          "a\\b"
+        ],
+        [
+          "[1,[2,[3]]]",
+          [
+            1,
+            [
+              2,
+              [
+                3
+              ]
+            ]
+          ]
+        ]
+      ],
+      "notes": "Expected values verified against json.loads as ground truth. Traps: escaped quotes, nested null, negative ints, deep nesting. import json is mechanically rejected."
+    },
+    {
+      "id": "03-code-wildcard",
+      "surface": "Hard code \u2014 glob matcher, * and ?, literal dots",
+      "prompt": "Write a Python function named wildcard_match that takes two string arguments (s, pattern) and returns True if s matches pattern, else False. In the pattern, '*' matches any sequence of characters (including the empty sequence) and '?' matches exactly one character; every other character matches itself literally. Respond with ONLY the code, no explanation and no markdown fences.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "wildcard_match",
+      "expected": "all 14 hidden tests pass",
+      "hidden_tests": [
+        [
+          [
+            "hello",
+            "h*o"
+          ],
+          true
+        ],
+        [
+          [
+            "hello",
+            "h?llo"
+          ],
+          true
+        ],
+        [
+          [
+            "hello",
+            "*"
+          ],
+          true
+        ],
+        [
+          [
+            "",
+            "*"
+          ],
+          true
+        ],
+        [
+          [
+            "",
+            "?"
+          ],
+          false
+        ],
+        [
+          [
+            "abc",
+            "a*c"
+          ],
+          true
+        ],
+        [
+          [
+            "abc",
+            "a?c"
+          ],
+          true
+        ],
+        [
+          [
+            "abc",
+            "a*d"
+          ],
+          false
+        ],
+        [
+          [
+            "abbbc",
+            "a*c"
+          ],
+          true
+        ],
+        [
+          [
+            "abc",
+            "**"
+          ],
+          true
+        ],
+        [
+          [
+            "abc",
+            "a**c"
+          ],
+          true
+        ],
+        [
+          [
+            "abcdef",
+            "a*f"
+          ],
+          true
+        ],
+        [
+          [
+            "axc",
+            "a.c"
+          ],
+          false
+        ],
+        [
+          [
+            "",
+            ""
+          ],
+          true
+        ]
+      ],
+      "notes": "Expected values verified against fnmatch.fnmatchcase. Trap: ('axc','a.c') is False \u2014 regex-naive conversions that turn '.' into 'any char' fail it."
+    },
+    {
+      "id": "04-code-base-convert",
+      "surface": "Hard code \u2014 base 2-36 conversion, case-insensitive digits",
+      "prompt": "Write a Python function named base_to_int that takes a string s and an integer base (2 to 36) and returns the integer value of s interpreted in that base. Digits may be 0-9 and a-z in either case. Raise a ValueError for any invalid input (bad digit, bad base, empty string). Respond with ONLY the code, no explanation and no markdown fences.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "base_to_int",
+      "expected": "all 10 hidden tests pass",
+      "hidden_tests": [
+        [
+          [
+            "ff",
+            16
+          ],
+          255
+        ],
+        [
+          [
+            "FF",
+            16
+          ],
+          255
+        ],
+        [
+          [
+            "101",
+            2
+          ],
+          5
+        ],
+        [
+          [
+            "z",
+            36
+          ],
+          35
+        ],
+        [
+          [
+            "10",
+            8
+          ],
+          8
+        ],
+        [
+          [
+            "0",
+            10
+          ],
+          0
+        ],
+        [
+          [
+            "1a",
+            16
+          ],
+          26
+        ],
+        [
+          [
+            "ZZ",
+            36
+          ],
+          1295
+        ],
+        [
+          [
+            "100",
+            2
+          ],
+          4
+        ],
+        [
+          [
+            "abc",
+            16
+          ],
+          2748
+        ]
+      ],
+      "notes": "Expected values verified against int(s, base). Traps: uppercase digits, base 36, int(s) ignoring the base."
+    },
+    {
+      "id": "05-knights-knaves-5",
+      "surface": "Hard reasoning \u2014 5-speaker knights/knaves, unique solution",
+      "prompt": "Five islanders \u2014 A, B, C, D, E \u2014 are each either a knight (always tells the truth) or a knave (always lies). A says: \"B is a knave.\" B says: \"C is a knave.\" C says: \"D and E are the same type.\" D says: \"A is telling the truth.\" E says: \"B is lying.\" Which one is the knave? Answer with ONLY the letter: A, B, C, D, or E.",
+      "scorer": "token_strict",
+      "expected": "b",
+      "notes": "Verified by brute force over all 32 assignments: unique full solution {'A': True, 'B': False, 'C': True, 'D': True, 'E': True}; exactly one knave. E's statement self-references B's truthfulness."
+    },
+    {
+      "id": "06-scheduling-trap-2",
+      "surface": "Hard reasoning \u2014 scheduling with a self-contradicting conditional",
+      "prompt": "Five friends \u2014 Amy, Ben, Cara, Dan, and Eve \u2014 each give a talk on a different day: Monday, Tuesday, Wednesday, Thursday, or Friday. Amy speaks before Ben. Cara does not speak on Monday. Dan speaks the day after Cara. Eve speaks after Dan. If Cara speaks on Tuesday, then Dan speaks on Thursday. Who speaks on Friday? Answer with ONLY the first name.",
+      "scorer": "token_strict",
+      "expected": "eve",
+      "notes": "Verified by brute force over all 120 assignments: unique solution {'Amy': 0, 'Ben': 1, 'Cara': 2, 'Dan': 3, 'Eve': 4}. The conditional's consequent contradicts the hard constraint Dan=Cara+1, so the Cara=Tue branch is impossible \u2014 verified reachable a priori, impossible jointly."
+    },
+    {
+      "id": "07-zebra-lite",
+      "surface": "Hard reasoning \u2014 3-house zebra puzzle, unique solution",
+      "prompt": "Three houses stand in a row, numbered 1, 2, 3. Each house has a color (red, green, blue), a pet (cat, dog, bird), and a drink (tea, coffee, milk); each color, pet, and drink is used exactly once.\nClues:\n1. The green house is immediately to the right of the red house.\n2. The cat owner drinks tea.\n3. The dog owner lives in house 2.\n4. The bird owner drinks milk.\n5. House 1 is blue.\n6. The tea drinker does not live in house 1.\nWhich pet does the coffee drinker own? Answer with ONLY the pet name.",
+      "scorer": "token_strict",
+      "expected": "dog",
+      "notes": "Verified by brute force over all 6^3 assignments: unique solution. Clue 6 disambiguates the two solutions clue 1-5 leave."
+    },
+    {
+      "id": "08-arithmetic-traps-2",
+      "surface": "Multi-step arithmetic \u2014 discount scope + fee base traps",
+      "prompt": "A consultant bills $85 per hour and works 12.5 hours. Expenses are $230. The client receives a 20% discount on the consulting fee only (not on expenses). A 5% processing fee is added afterward, computed on the pre-discount total. What is the final total, in dollars? Round to the nearest cent. Answer with ONLY the number.",
+      "scorer": "numeric_tolerance",
+      "expected": 1144.62,
+      "tolerance": 0.015,
+      "notes": "Labor 85*12.5=1062.50; discounted fee 850.00; pre-discount total 1292.50; fee 5% of 1292.50=64.625; total 1144.625 -> 1144.62. Trap 1 (discount on everything): 1098.62. Trap 2 (fee on discounted): 1134.0. Both traps cleanly separated by tolerance 0.01."
+    },
+    {
+      "id": "09-adversarial-alpha-2",
+      "surface": "Adversarial instruction-following \u2014 reverse alphabet, global uniqueness",
+      "prompt": "Write exactly 5 sentences. Sentence 1 must start with the letter Z, sentence 2 with Y, sentence 3 with X, sentence 4 with W, and sentence 5 with V. No word may appear more than once anywhere in your entire response (case-insensitive). The word \"seven\" must appear exactly once in the whole response. Do not use any semicolons or commas. Answer with only the 5 sentences.",
+      "scorer": "constraint_alpha",
+      "n_sentences": 5,
+      "starts": "zyxwv",
+      "unique_words": true,
+      "word_counts": {
+        "seven": 1
+      },
+      "banned_chars": [
+        ";",
+        ","
+      ],
+      "expected": "5 sentences Z-Y-X-W-V, unique words, 'seven' x1, no ; or ,",
+      "notes": "Satisfiability proven by construction; the bad answer repeats 'slowly'."
+    },
+    {
+      "id": "10-adversarial-paragraphs-2",
+      "surface": "Adversarial instruction-following \u2014 distinct first words + exact count",
+      "prompt": "Write exactly 2 paragraphs, separated by a blank line. Each paragraph must contain exactly 3 sentences. No two sentences in your response may begin with the same word. The word \"blue\" must appear exactly 4 times in the whole response. Do not use any question marks. Answer with only the 2 paragraphs.",
+      "scorer": "constraint_paragraphs",
+      "n_paragraphs": 2,
+      "sentences_per": [
+        3,
+        3
+      ],
+      "first_words_distinct": true,
+      "word_counts": {
+        "blue": 4
+      },
+      "banned_chars": [
+        "?"
+      ],
+      "expected": "2 paragraphs 3/3, distinct first words, 'blue' x4, no '?'",
+      "notes": "Satisfiability proven by construction; first-word distinctness is the sneaky constraint. Bad answer repeats first word 'morning'."
+    },
+    {
+      "id": "11-adversarial-list",
+      "surface": "Adversarial instruction-following \u2014 alternating line starts + length cap",
+      "prompt": "Write exactly 7 lines. Each line must start with \"- \" (a dash and a space). Lines 1, 3, 5, and 7 must each begin with a word starting with the letter A; lines 2, 4, and 6 must each begin with a word starting with the letter B. No line may be longer than 40 characters. The word \"done\" must appear exactly once in the whole response. Answer with only the 7 lines.",
+      "scorer": "constraint_list",
+      "n_lines": 7,
+      "line_prefix": "- ",
+      "odd_start": "A",
+      "even_start": "B",
+      "max_len": 40,
+      "word_counts": {
+        "done": 1
+      },
+      "expected": "7 lines, A/B alternation, <=40 chars, 'done' x1",
+      "notes": "Satisfiability proven by construction; bad answer has 'done' twice."
+    },
+    {
+      "id": "12-longctx-conflicting-2",
+      "surface": "Long-context precision \u2014 near-duplicate figures, only one matches",
+      "prompt": "---\nHALCYON BREWING \u2014 Q3 SUMMARY\n\nHalcyon Brewing Co. posted Q3 revenue of $8.2 million, its strongest quarter of the year.\n\nThe taproom division set a company record: the Halcyon Brewing taproom division posted Q3 revenue of $8.7 million, up 14% on three new locations, while distribution costs rose $400,000 on the Denver expansion and taproom headcount reached 210.\n\nPackaging posted Q3 revenue of $3.1 million. Merchandise added $900,000.\n---\n\nQuestion: What was the Halcyon Brewing taproom division's Q3 revenue, in millions of dollars? Answer with ONLY the number.",
+      "scorer": "numeric_tolerance",
+      "expected": 8.7,
+      "tolerance": 0.05,
+      "notes": "Correct: taproom division Q2 figure $8.7M (buried mid-paragraph). Distractor: company-wide $8.2M (prominent standalone sentence). Tolerance 0.05 cleanly separates them."
+    },
+    {
+      "id": "13-longctx-count",
+      "surface": "Long-context precision \u2014 exact word count with near-miss distractors",
+      "prompt": "Engineers at the Halden site completed the annual inspection of the primary reactor on Tuesday. The secondary reactor will remain offline until the new coolant pumps arrive. A reactor scram test is scheduled for next month, and every reactor operator must re-certify before the test. The report notes that the reactor vessel shows no unusual wear; two reactors of the same design operate in Finland, and the oldest reactors in the fleet date to the 1980s. During the outage, the reactor containment was repainted. Critics argue the reactor program costs too much, while supporters point out that each reactor displaces a coal plant. The next reactor refueling begins in June.\n\nQuestion: How many times does the word \"reactor\" appear in the passage above? Count exact matches only: \"reactors\" and \"reactor's\" do not count. Answer with ONLY the number.",
+      "scorer": "numeric_tolerance",
+      "expected": 9,
+      "tolerance": 0.5,
+      "notes": "Ground truth: 9 exact 'reactor' tokens (letter-tokenized; 'reactors' and possessives excluded). Distractor answers: naive substring counts or inclusion of plurals."
+    },
+    {
+      "id": "14-temporal",
+      "surface": "Temporal reasoning \u2014 date arithmetic with weekday constraint",
+      "prompt": "A treaty was signed on 2026-03-14. An embargo began 41 days after the treaty was signed. A summit opened on the first Monday strictly after the embargo began. On what date did the summit open? Answer with ONLY the date in YYYY-MM-DD format.",
+      "scorer": "digits_strict",
+      "expected": "20260427",
+      "notes": "Ground truth via datetime: embargo 2026-04-24 (Friday); first Monday after is 2026-04-27. Trap: answering the embargo date, or the Monday of the embargo week."
+    },
+    {
+      "id": "15-code-caesar",
+      "surface": "Hard code \u2014 Caesar decode, backward shift, wrap + negative",
+      "prompt": "Write a Python function named caesar_decode that takes a string text and an integer shift, and returns text with every letter shifted BACKWARD by shift positions in the alphabet (wrapping around, so 'B' shifted back by 1 becomes 'A' and 'A' becomes 'Z'). Preserve uppercase/lowercase; leave non-letters unchanged; handle any integer shift (including negative and larger than 26). Respond with ONLY the code, no explanation and no markdown fences.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "caesar_decode",
+      "expected": "all 10 hidden tests pass",
+      "hidden_tests": [
+        [
+          [
+            "Khoor",
+            3
+          ],
+          "Hello"
+        ],
+        [
+          [
+            "Ebiil",
+            23
+          ],
+          "Hello"
+        ],
+        [
+          [
+            "ABC xyz",
+            1
+          ],
+          "ZAB wxy"
+        ],
+        [
+          [
+            "Hello, World!",
+            0
+          ],
+          "Hello, World!"
+        ],
+        [
+          [
+            "Mjqqt",
+            -5
+          ],
+          "Rovvy"
+        ],
+        [
+          [
+            "",
+            5
+          ],
+          ""
+        ],
+        [
+          [
+            "123",
+            4
+          ],
+          "123"
+        ],
+        [
+          [
+            "Z",
+            1
+          ],
+          "Y"
+        ],
+        [
+          [
+            "b",
+            27
+          ],
+          "a"
+        ],
+        [
+          [
+            "Hello",
+            -1
+          ],
+          "Ifmmp"
+        ]
+      ],
+      "notes": "Expected values verified against an independent reference implementation. Traps: forward-vs-backward (the classic error), shift 23 == -3, shift 27, negative shift, empty string."
+    },
+    {
+      "id": "16-code-roman",
+      "surface": "Hard code \u2014 Roman numerals, subtractive notation",
+      "prompt": "Write a Python function named roman_to_int that takes a string of uppercase Roman numeral characters (I, V, X, L, C, D, M) and returns its integer value, applying standard subtractive notation (IV=4, IX=9, XL=40, XC=90, CD=400, CM=900). Respond with ONLY the code, no explanation and no markdown fences.",
+      "scorer": "code_function_deep_tests",
+      "function": "roman_to_int",
+      "expected": "all 12 hidden tests pass",
+      "hidden_tests": [
+        [
+          "III",
+          3
+        ],
+        [
+          "IV",
+          4
+        ],
+        [
+          "IX",
+          9
+        ],
+        [
+          "LVIII",
+          58
+        ],
+        [
+          "MCMXCIV",
+          1994
+        ],
+        [
+          "XLIV",
+          44
+        ],
+        [
+          "MMMCMXCIX",
+          3999
+        ],
+        [
+          "CD",
+          400
+        ],
+        [
+          "CM",
+          900
+        ],
+        [
+          "D",
+          500
+        ],
+        [
+          "XIV",
+          14
+        ],
+        [
+          "MMXXVI",
+          2026
+        ]
+      ],
+      "notes": "Expected values are standard. Trap: summing values without subtractive notation (IV->6, MCMXCIV wrong)."
+    }
+  ]
+}

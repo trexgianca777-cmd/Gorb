@@ -1,0 +1,47 @@
+```python
+def parse_csv_row(row: str) -> list[str]:
+    fields = []
+    i = 0
+    n = len(row)
+    while i <= n:
+        if i == n:
+            # End of string reached; add empty field if last char was a comma
+            if row and row[-1] == ',':
+                fields.append('')
+            break
+
+        if row[i] == '"':
+            # Quoted field
+            i += 1
+            start = i
+            field_chars = []
+            while i < n:
+                if row[i] == '"':
+                    if i + 1 < n and row[i + 1] == '"':
+                        field_chars.append('"')
+                        i += 2
+                    else:
+                        i += 1  # skip closing quote
+                        break
+                else:
+                    field_chars.append(row[i])
+                    i += 1
+            fields.append(''.join(field_chars))
+            # Skip optional whitespace after closing quote before comma
+            while i < n and row[i] != ',':
+                # According to CSV spec, any characters other than comma are part of the field,
+                # but typical simple parsers treat them as errors; we'll just break.
+                break
+            if i < n and row[i] == ',':
+                i += 1  # consume delimiter
+        else:
+            # Unquoted field
+            start = i
+            while i < n and row[i] != ',':
+                i += 1
+            fields.append(row[start:i])
+            if i < n and row[i] == ',':
+                i += 1  # consume delimiter
+
+    return fields
+```

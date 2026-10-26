@@ -1,0 +1,16 @@
+{
+  "task": "04-code-base-convert",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "code_function_deep_tests_args",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "tests_passed=10/10",
+      "answer": "def base_to_int(s: str, base: int) -> int:\n    if not isinstance(s, str) or not isinstance(base, int):\n        raise ValueError(\"Invalid input types\")\n    if not (2 <= base <= 36):\n        raise ValueError(\"Base must be between 2 and 36\")\n    s = s.strip()\n    if not s:\n        raise ValueError(\"Empty string\")\n    s = s.lower()\n    digit_map = {c: i for i, c in enumerate(\"0123456789abcdefghijklmnopqrstuvwxyz\")}\n    value = 0\n    for char in s:\n        if char not in digit_map or digit_map[char] >= base:\n            raise ValueError(f\"Invalid digit '{char}' for base {base}\")\n        value = value * base + digit_map[char]\n    return value\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}

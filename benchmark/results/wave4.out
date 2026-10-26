@@ -1,0 +1,31 @@
+=== 01-factual-precision ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-fDhgXk
+=== 02-multi-step-arithmetic ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-YTDAfi
+=== 03-code-prime ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-vTd3vL
+=== 04-structured-json ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-TkjayO
+=== 05-constrained-instructions ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-iEbkpD
+=== 06-summary-coverage ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-zvJqre
+=== 07-date-reasoning ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-oxODSn
+=== 08-unit-conversion ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-WrFaX9
+=== 09-classification ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-o9AK32
+=== 10-calibration-refusal ===
+[openai/gpt-oss-120b] CACHE HIT (exact, 0s)
+output: /tmp/bench-out-bw3DU7
+done. raw outputs in results/raw/

@@ -1,0 +1,31 @@
+```python
+def is_balanced(s: str) -> bool:
+    opening = {'(': ')', '[': ']', '{': '}', '<': '>'}
+    closing = {v: k for k, v in opening.items()}
+    stack = []
+    in_single = False
+    in_double = False
+
+    i = 0
+    while i < len(s):
+        ch = s[i]
+
+        # Toggle quote states (quotes are always paired)
+        if ch == "'" and not in_double:
+            in_single = not in_single
+        elif ch == '"' and not in_single:
+            in_double = not in_double
+
+        # Process brackets only when not inside a quote
+        if not in_single and not in_double:
+            if ch in opening:
+                stack.append(ch)
+            elif ch in closing:
+                if not stack or stack[-1] != closing[ch]:
+                    return False
+                stack.pop()
+        i += 1
+
+    # If any quote is left open, the input is malformed, but per spec it won't happen
+    return not stack
+```

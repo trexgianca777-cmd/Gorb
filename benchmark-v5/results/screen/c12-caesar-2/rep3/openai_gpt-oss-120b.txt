@@ -1,0 +1,38 @@
+```python
+def caesar_decode(text: str, shift: int) -> str:
+    """
+    Decode a Caesar‑ciphered string by shifting each alphabetic character
+    *backward* by `shift` positions.
+
+    Parameters
+    ----------
+    text : str
+        The encoded text.
+    shift : int
+        Number of positions to shift backwards. Can be negative or larger
+        than 26; the effective shift is taken modulo 26.
+
+    Returns
+    -------
+    str
+        The decoded text with original case preserved. Non‑alphabetic
+        characters are left unchanged.
+    """
+    # Normalise shift to the range [0, 25]
+    shift = shift % 26
+
+    decoded_chars = []
+
+    for ch in text:
+        if 'a' <= ch <= 'z':
+            # Compute original position, wrap around with modulo 26
+            new_ord = (ord(ch) - ord('a') - shift) % 26 + ord('a')
+            decoded_chars.append(chr(new_ord))
+        elif 'A' <= ch <= 'Z':
+            new_ord = (ord(ch) - ord('A') - shift) % 26 + ord('A')
+            decoded_chars.append(chr(new_ord))
+        else:
+            decoded_chars.append(ch)
+
+    return ''.join(decoded_chars)
+```

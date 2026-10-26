@@ -1,0 +1,14 @@
+{
+  "p3-unicode-json": "openai/gpt-oss-20b",
+  "p8-bizdays": "openai/gpt-oss-20b",
+  "p9-sexpr-let": "openai/gpt-oss-20b",
+  "q3-zebra-5": "openai/gpt-oss-20b",
+  "q8-mastermind": "openai/gpt-oss-120b",
+  "r5-fifty-words": "openai/gpt-oss-120b",
+  "r8-no-e": "openai/gpt-oss-120b",
+  "c1-expr-eval-3": "openai/gpt-oss-120b",
+  "c10-sexpr": "openai/gpt-oss-120b",
+  "l1-knights-6": "openai/gpt-oss-120b",
+  "w2-word-count": "openai/gpt-oss-20b",
+  "w5-lines-words": "openai/gpt-oss-20b"
+}

@@ -1,0 +1,16 @@
+{
+  "task": "14-temporal",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "digits_strict",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "digits='20260427'",
+      "answer": "2026-04-27\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}

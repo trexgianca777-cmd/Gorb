@@ -1,0 +1,18 @@
+{
+  "task": "03-code-prime",
+  "generator": "openai/gpt-oss-20b",
+  "scorer": "code_tests",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "tests_passed=10/10",
+      "answer": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True\n"
+    }
+  ],
+  "final_pass": true,
+  "final_answer": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True\n",
+  "revisions_used": 0,
+  "total_calls": 1
+}

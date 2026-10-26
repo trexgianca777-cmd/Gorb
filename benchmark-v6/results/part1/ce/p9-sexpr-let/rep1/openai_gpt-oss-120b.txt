@@ -1,0 +1,89 @@
+```python
+import re
+from typing import List, Tuple, Dict
+
+def seval(s: str) -> float:
+    tokens = re.findall(r'\(|\)|[^\s()]+', s)
+
+    def parse(tokens: List[str], i: int, env: Dict[str, float]) -> Tuple[float, int]:
+        token = tokens[i]
+        i += 1
+
+        if token == '(':
+            head = tokens[i]
+            i += 1
+
+            if head == 'let':
+                # parse bindings list
+                if tokens[i] != '(':
+                    raise SyntaxError('Expected "(" after let')
+                i += 1  # skip '(' that starts the bindings list
+                local_env = env.copy()
+                while tokens[i] != ')':
+                    if tokens[i] != '(':
+                        raise SyntaxError('Expected "(" in let binding')
+                    i += 1  # skip '(' of a single binding
+                    var = tokens[i]
+                    i += 1
+                    val, i = parse(tokens, i, local_env)
+                    local_env[var] = val
+                    if tokens[i] != ')':
+                        raise SyntaxError('Expected ")" after let binding')
+                    i += 1  # skip ')'
+                i += 1  # skip ')' that ends the bindings list
+
+                # body expression
+                result, i = parse(tokens, i, local_env)
+
+                if tokens[i] != ')':
+                    raise SyntaxError('Expected ")" after let body')
+                i += 1  # skip closing ')'
+                return result, i
+
+            else:  # operator expression
+                op = head
+                args = []
+                while tokens[i] != ')':
+                    arg, i = parse(tokens, i, env)
+                    args.append(arg)
+                i += 1  # skip closing ')'
+
+                if op == '+':
+                    return sum(args), i
+                if op == '*':
+                    prod = 1.0
+                    for a in args:
+                        prod *= a
+                    return prod, i
+                if op == '-':
+                    if len(args) == 1:
+                        return -args[0], i
+                    res = args[0]
+                    for a in args[1:]:
+                        res -= a
+                    return res, i
+                if op == '/':
+                    if len(args) == 1:
+                        return 1.0 / args[0], i
+                    res = args[0]
+                    for a in args[1:]:
+                        res /= a
+                    return res, i
+                raise ValueError(f'Unknown operator {op}')
+
+        elif token == ')':
+            raise SyntaxError('Unexpected ")"')
+        else:
+            # number or variable
+            try:
+                return float(token), i
+            except ValueError:
+                if token in env:
+                    return env[token], i
+                raise NameError(f'Undefined variable {token}')
+
+    result, next_idx = parse(tokens, 0, {})
+    if next_idx != len(tokens):
+        raise SyntaxError('Extra tokens after complete parse')
+    return float(result)
+```

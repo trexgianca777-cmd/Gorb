@@ -1,0 +1,31 @@
+```python
+import csv
+import io
+
+def parse_csv_row(record: str) -> list:
+    """
+    Parse a single CSV record (which may contain embedded newlines inside quoted fields)
+    and return a list of field values.
+
+    Args:
+        record: A string containing one CSV record. The record may span multiple
+                lines if quoted fields contain newline characters.
+
+    Returns:
+        A list of strings, one for each field in the record. Empty fields are
+        represented by empty strings, and whitespace in unquoted fields is
+        preserved exactly.
+    """
+    # csv.reader expects an iterator of lines; using StringIO allows it to handle
+    # embedded newlines correctly.
+    with io.StringIO(record) as f:
+        # Use the default CSV dialect which matches the described rules:
+        #   - comma as delimiter
+        #   - double quote as quote character
+        #   - double double-quotes represent a literal quote
+        #   - newline inside quoted fields is allowed
+        reader = csv.reader(f, delimiter=',', quotechar='"', doublequote=True,
+                            skipinitialspace=False, strict=False)
+        # csv.reader yields rows; we only need the first (and only) one.
+        return next(reader, [])
+```

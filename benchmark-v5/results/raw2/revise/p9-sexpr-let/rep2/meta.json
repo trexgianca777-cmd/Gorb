@@ -1,0 +1,20 @@
+{
+  "mechanism": "revise",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "code crashed: File \"/tmp/tmpyoga5t3x.py\", line 64\n    nonlocal it\n    ^^^^^^^^^^^\nSyntaxError: name 'it' is used prior to nonlocal declaration",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": true,
+      "detail": "tests_passed=5/5",
+      "repeated": false
+    }
+  ],
+  "calls": 2,
+  "task": "p9-sexpr-let",
+  "rep": "2"
+}

@@ -1,0 +1,13 @@
+## Cycle 2 (2026-10-18 ~14:35 CDT)
+- Starting step 1: 120b screen, 36 tasks x 3 reps = 108 cells.
+- Step 1: 120b screen complete — 108 cells, 0 skipped, 0 NO-OUTPUT.
+- Step 2: select-v5 — kept 12/36 (>=2/3 fails): p3-unicode-json, p8-bizdays, p9-sexpr-let, q3-zebra-5, q8-mastermind, r5-fifty-words, r8-no-e, c1-expr-eval-3, c10-sexpr, l1-knights-6, w2-word-count, w5-lines-words. (q8 FFP.)
+- Step 3: 20b screen complete — 36 cells, 0 skipped, 0 NO-OUTPUT.
+- Step 4: router-v5c2.json built. Per-task routing: 20b -> p3, p8, p9, q3, w2, w5; 120b -> q8, r5, r8, c1, c10, l1. (Note: script prints "routed to 20b on 12/12" but table shows 6/6 split; table is authoritative.)
+- Step 5a: plain complete — 60/60 cells, 0 NO-OUTPUT. Starting bestof5.
+- Step 5b: bestof5 complete — 36/36 cells.
+- Step 5c: revise complete — 36/36 cells.
+- Infra: runtime restart killed selfcon run + server. Server restarted (dist symlink recreated -> server/dist), 401 verified. Resuming selfcon (idempotent).
+- Step 5d: selfcon complete — 36/36 cells (incl. by-design auto-fails for non-single-answer tasks).
+- Step 5e: route complete — 36/36 cells, 0 NO-OUTPUT.
+- Step 6: analyze complete -> analysis-v5c2.json. Total model calls: 537.

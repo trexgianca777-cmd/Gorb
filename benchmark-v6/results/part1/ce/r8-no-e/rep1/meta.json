@@ -1,0 +1,39 @@
+{
+  "mechanism": "ce",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "sentences=3/3, sentence_1_starts_wrong, sentence_2_starts_wrong, sentence_3_starts_wrong",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "sentences=3/3, sentence_1_starts_wrong, sentence_2_starts_wrong, sentence_3_starts_wrong",
+      "repeated": false
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "sentences=3/3, sentence_1_starts_wrong, sentence_2_starts_wrong, sentence_3_starts_wrong",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 155,
+      "completion_chars": 179
+    },
+    {
+      "prompt_chars": 785,
+      "completion_chars": 162
+    },
+    {
+      "prompt_chars": 768,
+      "completion_chars": 163
+    }
+  ],
+  "task": "r8-no-e",
+  "rep": "1"
+}

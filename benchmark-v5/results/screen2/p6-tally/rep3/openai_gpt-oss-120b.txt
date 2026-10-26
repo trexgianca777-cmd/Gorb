@@ -1,0 +1,35 @@
+```python
+def base_to_int(s: str, base: int) -> int:
+    """
+    Convert a unary (tally) representation to an integer.
+
+    Parameters
+    ----------
+    s : str
+        The string containing the tally marks.
+    base : int
+        Must be 1 for unary conversion.
+
+    Returns
+    -------
+    int
+        The integer value represented by the tally marks.
+
+    Raises
+    ------
+    ValueError
+        If base is not 1, if the stripped string is empty,
+        or if it contains characters other than '|'.
+    """
+    if base != 1:
+        raise ValueError("Only base 1 (unary) is supported.")
+
+    stripped = s.strip()
+    if not stripped:
+        raise ValueError("Input string is empty after stripping whitespace.")
+
+    if any(ch != '|' for ch in stripped):
+        raise ValueError("Invalid character found; only '|' is allowed in unary representation.")
+
+    return len(stripped)
+```

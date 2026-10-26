@@ -1,0 +1,9 @@
+There was no 2019 CERN study that measured quantum entanglement between two black holes. CERN's research program focuses on particle physics, quantum chromodynamics, and fundamental forces using the Large Hadron Collider and other detectors; it does not conduct experiments or studies on black hole quantum information.
+
+The 2019 research you're likely referring to involves theoretical and computational work on quantum entanglement, holography, and black hole physics. The most notable breakthroughs that year included:
+
+1. **The "replica wormhole" and Page curve derivations** — A series of papers (mostly in *Journal of High Energy Physics* and *Physical Review Letters*) by Ahmed Almheiri, Netta Engelhardt, Daniel Marolf, Henry Maxfield, and others, demonstrating how entanglement entropy resolves the black hole information paradox. This was primarily mathematical/theoretical work using the AdS/CFT correspondence.
+
+2. **Quantum computer simulation of entangled black holes** — In late 2019, a team at the University of Maryland, MIT, and Harvard (led experimentally by Christopher Monroe's group and theoretically by Daniel Jafferis, Fernando Pastawski, and Juan Maldacena) used a quantum simulator to demonstrate entanglement and teleportation dynamics analogous to a traversable wormhole. This was widely covered as "entanglement between black holes" in popular media, but it was a laboratory quantum simulation, not a CERN experiment.
+
+If you're thinking of a specific paper, title, or group, feel free to share more details and I'll help pinpoint the exact study and researchers.

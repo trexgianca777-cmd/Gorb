@@ -1,0 +1,809 @@
+{
+  "tasks": [
+    {
+      "id": "p1-custom-ops",
+      "family": "code",
+      "prompt": "Write a Python function named ceval that takes a string: an arithmetic expression using the custom operators \u2295 and \u2297 (in addition to + - * / and parentheses). Definitions: a \u2295 b = a*b + a + b, and a \u2297 b = a*a - b*b. Precedence (highest to lowest): \u2297, then \u2295, then * /, then + -. So 2 \u2295 3 \u2297 2 means 2 \u2295 (3 \u2297 2). Unary minus may appear at the start or after '(' or another operator, with the same precedence as in Python. Whitespace anywhere is ignored. Division is float division. Return a float. Do NOT use eval/exec/ast. Reply with ONLY the function code.",
+      "scorer": "code_function_numeric_tests",
+      "function": "ceval",
+      "hidden_tests": [
+        [
+          "2 \u2295 3",
+          11
+        ],
+        [
+          "2 \u2295 3 \u2297 2",
+          17.0
+        ],
+        [
+          "(2 \u2295 3) \u2297 2",
+          117.0
+        ],
+        [
+          "10 - 2 \u2295 3",
+          -1.0
+        ],
+        [
+          "-2 \u2295 3",
+          -5.0
+        ],
+        [
+          "2 \u2297 3 \u2297 2",
+          21.0
+        ]
+      ],
+      "tolerance": 1e-06,
+      "ban_eval": true
+    },
+    {
+      "id": "p3-unicode-json",
+      "family": "code",
+      "prompt": "Write a Python function named parse_sjson that takes one string argument: a simplified JSON document, and returns the parsed Python value. Strict JSON: objects, arrays, double-quoted strings with escapes (\\\", \\\\, \\n, \\t, \\uXXXX including \\u00e9-style non-ASCII), numbers, true/false/null, arbitrary nesting. Do NOT use the json module or eval. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests",
+      "function": "parse_sjson",
+      "hidden_tests": [
+        [
+          "{\"caf\\u00e9\": \"\\u2603\", \"n\": [1, {\"x\": \"\\u0041\"}]}",
+          {
+            "caf\u00e9": "\u2603",
+            "n": [
+              1,
+              {
+                "x": "A"
+              }
+            ]
+          }
+        ],
+        [
+          "{\"a\": {\"b\": {\"c\": [true, {\"d\": null}]}}}",
+          {
+            "a": {
+              "b": {
+                "c": [
+                  true,
+                  {
+                    "d": null
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        [
+          "\"\\u00e9\\u00e8\\u00ea\"",
+          "\u00e9\u00e8\u00ea"
+        ]
+      ],
+      "ban_modules": [
+        "json"
+      ]
+    },
+    {
+      "id": "p4-csv-multiline",
+      "family": "code",
+      "prompt": "Write a Python function named parse_csv_row that takes one string argument: a single CSV record (which may span multiple lines inside quoted fields), and returns the list of fields. Rules: fields separated by commas; a double-quoted field may contain commas, newlines, and doubled quotes (\"\" = one literal quote); a trailing comma means a final empty field; unquoted fields keep whitespace exactly. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests",
+      "function": "parse_csv_row",
+      "hidden_tests": [
+        [
+          "a,\"b\nc\",d",
+          [
+            "a",
+            "b\nc",
+            "d"
+          ]
+        ],
+        [
+          "\"x\ny\nz\",w",
+          [
+            "x\ny\nz",
+            "w"
+          ]
+        ],
+        [
+          "a,b,\"c\nd\"",
+          [
+            "a",
+            "b",
+            "c\nd"
+          ]
+        ],
+        [
+          "\"a\"\"\nb\",c",
+          [
+            "a\"\nb",
+            "c"
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "p6-tally",
+      "family": "code",
+      "prompt": "Write a Python function named base_to_int that takes a string s and an integer base. If base is 1, s is a tally: it must consist only of '|' characters (after stripping whitespace), and the value is the count of '|' characters. For any other base value, raise ValueError. Raise ValueError if the stripped string is empty or contains any character other than '|'. Reply with ONLY the function code.",
+      "scorer": "code_function_raises_tests",
+      "function": "base_to_int",
+      "hidden_tests": [
+        {
+          "args": [
+            "|||",
+            1
+          ],
+          "want": 3
+        },
+        {
+          "args": [
+            "|",
+            1
+          ],
+          "want": 1
+        },
+        {
+          "args": [
+            "||||||||||",
+            1
+          ],
+          "want": 10
+        },
+        {
+          "args": [
+            "||a||",
+            1
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "",
+            1
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "|||",
+            2
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "101",
+            2
+          ],
+          "want": "RAISES"
+        }
+      ]
+    },
+    {
+      "id": "p8-bizdays",
+      "family": "code",
+      "prompt": "Write a Python function named add_business_days that takes a date string YYYY-MM-DD and an integer n (positive, negative, or zero), and returns the date n business days later as YYYY-MM-DD. Business days are Monday-Friday; Saturday and Sunday are skipped. n=0 returns the input unchanged (even on a weekend). Handle leap years and century rules. Do NOT use the datetime module. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "add_business_days",
+      "hidden_tests": [
+        [
+          [
+            "2026-10-16",
+            1
+          ],
+          "2026-10-19"
+        ],
+        [
+          [
+            "2026-10-16",
+            0
+          ],
+          "2026-10-16"
+        ],
+        [
+          [
+            "2026-10-19",
+            -1
+          ],
+          "2026-10-16"
+        ],
+        [
+          [
+            "2026-10-17",
+            1
+          ],
+          "2026-10-19"
+        ],
+        [
+          [
+            "2026-12-24",
+            2
+          ],
+          "2026-12-28"
+        ],
+        [
+          [
+            "2024-02-28",
+            2
+          ],
+          "2024-03-01"
+        ]
+      ],
+      "ban_modules": [
+        "datetime",
+        "calendar"
+      ]
+    },
+    {
+      "id": "p9-sexpr-let",
+      "family": "code",
+      "prompt": "Write a Python function named seval that takes a string: an arithmetic expression in fully-parenthesized prefix notation with let-bindings. Operators: + * - / (+ and * take 1+ operands; - and / take 1+ operands, unary minus for one operand; / is float division). A let form looks like (let ((x 2) (y 3)) (+ x y)): it binds each name to its value expression, then evaluates the body. Bindings are sequential within one let (later bindings see earlier ones), and inner lets shadow outer bindings. Variable names are lowercase letters. Operands separated by whitespace. Return a float. Reply with ONLY the function code.",
+      "scorer": "code_function_numeric_tests",
+      "function": "seval",
+      "hidden_tests": [
+        [
+          "(let ((x 2) (y 3)) (+ x y))",
+          5.0
+        ],
+        [
+          "(let ((x 2)) (let ((x 5) (y x)) (+ x y)))",
+          10.0
+        ],
+        [
+          "(let ((a 10)) (* a (let ((a 3)) (+ a 1))))",
+          40.0
+        ],
+        [
+          "(+ (let ((x 4)) (* x x)) 1)",
+          17.0
+        ],
+        [
+          "(let ((x 2) (y (* x 3))) (+ x y))",
+          8.0
+        ]
+      ],
+      "tolerance": 1e-09
+    },
+    {
+      "id": "p12-ipv4",
+      "family": "code",
+      "prompt": "Write a Python function named ipv4_to_int that takes an IPv4 address string and returns its 32-bit integer value (first octet is the most significant byte). Raise ValueError if: there are not exactly 4 dot-separated parts, any part is empty or non-numeric, any octet exceeds 255, or any octet has a leading zero (\"01\" is invalid; \"0\" itself is fine). Reply with ONLY the function code.",
+      "scorer": "code_function_raises_tests",
+      "function": "ipv4_to_int",
+      "hidden_tests": [
+        {
+          "args": [
+            "192.168.1.1"
+          ],
+          "want": 3232235777
+        },
+        {
+          "args": [
+            "0.0.0.0"
+          ],
+          "want": 0
+        },
+        {
+          "args": [
+            "255.255.255.255"
+          ],
+          "want": 4294967295
+        },
+        {
+          "args": [
+            "10.0.0.1"
+          ],
+          "want": 167772161
+        },
+        {
+          "args": [
+            "256.1.1.1"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "01.2.3.4"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "1.2.3"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "1.2.3.4.5"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "a.b.c.d"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            ""
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "1.2.3.-1"
+          ],
+          "want": "RAISES"
+        }
+      ]
+    },
+    {
+      "id": "p13-cron",
+      "family": "code",
+      "prompt": "Write a Python function named cron_minutes that takes a cron minute-field string and returns the sorted list of minutes (0-59) it denotes. Syntax: '*' (all), single numbers, comma lists, ranges 'a-b', steps '*/n' or 'a-b/n'. Examples: '*/15' -> [0,15,30,45]; '5-45/15' -> [5,20,35]. Raise ValueError for out-of-range values, reversed ranges, zero step, non-numeric junk, or empty input. Reply with ONLY the function code.",
+      "scorer": "code_function_raises_tests",
+      "function": "cron_minutes",
+      "hidden_tests": [
+        {
+          "args": [
+            "*/15"
+          ],
+          "want": [
+            0,
+            15,
+            30,
+            45
+          ]
+        },
+        {
+          "args": [
+            "5"
+          ],
+          "want": [
+            5
+          ]
+        },
+        {
+          "args": [
+            "1,2,3"
+          ],
+          "want": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "args": [
+            "10-20"
+          ],
+          "want": [
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20
+          ]
+        },
+        {
+          "args": [
+            "5-45/15"
+          ],
+          "want": [
+            5,
+            20,
+            35
+          ]
+        },
+        {
+          "args": [
+            "*"
+          ],
+          "want": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59
+          ]
+        },
+        {
+          "args": [
+            "0,30"
+          ],
+          "want": [
+            0,
+            30
+          ]
+        },
+        {
+          "args": [
+            "61"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "5-3"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "*/0"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "abc"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            ""
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "1-60"
+          ],
+          "want": "RAISES"
+        }
+      ]
+    },
+    {
+      "id": "q1-knights-7",
+      "family": "logic",
+      "prompt": "Seven islanders \u2014 A, B, C, D, E, F, G \u2014 are each either a knight (always tells the truth) or a knave (always lies). Each makes one statement:\nA says: \"G and D are the same type.\"\nB says: \"D is a knight.\"\nC says: \"B is a knave.\"\nD says: \"D and C are the same type.\"\nE says: \"F is a knave.\"\nF says: \"A and G are the same type.\"\nG says: \"if G is a knight then A is a knave.\"\nThere is exactly one consistent assignment. Reply with ONLY a 7-letter string for A,B,C,D,E,F,G in order, T for knight, F for knave.",
+      "scorer": "token_strict",
+      "expected": "fftftft"
+    },
+    {
+      "id": "q2-knights-exact2",
+      "family": "logic",
+      "prompt": "Five islanders \u2014 A, B, C, D, E \u2014 are each either a knight (always tells the truth) or a knave (always lies). Each makes one statement:\nA says: \"exactly one of A and B is a knight.\"\nB says: \"A is a knight.\"\nC says: \"if E is a knight then D is a knave.\"\nD says: \"exactly one of C and A is a knight.\"\nE says: \"A is a knight.\"\nExactly two of the five are knights, and there is exactly one consistent assignment. Reply with ONLY a 5-letter string for A,B,C,D,E in order, T for knight, F for knave.",
+      "scorer": "token_strict",
+      "expected": "ffttf"
+    },
+    {
+      "id": "q3-zebra-5",
+      "family": "logic",
+      "prompt": "Five houses stand in a row, numbered 1 to 5 left to right. Each house has a color (red, green, blue, yellow, white), a pet (cat, dog, bird, fish, horse), and a drink (tea, coffee, milk, juice, water) \u2014 each value used exactly once.\nClues:\n- The green house is immediately right of the red house.\n- The dog owner drinks coffee.\n- The tea drinker owns the bird.\n- The blue house is house 3.\n- The milk drinker lives next to the cat owner.\n- The white house owner drinks water.\n- The horse is kept in house 1.\n- The blue house owner drinks milk.\nThe fish's house is uniquely determined. Which house number (1-5) keeps the fish? Reply with ONLY the digit.",
+      "scorer": "digits_strict",
+      "expected": "3"
+    },
+    {
+      "id": "q4-schedule-6",
+      "family": "logic",
+      "prompt": "Six friends \u2014 Amy, Ben, Cara, Dan, Eve, Finn \u2014 each give a talk on a different day: Monday through Saturday, one per day.\nClues:\n- Amy speaks before Ben.\n- Cara speaks on Wednesday.\n- Dan does not speak on Monday or Saturday.\n- If Eve speaks on Tuesday then Finn speaks on Friday.\n- Ben speaks after Dan.\n- Finn speaks on the weekend (Friday or Saturday).\n- Amy speaks on Monday.\n- Eve speaks before Finn.\n- Ben speaks on Thursday.\nThere is exactly one valid schedule. Reply with ONLY a 6-letter string: the first initial of who speaks Monday through Saturday, in order.",
+      "scorer": "token_strict",
+      "expected": "adcbef"
+    },
+    {
+      "id": "q8-mastermind",
+      "family": "logic",
+      "prompt": "A 4-digit code uses four different digits (0-9). Clues from guesses:\n- Guess 6380: 1 digit(s) correct and in the right position, 1 correct digit(s) in the wrong position.\n- Guess 3046: 0 digit(s) correct and in the right position, 2 correct digit(s) in the wrong position.\n- Guess 8564: 1 digit(s) correct and in the right position, 1 correct digit(s) in the wrong position.\n- Guess 1539: 3 digit(s) correct and in the right position, 0 correct digit(s) in the wrong position.\nThere is exactly one code consistent with all clues. What is it? Reply with ONLY the 4 digits.",
+      "scorer": "digits_strict",
+      "expected": "6539"
+    },
+    {
+      "id": "q5-tournament-5",
+      "family": "logic",
+      "prompt": "Five teams \u2014 A, B, C, D, E \u2014 play a round-robin (each pair once, no draws). Known results: A beat B. B beat C. C beat D. D beat E. E beat A. A beat C. B beat D. C beat E. D beat A. E beat B. Every team finished 2-2. The tiebreak is total points scored, and the points were: A 45, B 42, C 48, D 39, E 51. Which team finished first? Reply with ONLY the letter.",
+      "scorer": "token_strict",
+      "expected": "e"
+    },
+    {
+      "id": "q6-seating-6",
+      "family": "logic",
+      "prompt": "Six chairs in a row, numbered 1 to 6 left to right. Six people \u2014 A, B, C, D, E, F \u2014 sit one per chair.\nClues:\n- D sits in chair 4.\n- A sits immediately left of B.\n- C sits somewhere left of D.\n- E does not sit next to F.\n- F sits in an odd-numbered chair.\n- B does not sit in chair 2.\n- F does not sit in chair 1.\nThere is exactly one valid seating. Reply with ONLY a 6-letter string for chairs 1-6 in order.",
+      "scorer": "token_strict",
+      "expected": "ecfdab"
+    },
+    {
+      "id": "r1-six-seven",
+      "family": "writing",
+      "prompt": "Write exactly 6 sentences. Sentence 1 must start with A, sentence 2 with B, sentence 3 with C, sentence 4 with D, sentence 5 with E, sentence 6 with F. Every sentence must contain exactly 7 words. Reply with ONLY the 6 sentences.",
+      "scorer": "constraint_words",
+      "n_sentences": 6,
+      "words_per_sentence": 7,
+      "starts": "abcdef"
+    },
+    {
+      "id": "r2-acrostic-5",
+      "family": "writing",
+      "prompt": "Write exactly 5 sentences about space. The first letters of the five sentences must spell HELLO (sentence 1 starts with H, 2 with E, 3 with L, 4 with L, 5 with O). The last letters of the five sentences (final letter before each terminal period) must spell WORLD (sentence 1 ends with ...w., 2 with ...o., 3 with ...r., 4 with ...l., 5 with ...d.). Reply with ONLY the 5 sentences.",
+      "scorer": "constraint_acrostic",
+      "n_sentences": 5,
+      "first_spell": "hello",
+      "last_spell": "world"
+    },
+    {
+      "id": "r3-para-words",
+      "family": "writing",
+      "prompt": "Write exactly 3 paragraphs separated by blank lines. Each paragraph must contain exactly 2 sentences. Each sentence must contain exactly 10 words. Reply with ONLY the 3 paragraphs.",
+      "scorer": "constraint_words",
+      "n_sentences": 6,
+      "words_per_sentence": 10
+    },
+    {
+      "id": "r4-lines-8",
+      "family": "writing",
+      "prompt": "Write exactly 8 lines. Odd-numbered lines (1,3,5,7) must start with '- ' (dash, space); even-numbered lines (2,4,6,8) must start with '* ' (asterisk, space). After the bullet marker, each line must contain exactly 5 words. Reply with ONLY the 8 lines.",
+      "scorer": "constraint_list_alt",
+      "n_lines": 8,
+      "odd_prefix": "- ",
+      "even_prefix": "* ",
+      "words_per_line": 5
+    },
+    {
+      "id": "r5-fifty-words",
+      "family": "writing",
+      "prompt": "Write exactly 5 sentences with exactly 50 words in total. Reply with ONLY the 5 sentences.",
+      "scorer": "constraint_words",
+      "n_sentences": 5,
+      "total_words": 50
+    },
+    {
+      "id": "r6-commas-3",
+      "family": "writing",
+      "prompt": "Write exactly 3 sentences. Each sentence must contain exactly 3 commas. Reply with ONLY the 3 sentences.",
+      "scorer": "constraint_commas",
+      "n_sentences": 3,
+      "commas_per_sentence": 3
+    },
+    {
+      "id": "r7-growing",
+      "family": "writing",
+      "prompt": "Write exactly 4 sentences. Sentence 1 must have exactly 5 words, sentence 2 exactly 6 words, sentence 3 exactly 7 words, sentence 4 exactly 8 words. Reply with ONLY the 4 sentences.",
+      "scorer": "constraint_words",
+      "n_sentences": 4,
+      "words_per_sentence": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "id": "r8-no-e",
+      "family": "writing",
+      "prompt": "Write exactly 3 sentences about the night sky. Do not use the letter 'e' or 'E' anywhere in your answer \u2014 not in any word. Reply with ONLY the 3 sentences.",
+      "scorer": "constraint_alpha",
+      "n_sentences": 3,
+      "starts": "abc",
+      "banned_chars": [
+        "e",
+        "E"
+      ]
+    },
+    {
+      "id": "m1-prime100",
+      "family": "misc",
+      "prompt": "What is the 100th prime number? (The 1st prime is 2.) Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "541"
+    },
+    {
+      "id": "m2-modexp",
+      "family": "misc",
+      "prompt": "Compute ((7^13 mod 100) * (3^7 mod 100)) mod 100. Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "9"
+    },
+    {
+      "id": "m3-anagram",
+      "family": "misc",
+      "prompt": "How many distinct anagrams can be formed from the letters of BANANA? Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "60"
+    },
+    {
+      "id": "m4-clock",
+      "family": "misc",
+      "prompt": "A clock shows 3:15. What is the smaller angle in degrees between the hour and minute hands? Reply with ONLY the number.",
+      "scorer": "numeric_decimal",
+      "expected": "7.5"
+    },
+    {
+      "id": "m5-mississippi",
+      "family": "misc",
+      "prompt": "How many distinct anagrams can be formed from the letters of MISSISSIPPI? Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "34650"
+    },
+    {
+      "id": "m6-password",
+      "family": "misc",
+      "prompt": "A password consists of 3 distinct lowercase letters followed by 2 distinct digits. How many such passwords exist? Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "1404000"
+    },
+    {
+      "id": "m7-trailing-zeros",
+      "family": "misc",
+      "prompt": "How many trailing zeros does 50! (50 factorial) have? Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "12"
+    },
+    {
+      "id": "m8-prime-sum",
+      "family": "misc",
+      "prompt": "What is the sum of the first 100 prime numbers? Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "24133"
+    },
+    {
+      "id": "c1-expr-eval-3",
+      "family": "code",
+      "prompt": "Write a Python function named evaluate that takes one string argument: an arithmetic expression, and returns a float. The expression contains non-negative integers, the binary operators + - * / and ** (exponentiation), parentheses, and unary minus. Unary minus may appear at the start of the expression, right after '(', or right after another operator (including after **). Unary minus binds LESS tightly than **, as in Python: -2**2 is -4, not 4. ** is right-associative: 2**3**2 is 512. Whitespace may appear anywhere and must be ignored. Division is float division. Do NOT use eval, exec, or the ast module. Reply with ONLY the function code, no explanation.",
+      "scorer": "code_function_numeric_tests",
+      "function": "evaluate",
+      "hidden_tests": [
+        [
+          "3*-2",
+          -6.0
+        ],
+        [
+          "2**3**2",
+          512.0
+        ],
+        [
+          "-(2+3)*-2",
+          10.0
+        ],
+        [
+          " 4 + 2 * -3 ",
+          -2.0
+        ],
+        [
+          "10/4",
+          2.5
+        ],
+        [
+          "2**-1",
+          0.5
+        ],
+        [
+          "(1+2)*(3- -1)",
+          12.0
+        ],
+        [
+          "--5",
+          5.0
+        ],
+        [
+          "-2**2",
+          -4.0
+        ],
+        [
+          "3 * -(2 + -1)",
+          -3.0
+        ]
+      ],
+      "tolerance": 1e-06,
+      "ban_eval": true
+    },
+    {
+      "id": "c10-sexpr",
+      "family": "code",
+      "prompt": "Write a Python function named seval that takes a string: an arithmetic expression in fully-parenthesized prefix notation, e.g. '(+ 1 (* 2 3) (- 10 4))'. Operators: + * - /. + and * take one or more operands; - and / take one or more operands (unary minus for a single operand, left-associative otherwise); / is float division. Operands are integers or nested expressions, separated by whitespace. Return a float. Reply with ONLY the function code.",
+      "scorer": "code_function_numeric_tests",
+      "function": "seval",
+      "hidden_tests": [
+        [
+          "(+ 1 (* 2 3) (- 10 4))",
+          13.0
+        ],
+        [
+          "(* (+ 1 2) (+ 3 4))",
+          21.0
+        ],
+        [
+          "(- 5)",
+          -5.0
+        ],
+        [
+          "(/ 7 2)",
+          3.5
+        ],
+        [
+          "(+ (* 2 3) (/ 9 3) (- 1))",
+          8.0
+        ],
+        [
+          "(- (* 2 5) 3 2)",
+          5.0
+        ]
+      ],
+      "tolerance": 1e-09
+    },
+    {
+      "id": "l1-knights-6",
+      "family": "logic",
+      "prompt": "Six islanders \u2014 A, B, C, D, E, F \u2014 are each either a knight (always tells the truth) or a knave (always lies). Each makes one statement:\nA says: \"C is a knave.\"\nB says: \"D is a knight.\"\nC says: \"if E is a knight then A is a knave.\"\nD says: \"A is a knave.\"\nE says: \"if C is a knight then D is a knave.\"\nF says: \"if B is a knight then F is a knave.\"\nThere is exactly one consistent assignment. Reply with ONLY a 6-letter string for A,B,C,D,E,F in order, using T for knight and F for knave (example: TFTFTF).",
+      "scorer": "token_strict",
+      "expected": "tttttf"
+    },
+    {
+      "id": "w2-word-count",
+      "family": "writing",
+      "prompt": "Write exactly 5 sentences. Each sentence must contain exactly 6 words. Reply with ONLY the 5 sentences.",
+      "scorer": "constraint_words",
+      "n_sentences": 5,
+      "words_per_sentence": 6
+    },
+    {
+      "id": "w5-lines-words",
+      "family": "writing",
+      "prompt": "Write exactly 6 lines. Odd-numbered lines (1, 3, 5) must start with '- ' (dash, space). Even-numbered lines (2, 4, 6) must start with '* ' (asterisk, space). After the bullet marker, each line must contain exactly 4 words. Reply with ONLY the 6 lines.",
+      "scorer": "constraint_list_alt",
+      "n_lines": 6,
+      "odd_prefix": "- ",
+      "even_prefix": "* ",
+      "words_per_line": 4
+    }
+  ]
+}

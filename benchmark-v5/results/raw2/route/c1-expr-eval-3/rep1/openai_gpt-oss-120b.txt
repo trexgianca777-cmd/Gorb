@@ -1,0 +1,70 @@
+```python
+def evaluate(s: str) -> float:
+    import re
+    tokens = re.findall(r'\d+|\*\*|[+\-*/()]', s.replace(' ', ''))
+    i = 0
+
+    def peek():
+        return tokens[i] if i < len(tokens) else None
+
+    def consume(tok=None):
+        nonlocal i
+        if i < len(tokens):
+            cur = tokens[i]
+            if tok is None or cur == tok:
+                i += 1
+                return cur
+        raise SyntaxError
+
+    def parse_number():
+        return float(consume())
+
+    def primary():
+        if peek() == '(':
+            consume('(')
+            val = expr()
+            consume(')')
+            return val
+        return parse_number()
+
+    def power():
+        left = primary()
+        if peek() == '**':
+            consume('**')
+            right = power()
+            left = left ** right
+        return left
+
+    def unary():
+        if peek() == '-':
+            consume('-')
+            return -unary()
+        return power()
+
+    def mul():
+        left = unary()
+        while peek() in ('*', '/'):
+            op = consume()
+            right = unary()
+            if op == '*':
+                left *= right
+            else:
+                left /= right
+        return left
+
+    def expr():
+        left = mul()
+        while peek() in ('+', '-'):
+            op = consume()
+            right = mul()
+            if op == '+':
+                left += right
+            else:
+                left -= right
+        return left
+
+    result = expr()
+    if i != len(tokens):
+        raise SyntaxError
+    return result
+```

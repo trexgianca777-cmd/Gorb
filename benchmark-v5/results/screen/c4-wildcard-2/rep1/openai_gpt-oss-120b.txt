@@ -1,0 +1,85 @@
+```python
+import re
+
+def wildcard_match(s: str, pattern: str) -> bool:
+    """
+    Return True if the string `s` matches the given wildcard `pattern`.
+
+    Wildcard syntax:
+        *           matches any sequence of characters (including empty)
+        ?           matches exactly one character
+        [abc]       matches exactly one of the listed characters
+        [!abc]      matches exactly one character NOT in the list
+        \* \? \[ \] \\   escape the next character to be taken literally
+    """
+    # Translate the wildcard pattern into a regular expression
+    i = 0
+    n = len(pattern)
+    regex_parts = ['^']          # anchor at start
+
+    while i < n:
+        ch = pattern[i]
+
+        # Escape handling
+        if ch == '\\' and i + 1 < n:
+            # Literal next character
+            i += 1
+            regex_parts.append(re.escape(pattern[i]))
+        elif ch == '*':
+            regex_parts.append('.*')
+        elif ch == '?':
+            regex_parts.append('.')
+        elif ch == '[':
+            # Find closing bracket
+            j = i + 1
+            while j < n and pattern[j] != ']':
+                # allow escaped ']' inside the class
+                if pattern[j] == '\\' and j + 1 < n:
+                    j += 2
+                else:
+                    j += 1
+            if j >= n:  # no closing ']', treat '[' literally
+                regex_parts.append(r'\[')
+                i += 1
+                continue
+
+            # Extract the character class content
+            content = pattern[i+1:j]
+
+            # Handle escaped characters inside the class
+            # Build a new class string suitable for regex
+            negated = False
+            if content.startswith('!'):
+                negated = True
+                content = content[1:]
+
+            # Escape regex metacharacters inside the class, except for '-'
+            # (which we treat as a literal dash because ranges are not supported)
+            escaped_chars = []
+            k = 0
+            while k < len(content):
+                c = content[k]
+                if c == '\\' and k + 1 < len(content):
+                    escaped_chars.append(re.escape(content[k+1]))
+                    k += 2
+                else:
+                    escaped_chars.append(re.escape(c))
+                    k += 1
+
+            class_body = ''.join(escaped_chars)
+            if negated:
+                regex_parts.append(f'[^{class_body}]')
+            else:
+                regex_parts.append(f'[{class_body}]')
+            i = j  # will be incremented at end of loop
+        else:
+            # All other characters are taken literally
+            regex_parts.append(re.escape(ch))
+
+        i += 1
+
+    regex_parts.append('$')       # anchor at end
+    regex = ''.join(regex_parts)
+
+    return re.fullmatch(regex, s) is not None
+```

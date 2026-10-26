@@ -1,0 +1,74 @@
+```python
+def evaluate(expr: str) -> float:
+    import re
+    tokens = re.findall(r'\d+\.?\d*|[+\-*/()]|\*\*', expr.replace(' ', ''))
+    i = 0
+
+    def peek():
+        return tokens[i] if i < len(tokens) else None
+
+    def consume(expected=None):
+        nonlocal i
+        tok = peek()
+        if expected is not None and tok != expected:
+            raise ValueError(f"Expected {expected} but got {tok}")
+        i += 1
+        return tok
+
+    def expression():
+        val = term()
+        while peek() in ('+', '-'):
+            op = consume()
+            right = term()
+            if op == '+':
+                val += right
+            else:
+                val -= right
+        return val
+
+    def term():
+        val = factor()
+        while peek() in ('*', '/'):
+            op = consume()
+            right = factor()
+            if op == '*':
+                val *= right
+            else:
+                val /= right
+        return val
+
+    def factor():
+        # unary
+        if peek() == '+':
+            consume('+')
+            return factor()
+        if peek() == '-':
+            consume('-')
+            return -factor()
+        return power()
+
+    def power():
+        val = primary()
+        if peek() == '**':
+            consume('**')
+            right = power()  # right associative
+            val = val ** right
+        return val
+
+    def primary():
+        tok = peek()
+        if tok == '(':
+            consume('(')
+            val = expression()
+            consume(')')
+            return val
+        if re.fullmatch(r'\d+\.?\d*', tok):
+            consume()
+            return float(tok)
+        raise ValueError(f"Unexpected token: {tok}")
+
+    result = expression()
+    if i != len(tokens):
+        raise ValueError("Unexpected end of expression")
+    return result
+```

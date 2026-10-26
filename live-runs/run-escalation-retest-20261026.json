@@ -1,0 +1,25 @@
+{
+  "task": "Write a Python function named evaluate that takes one string argument: an arithmetic expression, and returns a float. The expression contains non-negative integers, the binary operators + - * / and ** (exponentiation), parentheses, and unary minus. Unary minus may appear at the start of the expression, right after '(', or right after another operator (including after **). Unary minus binds LESS tightly than **, as in Python: -2**2 is -4, not 4. ** is right-associative: 2**3**2 is 512. Whitespace may appear anywhere and must be ignored. Division is float division. Do NOT use eval, exec, or the ast module. Reply with ONLY the function code, no explanation.",
+  "final": "PASS",
+  "detail": "PASS: Function correctly parses and evaluates expressions per the specification.",
+  "steps": [
+    {
+      "model": "openai/gpt-oss-20b",
+      "role": "generate",
+      "verdict": "FAIL",
+      "verifier": "groq:gpt-oss-20b",
+      "cost_usd": 0.0,
+      "answer": "```python\ndef evaluate(expr: str) -> float:\n    import math\n    s = ''.join(expr.split())\n    n = len(s)\n    i = 0\n\n    def parse_expr() -> float:\n        nonlocal i\n        val = parse_term()\n        while i < n and s[i] in '+-':\n            op = s[i]\n            i += 1\n            rhs = parse_term()\n            val = val + rhs if op == '+' else val - rhs\n        return val\n\n    def parse_term() -> float:\n        nonlocal i\n        val = parse_factor()\n        while i < n and s[i] in '*/':\n            op = s[i]\n            i += 1\n            rhs = parse_factor()\n            val = val * rhs if op == '*' else val / rhs\n        return val\n\n    def parse_factor() -> float:\n        nonlocal i\n        return parse_power()\n\n    def parse_power() -> float:\n        nonlocal i\n        val = parse_unary()\n        if i < n and s[i] == '*':\n            if i+1 < n and s[i+1] == '*':\n                i += 2\n                rhs = parse_power()\n                val = val ** rhs\n        return val\n\n    def parse_unary() -> float:\n        nonlocal i\n        if i < n and s[i] == '-':\n            i += 1\n            return -parse_unary()\n        return parse_primary()\n\n    def parse_primary() -> float:\n        nonlocal i\n        if i < n and s[i] == '(':\n            i += 1\n            val = parse_expr()\n            if i < n and s[i] == ')':\n                i += 1\n            else:\n                raise ValueError('Missing closing parenthesis')\n            return val\n        start = i\n        while i < n and s[i].isdigit():\n            i += 1\n        if start == i:\n            raise ValueError('Expected number')\n        return float(s[start:i])\n\n    return parse_expr()\n```"
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "role": "revise",
+      "verdict": "PASS",
+      "verifier": "groq:gpt-oss-20b",
+      "cost_usd": 0.0,
+      "answer": "def evaluate(expr: str) -> float:\n    s = ''.join(expr.split())\n    n = len(s)\n    i = 0\n\n    def parse_expr() -> float:\n        nonlocal i\n        val = parse_term()\n        while i < n and s[i] in '+-':\n            op = s[i]\n            i += 1\n            rhs = parse_term()\n            val = val + rhs if op == '+' else val - rhs\n        return val\n\n    def parse_term() -> float:\n        nonlocal i\n        val = parse_factor()\n        while i < n and s[i] in '*/':\n            op = s[i]\n            i += 1\n            rhs = parse_factor()\n            val = val * rhs if op == '*' else val / rhs\n        return val\n\n    def parse_factor() -> float:\n        return parse_unary()\n\n    def parse_unary() -> float:\n        nonlocal i\n        if i < n and s[i] == '-':\n            i += 1\n            return -parse_unary()\n        return parse_power()\n\n    def parse_power() -> float:\n        nonlocal i\n        val = parse_primary()\n        if i + 1 < n and s[i] == '*' and s[i + 1] == '*':\n            i += 2\n            rhs = parse_power()\n            val = val ** rhs\n        return val\n\n    def parse_primary() -> float:\n        nonlocal i\n        if i < n and s[i] == '(':\n            i += 1\n            val = parse_expr()\n            if i < n and s[i] == ')':\n                i += 1\n                return val\n            raise ValueError('Missing closing parenthesis')\n        start = i\n        while i < n and s[i].isdigit():\n            i += 1\n        if start == i:\n            raise ValueError('Expected number')\n        return float(s[start:i])\n\n    result = parse_expr()\n    if i != n:\n        raise ValueError('Unexpected characters')\n    return result"
+    }
+  ],
+  "total_cost_usd": 0.0,
+  "elapsed_s": 0.8
+}

@@ -1,0 +1,18 @@
+{
+  "task": "02-multi-step-arithmetic",
+  "generator": "openai/gpt-oss-20b",
+  "scorer": "numeric_exact",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "numbers_found=[1665.0]",
+      "answer": "1665\n"
+    }
+  ],
+  "final_pass": true,
+  "final_answer": "1665\n",
+  "revisions_used": 0,
+  "total_calls": 1
+}

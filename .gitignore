@@ -1,0 +1,24 @@
+# Secrets and runtime state — never commit these
+.env
+*.env
+.keys.json
+*api_key*
+*apikey*
+freellmapi.config.json
+
+# Runtime state
+swarm-health.json
+swarm-failures.csv
+*.lock
+*.log
+*.db
+*_runs/
+_archived*/
+__pycache__/
+*.pyc
+node_modules/
+.bak*
+swp
+
+# Killed showcase data (3GB, not part of submission)
+irony-test/

@@ -1,0 +1,139 @@
+```python
+import re
+
+def parse_sjson(s):
+    """
+    Parse a strict JSON document (objects, arrays, strings, numbers, booleans, null)
+    without using the built‑in json module or eval.
+    """
+    # Token patterns
+    _WHITESPACE = re.compile(r'\s*', re.ASCII)
+    _STRING = re.compile(r'"(?:[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4})*"')
+    _NUMBER = re.compile(r'-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?')
+    _TRUE = re.compile(r'true')
+    _FALSE = re.compile(r'false')
+    _NULL = re.compile(r'null')
+    _TOKEN_RE = re.compile(
+        r'\s*('
+        r'"(?:[^"\\]|\\["\\/bfnrt]|\\u[0-9a-fA-F]{4})*"|'   # string
+        r'-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?|'      # number
+        r'true|false|null|'                                 # literals
+        r'[\[\]\{\},:]'                                      # punctuation
+        r')',
+        re.ASCII
+    )
+
+    # Helper to decode escaped characters in JSON strings
+    def _decode_string(tok):
+        esc_map = {
+            '"': '"', '\\': '\\', '/': '/', 'b': '\b',
+            'f': '\f', 'n': '\n', 'r': '\r', 't': '\t'
+        }
+        def replace(match):
+            seq = match.group(1)
+            if seq[0] == 'u':
+                return chr(int(seq[1:], 16))
+            return esc_map[seq]
+        # strip the surrounding quotes
+        inner = tok[1:-1]
+        return re.sub(r'\\([\"\\/bfnrt]|u[0-9a-fA-F]{4})', replace, inner)
+
+    # Token generator
+    def _tokenize(text):
+        pos = 0
+        length = len(text)
+        while pos < length:
+            m = _TOKEN_RE.match(text, pos)
+            if not m:
+                raise ValueError(f'Invalid JSON at position {pos}')
+            token = m.group(1)
+            pos = m.end()
+            yield token
+        yield None  # sentinel
+
+    tokens = _tokenize(s)
+    lookahead = next(tokens)
+
+    # Recursive descent parser
+    def _expect(tok):
+        nonlocal lookahead
+        if lookahead != tok:
+            raise ValueError(f'Expected {tok!r} but found {lookahead!r}')
+        lookahead = next(tokens)
+
+    def _parse_value():
+        nonlocal lookahead
+        if lookahead is None:
+            raise ValueError('Unexpected end of input')
+        if lookahead == '{':
+            return _parse_object()
+        if lookahead == '[':
+            return _parse_array()
+        if lookahead.startswith('"'):
+            val = _decode_string(lookahead)
+            lookahead = next(tokens)
+            return val
+        if _NUMBER.fullmatch(lookahead):
+            num_str = lookahead
+            lookahead = next(tokens)
+            if '.' in num_str or 'e' in num_str or 'E' in num_str:
+                return float(num_str)
+            else:
+                return int(num_str)
+        if lookahead == 'true':
+            lookahead = next(tokens)
+            return True
+        if lookahead == 'false':
+            lookahead = next(tokens)
+            return False
+        if lookahead == 'null':
+            lookahead = next(tokens)
+            return None
+        raise ValueError(f'Unexpected token {lookahead!r}')
+
+    def _parse_array():
+        nonlocal lookahead
+        _expect('[')
+        arr = []
+        if lookahead == ']':
+            _expect(']')
+            return arr
+        while True:
+            arr.append(_parse_value())
+            if lookahead == ',':
+                _expect(',')
+                continue
+            if lookahead == ']':
+                _expect(']')
+                break
+            raise ValueError('Expected , or ] in array')
+        return arr
+
+    def _parse_object():
+        nonlocal lookahead
+        _expect('{')
+        obj = {}
+        if lookahead == '}':
+            _expect('}')
+            return obj
+        while True:
+            if not lookahead.startswith('"'):
+                raise ValueError('Expected string key in object')
+            key = _decode_string(lookahead)
+            lookahead = next(tokens)
+            _expect(':')
+            obj[key] = _parse_value()
+            if lookahead == ',':
+                _expect(',')
+                continue
+            if lookahead == '}':
+                _expect('}')
+                break
+            raise ValueError('Expected , or } in object')
+        return obj
+
+    result = _parse_value()
+    if lookahead is not None:
+        raise ValueError('Extra data after valid JSON')
+    return result
+```

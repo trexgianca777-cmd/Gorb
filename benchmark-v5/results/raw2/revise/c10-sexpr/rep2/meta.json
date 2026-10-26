@@ -1,0 +1,20 @@
+{
+  "mechanism": "revise",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "tests_passed=2/6",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": true,
+      "detail": "tests_passed=6/6",
+      "repeated": false
+    }
+  ],
+  "calls": 2,
+  "task": "c10-sexpr",
+  "rep": "2"
+}

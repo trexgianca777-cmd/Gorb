@@ -1,0 +1,128 @@
+def parse_sjson(s):
+    import re
+    WHITESPACE = re.compile(r'\s*', re.ASCII)
+
+    def error(msg, idx):
+        raise ValueError(f"{msg} at position {idx}")
+
+    def skip_ws(idx):
+        m = WHITESPACE.match(s, idx)
+        return m.end()
+
+    def parse_value(idx):
+        idx = skip_ws(idx)
+        if idx >= len(s):
+            error("Unexpected end of input", idx)
+        ch = s[idx]
+        if ch == '"':
+            return parse_string(idx)
+        if ch == '[':
+            return parse_array(idx)
+        if ch == '{':
+            return parse_object(idx)
+        if ch in '-0123456789':
+            return parse_number(idx)
+        if s.startswith('true', idx):
+            return True, idx + 4
+        if s.startswith('false', idx):
+            return False, idx + 5
+        if s.startswith('null', idx):
+            return None, idx + 4
+        error(f"Unexpected character '{ch}'", idx)
+
+    def parse_string(idx):
+        idx += 1  # skip opening quote
+        result = []
+        while idx < len(s):
+            ch = s[idx]
+            if ch == '"':
+                return ''.join(result), idx + 1
+            if ch == '\\':
+                idx += 1
+                if idx >= len(s):
+                    error("Unterminated escape sequence", idx)
+                esc = s[idx]
+                if esc == '"' or esc == '\\' or esc == '/':
+                    result.append(esc)
+                elif esc == 'b':
+                    result.append('\b')
+                elif esc == 'f':
+                    result.append('\f')
+                elif esc == 'n':
+                    result.append('\n')
+                elif esc == 'r':
+                    result.append('\r')
+                elif esc == 't':
+                    result.append('\t')
+                else:
+                    error(f"Invalid escape character '\\{esc}'", idx)
+            else:
+                result.append(ch)
+            idx += 1
+        error("Unterminated string", idx)
+
+    def parse_number(idx):
+        start = idx
+        if s[idx] == '-':
+            idx += 1
+            if idx >= len(s) or not s[idx].isdigit():
+                error("Invalid number", idx)
+        if s[idx] == '0':
+            idx += 1
+        else:
+            while idx < len(s) and s[idx].isdigit():
+                idx += 1
+        # No support for fractions/exponents per spec
+        return int(s[start:idx]), idx
+
+    def parse_array(idx):
+        idx += 1  # skip '['
+        arr = []
+        idx = skip_ws(idx)
+        if idx < len(s) and s[idx] == ']':
+            return arr, idx + 1
+        while True:
+            val, idx = parse_value(idx)
+            arr.append(val)
+            idx = skip_ws(idx)
+            if idx >= len(s):
+                error("Unterminated array", idx)
+            if s[idx] == ',':
+                idx += 1
+                continue
+            if s[idx] == ']':
+                return arr, idx + 1
+            error("Expected ',' or ']'", idx)
+
+    def parse_object(idx):
+        idx += 1  # skip '{'
+        obj = {}
+        idx = skip_ws(idx)
+        if idx < len(s) and s[idx] == '}':
+            return obj, idx + 1
+        while True:
+            idx = skip_ws(idx)
+            if idx >= len(s) or s[idx] != '"':
+                error("Expected string key", idx)
+            key, idx = parse_string(idx)
+            idx = skip_ws(idx)
+            if idx >= len(s) or s[idx] != ':':
+                error("Expected ':' after key", idx)
+            idx += 1
+            val, idx = parse_value(idx)
+            obj[key] = val
+            idx = skip_ws(idx)
+            if idx >= len(s):
+                error("Unterminated object", idx)
+            if s[idx] == ',':
+                idx += 1
+                continue
+            if s[idx] == '}':
+                return obj, idx + 1
+            error("Expected ',' or '}'", idx)
+
+    result, end = parse_value(0)
+    end = skip_ws(end)
+    if end != len(s):
+        error("Trailing data", end)
+    return result

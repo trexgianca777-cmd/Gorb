@@ -1,0 +1,16 @@
+{
+  "task": "10-adversarial-paragraphs-2",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "constraint_paragraphs",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "paragraphs=2/2, sentences_per_para=[3, 3], first_words=6,distinct=6, count_blue=4/4",
+      "answer": "Morning light spilled over the hills, painting the sky a deep blue. Yesterday the garden burst with flowers, and a blue bird sang from the oak. Finally the breeze carried a scent of pine that lingered through the day.  \n\nMeanwhile the river reflected a calm blue surface, mirroring clouds drifting lazily. Because the town festival began at dusk, blue lanterns flickered beside the streets. Soon the night sky deepened, and the stars shone brighter than ever before.\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}

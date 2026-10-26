@@ -1,0 +1,12 @@
+No such study exists. CERN has never measured quantum entanglement between two black holes, and no experimental measurement of entangled black holes has ever been performed. 
+
+There are several reasons why this could not have happened:
+
+1. **CERN does not produce or observe black holes:** CERN operates particle colliders (such as the Large Hadron Collider) to study subatomic particles. While some speculative theoretical models suggested the LHC might produce microscopic black holes, none have ever been detected.
+2. **Technological limits:** Measuring quantum entanglement requires isolating quantum states at an extremely delicate level. Doing so with macroscopic astrophysical black holes is far beyond current or foreseeable human technology.
+
+You may be thinking of one of a few related concepts or studies that have been conflated:
+
+* **The ER = EPR conjecture (Theoretical):** Proposed by physicists **Juan Maldacena** and **Leonard Susskind** in 2013, this theoretical framework suggests that quantum entanglement ($EPR$) between particles or black holes is geometrically equivalent to a wormhole, or Einstein-Rosen bridge ($ER$). This is pure theoretical physics, not an experiment conducted at CERN.
+* **Analog Black Hole experiments:** Physicist **Jeff Steinhauer** at the Technion in Israel led notable studies (including in 2016 and 2019) using Bose-Einstein condensates to create "acoustic black holes" (sonic event horizons) to measure quantum effects like Hawking radiation, but this was not done at CERN and did not involve real black holes.
+* **Quantum Entanglement at CERN:** In recent years (notably 2023–2024), collaborations at CERN (such as ATLAS and CMS) successfully observed quantum entanglement at the highest energy scales ever recorded, but this was between **pairs of top quarks**, not black holes.

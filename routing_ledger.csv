@@ -1,0 +1,5 @@
+task,difficulty,first_model,verifier_score,threshold,model,escalated,escalation_reason
+sort a list,easy,gpt-oss-20b,0.92,0.7,gpt-oss-20b,False,none
+prove a lemma about routing,hard,gpt-oss-120b,0.45,0.7,gpt-oss-120b,True,difficulty
+summarize a paragraph,easy,gpt-oss-20b,0.55,0.7,gpt-oss-120b,True,verifier
+debug a race condition,hard,gpt-oss-120b,0.38,0.7,gpt-oss-120b,True,difficulty

@@ -1,0 +1,7 @@
+{
+  "mechanism": "selfcon",
+  "skipped": "not single-answer",
+  "calls": 0,
+  "task": "c10-sexpr",
+  "rep": "2"
+}

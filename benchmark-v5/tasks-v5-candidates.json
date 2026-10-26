@@ -1,0 +1,933 @@
+{
+  "tasks": [
+    {
+      "id": "c1-expr-eval-3",
+      "family": "code",
+      "prompt": "Write a Python function named evaluate that takes one string argument: an arithmetic expression, and returns a float. The expression contains non-negative integers, the binary operators + - * / and ** (exponentiation), parentheses, and unary minus. Unary minus may appear at the start of the expression, right after '(', or right after another operator (including after **). Unary minus binds LESS tightly than **, as in Python: -2**2 is -4, not 4. ** is right-associative: 2**3**2 is 512. Whitespace may appear anywhere and must be ignored. Division is float division. Do NOT use eval, exec, or the ast module. Reply with ONLY the function code, no explanation.",
+      "scorer": "code_function_numeric_tests",
+      "function": "evaluate",
+      "hidden_tests": [
+        [
+          "3*-2",
+          -6.0
+        ],
+        [
+          "2**3**2",
+          512.0
+        ],
+        [
+          "-(2+3)*-2",
+          10.0
+        ],
+        [
+          " 4 + 2 * -3 ",
+          -2.0
+        ],
+        [
+          "10/4",
+          2.5
+        ],
+        [
+          "2**-1",
+          0.5
+        ],
+        [
+          "(1+2)*(3- -1)",
+          12.0
+        ],
+        [
+          "--5",
+          5.0
+        ],
+        [
+          "-2**2",
+          -4.0
+        ],
+        [
+          "3 * -(2 + -1)",
+          -3.0
+        ]
+      ],
+      "tolerance": 1e-06,
+      "ban_eval": true
+    },
+    {
+      "id": "c2-csv-2",
+      "family": "code",
+      "prompt": "Write a Python function named parse_csv_row that takes one string argument: a single row of comma-separated values, and returns a list of strings (one per field). Rules: fields are separated by commas; a field wrapped in double quotes may contain commas; inside a quoted field two consecutive double quotes represent one literal quote character; a trailing comma means a final empty field; unquoted fields keep their whitespace exactly. Reply with ONLY the function code, no explanation.",
+      "scorer": "code_function_deep_tests",
+      "function": "parse_csv_row",
+      "hidden_tests": [
+        [
+          "a,b,",
+          [
+            "a",
+            "b",
+            ""
+          ]
+        ],
+        [
+          "\"a\"\"b\",c",
+          [
+            "a\"b",
+            "c"
+          ]
+        ],
+        [
+          "\"a,b\",c",
+          [
+            "a,b",
+            "c"
+          ]
+        ],
+        [
+          "\"\",x",
+          [
+            "",
+            "x"
+          ]
+        ],
+        [
+          "  a  ,b",
+          [
+            "  a  ",
+            "b"
+          ]
+        ],
+        [
+          "\"x\",\"y\",\"z\"",
+          [
+            "x",
+            "y",
+            "z"
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "c3-sjson-2",
+      "family": "code",
+      "prompt": "Write a Python function named parse_sjson that takes one string argument: a simplified JSON document, and returns the parsed Python value (dicts, lists, strings, numbers, booleans, None). The document is always valid strict JSON: objects, arrays, double-quoted strings with escapes (\\\", \\\\, \\n, \\t, \\uXXXX), numbers, true/false/null, arbitrary nesting. Do NOT use the json module or eval. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests",
+      "function": "parse_sjson",
+      "hidden_tests": [
+        [
+          "{\"a\": 1, \"b\": [true, false, null], \"c\": {\"d\": \"x\\\"y\"}}",
+          {
+            "a": 1,
+            "b": [
+              true,
+              false,
+              null
+            ],
+            "c": {
+              "d": "x\"y"
+            }
+          }
+        ],
+        [
+          "[1, [2, [3]], {\"k\": \"v\\n\"}]",
+          [
+            1,
+            [
+              2,
+              [
+                3
+              ]
+            ],
+            {
+              "k": "v\n"
+            }
+          ]
+        ],
+        [
+          "{\"empty\": {}, \"list\": [], \"s\": \"a\\\\b\"}",
+          {
+            "empty": {},
+            "list": [],
+            "s": "a\\b"
+          }
+        ],
+        [
+          "{\"n\": -12.5, \"t\": true}",
+          {
+            "n": -12.5,
+            "t": true
+          }
+        ]
+      ],
+      "ban_modules": [
+        "json"
+      ]
+    },
+    {
+      "id": "c4-wildcard-2",
+      "family": "code",
+      "prompt": "Write a Python function named wildcard_match that takes two string arguments (s, pattern) and returns True if s matches the pattern. Pattern syntax: * matches any sequence of characters (including empty); ? matches exactly one character; [abc] matches exactly one of the listed characters (there are NO ranges: [0-9] means the three characters '0', '-', '9'); [!abc] matches exactly one character NOT in the list; a backslash escapes the next character (\\* matches a literal asterisk). Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "wildcard_match",
+      "hidden_tests": [
+        [
+          [
+            "hello",
+            "h*o"
+          ],
+          true
+        ],
+        [
+          [
+            "hello",
+            "h?llo"
+          ],
+          true
+        ],
+        [
+          [
+            "hello",
+            "h[a-z]llo"
+          ],
+          false
+        ],
+        [
+          [
+            "hello",
+            "h[!a-z]llo"
+          ],
+          true
+        ],
+        [
+          [
+            "h-llo",
+            "h[a-z]llo"
+          ],
+          true
+        ],
+        [
+          [
+            "a*b",
+            "a\\*b"
+          ],
+          true
+        ],
+        [
+          [
+            "axb",
+            "a\\*b"
+          ],
+          false
+        ],
+        [
+          [
+            "abc",
+            "a*c"
+          ],
+          true
+        ],
+        [
+          [
+            "ac",
+            "a*c"
+          ],
+          true
+        ],
+        [
+          [
+            "abcdef",
+            "a*f"
+          ],
+          true
+        ],
+        [
+          [
+            "abc",
+            "*"
+          ],
+          true
+        ],
+        [
+          [
+            "",
+            "*"
+          ],
+          true
+        ],
+        [
+          [
+            "",
+            "?"
+          ],
+          false
+        ],
+        [
+          [
+            "a1b",
+            "a[0-9]b"
+          ],
+          false
+        ]
+      ]
+    },
+    {
+      "id": "c5-base-convert-2",
+      "family": "code",
+      "prompt": "Write a Python function named base_to_int that takes a string s and an integer base (2 to 36) and returns the integer value. Rules: strip leading/trailing whitespace; an optional leading + or - sets the sign; digits are 0-9 then a-z (case-insensitive). Raise ValueError if: base is outside 2..36, the string is empty after stripping, it is only a sign, or any digit is invalid for the base. Reply with ONLY the function code.",
+      "scorer": "code_function_raises_tests",
+      "function": "base_to_int",
+      "hidden_tests": [
+        {
+          "args": [
+            "  -ff ",
+            16
+          ],
+          "want": -255
+        },
+        {
+          "args": [
+            "1Z",
+            36
+          ],
+          "want": 71
+        },
+        {
+          "args": [
+            "+101",
+            2
+          ],
+          "want": 5
+        },
+        {
+          "args": [
+            "z",
+            36
+          ],
+          "want": 35
+        },
+        {
+          "args": [
+            "0",
+            10
+          ],
+          "want": 0
+        },
+        {
+          "args": [
+            "19",
+            8
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "1",
+            1
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "",
+            10
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "+",
+            10
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "xyz",
+            10
+          ],
+          "want": "RAISES"
+        }
+      ]
+    },
+    {
+      "id": "c6-roman-validate",
+      "family": "code",
+      "prompt": "Write a Python function named roman_to_int that takes a string of uppercase Roman numeral characters and returns its integer value. Standard subtractive notation applies (IV=4, IX=9, XL=40, XC=90, CD=400, CM=900). Raise ValueError for anything invalid: characters outside IVXLCDM, empty string, non-canonical forms (IIII, VV, IL, XM, IIX, etc. \u2014 only the six standard subtractive pairs are legal, and no symbol may repeat more than three times in a row). Reply with ONLY the function code.",
+      "scorer": "code_function_raises_tests",
+      "function": "roman_to_int",
+      "hidden_tests": [
+        {
+          "args": [
+            "MCMXCIV"
+          ],
+          "want": 1994
+        },
+        {
+          "args": [
+            "IX"
+          ],
+          "want": 9
+        },
+        {
+          "args": [
+            "XLII"
+          ],
+          "want": 42
+        },
+        {
+          "args": [
+            "MMXXVI"
+          ],
+          "want": 2026
+        },
+        {
+          "args": [
+            "IIII"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "VV"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "IL"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "XM"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "ABC"
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            ""
+          ],
+          "want": "RAISES"
+        },
+        {
+          "args": [
+            "IIX"
+          ],
+          "want": "RAISES"
+        }
+      ]
+    },
+    {
+      "id": "c7-date-add",
+      "family": "code",
+      "prompt": "Write a Python function named add_days that takes a date string in YYYY-MM-DD format and an integer n (positive or negative), and returns the date n days later as a YYYY-MM-DD string. Handle leap years correctly, including the century rules (2000 was a leap year, 1900 was not). Do NOT use the datetime module. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "add_days",
+      "hidden_tests": [
+        [
+          [
+            "2024-02-28",
+            1
+          ],
+          "2024-02-29"
+        ],
+        [
+          [
+            "2023-02-28",
+            1
+          ],
+          "2023-03-01"
+        ],
+        [
+          [
+            "2026-12-31",
+            1
+          ],
+          "2027-01-01"
+        ],
+        [
+          [
+            "2000-02-28",
+            2
+          ],
+          "2000-03-01"
+        ],
+        [
+          [
+            "1900-02-28",
+            1
+          ],
+          "1900-03-01"
+        ],
+        [
+          [
+            "2026-01-01",
+            -1
+          ],
+          "2025-12-31"
+        ],
+        [
+          [
+            "2024-03-01",
+            -1
+          ],
+          "2024-02-29"
+        ],
+        [
+          [
+            "2026-06-15",
+            200
+          ],
+          "2027-01-01"
+        ]
+      ],
+      "ban_modules": [
+        "datetime",
+        "calendar"
+      ]
+    },
+    {
+      "id": "c8-rle-decode",
+      "family": "code",
+      "prompt": "Write a Python function named rle_decode that takes a run-length encoded string and returns the decoded string. Encoding format: each run is a decimal count (one or more digits) followed by the character to repeat, e.g. '3A12B1C' decodes to 'AAA' + 'B'*12 + 'C'. Inputs contain letters only (no digits in the decoded text). Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "rle_decode",
+      "hidden_tests": [
+        [
+          [
+            "3A1B"
+          ],
+          "AAAB"
+        ],
+        [
+          [
+            "1X1Y1Z"
+          ],
+          "XYZ"
+        ],
+        [
+          [
+            "1Q"
+          ],
+          "Q"
+        ],
+        [
+          [
+            "10M"
+          ],
+          "MMMMMMMMMM"
+        ],
+        [
+          [
+            "2a3b4c6d"
+          ],
+          "aabbbccccdddddd"
+        ]
+      ]
+    },
+    {
+      "id": "c9-brackets",
+      "family": "code",
+      "prompt": "Write a Python function named is_balanced that takes a string and returns True if all brackets are correctly balanced, else False. Bracket pairs: () [] {} <>. A bracket inside single or double quotes is ignored (quotes always come in pairs in the inputs). Other characters are ignored. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "is_balanced",
+      "hidden_tests": [
+        [
+          [
+            "([{}])"
+          ],
+          true
+        ],
+        [
+          [
+            "([)]"
+          ],
+          false
+        ],
+        [
+          [
+            "(a['b']c)"
+          ],
+          true
+        ],
+        [
+          [
+            "{\"<\"}"
+          ],
+          true
+        ],
+        [
+          [
+            "((("
+          ],
+          false
+        ],
+        [
+          [
+            ""
+          ],
+          true
+        ],
+        [
+          [
+            "<{[()]}>"
+          ],
+          true
+        ],
+        [
+          [
+            "([}]"
+          ],
+          false
+        ],
+        [
+          [
+            "'('"
+          ],
+          true
+        ]
+      ]
+    },
+    {
+      "id": "c10-sexpr",
+      "family": "code",
+      "prompt": "Write a Python function named seval that takes a string: an arithmetic expression in fully-parenthesized prefix notation, e.g. '(+ 1 (* 2 3) (- 10 4))'. Operators: + * - /. + and * take one or more operands; - and / take one or more operands (unary minus for a single operand, left-associative otherwise); / is float division. Operands are integers or nested expressions, separated by whitespace. Return a float. Reply with ONLY the function code.",
+      "scorer": "code_function_numeric_tests",
+      "function": "seval",
+      "hidden_tests": [
+        [
+          "(+ 1 (* 2 3) (- 10 4))",
+          13.0
+        ],
+        [
+          "(* (+ 1 2) (+ 3 4))",
+          21.0
+        ],
+        [
+          "(- 5)",
+          -5.0
+        ],
+        [
+          "(/ 7 2)",
+          3.5
+        ],
+        [
+          "(+ (* 2 3) (/ 9 3) (- 1))",
+          8.0
+        ],
+        [
+          "(- (* 2 5) 3 2)",
+          5.0
+        ]
+      ],
+      "tolerance": 1e-09
+    },
+    {
+      "id": "c11-morse",
+      "family": "code",
+      "prompt": "Write a Python function named morse_decode that takes a Morse code string and returns the decoded uppercase text. Letters within a word are separated by single spaces; words are separated by ' / '. Use standard ITU Morse for A-Z and 0-9. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "morse_decode",
+      "hidden_tests": [
+        [
+          [
+            ".... . .-.. .-.. --- / .-- --- .-. .-.. -.."
+          ],
+          "HELLO WORLD"
+        ],
+        [
+          [
+            "... --- ..."
+          ],
+          "SOS"
+        ],
+        [
+          [
+            ".--. -.-- - .... --- -. / ...--"
+          ],
+          "PYTHON 3"
+        ],
+        [
+          [
+            "--.- ..- .. -.-. -.- / -... .-. --- .-- -. / ..-. --- -..-"
+          ],
+          "QUICK BROWN FOX"
+        ]
+      ]
+    },
+    {
+      "id": "c12-caesar-2",
+      "family": "code",
+      "prompt": "Write a Python function named caesar_decode that takes a string text and an integer shift, and returns the text decoded by shifting each letter BACKWARD by shift positions in the alphabet (wrapping around). The shift may be negative or larger than 26. Preserve letter case; leave non-letters unchanged. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "caesar_decode",
+      "hidden_tests": [
+        [
+          [
+            "Khoor, Zruog!",
+            3
+          ],
+          "Hello, World!"
+        ],
+        [
+          [
+            "Nggnpx ng Qnja",
+            13
+          ],
+          "Attack at Dawn"
+        ],
+        [
+          [
+            "Ydaqz",
+            -1
+          ],
+          "Zebra"
+        ],
+        [
+          [
+            "PlaHG FdVh 123!",
+            29
+          ],
+          "MixED CaSe 123!"
+        ],
+        [
+          [
+            "abc",
+            26
+          ],
+          "abc"
+        ]
+      ]
+    },
+    {
+      "id": "l1-knights-6",
+      "family": "logic",
+      "prompt": "Six islanders \u2014 A, B, C, D, E, F \u2014 are each either a knight (always tells the truth) or a knave (always lies). Each makes one statement:\nA says: \"C is a knave.\"\nB says: \"D is a knight.\"\nC says: \"if E is a knight then A is a knave.\"\nD says: \"A is a knave.\"\nE says: \"if C is a knight then D is a knave.\"\nF says: \"if B is a knight then F is a knave.\"\nThere is exactly one consistent assignment. Reply with ONLY a 6-letter string for A,B,C,D,E,F in order, using T for knight and F for knave (example: TFTFTF).",
+      "scorer": "token_strict",
+      "expected": "tttttf"
+    },
+    {
+      "id": "l2-schedule-5",
+      "family": "logic",
+      "prompt": "Five friends \u2014 Amy, Ben, Cara, Dan, and Eve \u2014 each give a talk on a different day: Monday, Tuesday, Wednesday, Thursday, or Friday, one talk per day.\nClues:\n- Amy speaks before Ben.\n- Cara speaks on Wednesday.\n- Dan does not speak on Monday or Friday.\n- If Eve speaks on Tuesday then Ben speaks on Thursday.\n- Ben speaks after Dan.\n- Amy does not speak on Friday.\n- Amy speaks on Monday.\n- Ben speaks before Eve.\nThere is exactly one valid schedule. Reply with ONLY a 5-letter string: the first initial of who speaks on Monday, Tuesday, Wednesday, Thursday, Friday, in order (example: ADBEC).",
+      "scorer": "token_strict",
+      "expected": "adcbe"
+    },
+    {
+      "id": "l3-zebra-4",
+      "family": "logic",
+      "prompt": "Four houses stand in a row, numbered 1, 2, 3, 4 from left to right. Each house has a color (red, green, blue, yellow), a pet (cat, dog, bird, fish), and a drink (tea, coffee, milk, juice) \u2014 each value used exactly once.\nClues:\n- The red house is immediately left of the green house.\n- The dog owner drinks coffee.\n- The tea drinker owns the bird.\n- The blue house is house 2.\n- The milk drinker lives next to the cat owner.\n- The yellow house owner drinks juice.\nThere is exactly one valid arrangement. Which house number (1-4) keeps the fish? Reply with ONLY the digit.",
+      "scorer": "digits_strict",
+      "expected": "2"
+    },
+    {
+      "id": "l4-exactly-one",
+      "family": "logic",
+      "prompt": "N is an odd integer with 0 < N < 5. Exactly one of these three statements is true: (1) N is even. (2) N is prime. (3) N > 10. What is N? Reply with ONLY the digit.",
+      "scorer": "digits_strict",
+      "expected": "3"
+    },
+    {
+      "id": "l5-tournament",
+      "family": "logic",
+      "prompt": "Four teams \u2014 A, B, C, D \u2014 play a round-robin (each pair meets once, no draws). Results: A beat B. C beat D. B beat C. D beat A. A beat C. D lost to B. Ties in the final standings are broken by head-to-head result. Which team finished first? Reply with ONLY the letter.",
+      "scorer": "token_strict",
+      "expected": "a"
+    },
+    {
+      "id": "l6-seating",
+      "family": "logic",
+      "prompt": "Five chairs in a row, numbered 1 to 5 from left to right. Five people \u2014 A, B, C, D, E \u2014 sit one per chair.\nClues:\n- C sits in chair 3.\n- A sits immediately left of B.\n- D sits somewhere left of E.\n- B does not sit in chair 5.\n- E does not sit in chair 1.\nThere is exactly one valid seating. Reply with ONLY a 5-letter string: who sits in chairs 1,2,3,4,5 in order (example: EABCD).",
+      "scorer": "token_strict",
+      "expected": "abcde"
+    },
+    {
+      "id": "l7-liar-chain",
+      "family": "logic",
+      "prompt": "Three people \u2014 A, B, C \u2014 are each either a truth-teller (every statement they make is true) or a liar (every statement they make is false).\nA says: \"B is lying.\"\nB says: \"B is telling the truth.\"\nC says: \"B and C are both lying.\"\nThere is exactly one consistent assignment. Reply with ONLY a 3-letter string for A,B,C in order, T for truth-teller and F for liar (example: TFT).",
+      "scorer": "token_strict",
+      "expected": "ftf"
+    },
+    {
+      "id": "l8-syllogism",
+      "family": "logic",
+      "prompt": "Consider these premises: All Zorks are Morks. No Morks are Norks. Some Norks are Parks. Which ONE of the following must be true?\n(A) Some Zorks are Parks.\n(B) No Zorks are Norks.\n(C) All Parks are Norks.\nReply with ONLY the letter.",
+      "scorer": "token_strict",
+      "expected": "b"
+    },
+    {
+      "id": "a1-fee-order",
+      "family": "arithmetic",
+      "prompt": "A consultant bills $85 per hour and works 12.5 hours. Expenses are $230. The client receives a 20% discount on the labor charge only (not on expenses). Then 8.25% sales tax is applied to the discounted subtotal. What is the final total in dollars? Round to the nearest cent. Reply with ONLY the number.",
+      "scorer": "numeric_decimal",
+      "expected": "1169.10"
+    },
+    {
+      "id": "a2-tip-pretax",
+      "family": "arithmetic",
+      "prompt": "A restaurant bill is $240 before tax. Tax is 8% of the bill. The tip is 18%, calculated on the pre-tax bill amount (not including tax). What is the total paid? Reply with ONLY the number.",
+      "scorer": "numeric_decimal",
+      "expected": "302.40"
+    },
+    {
+      "id": "a3-percent-trap",
+      "family": "arithmetic",
+      "prompt": "A stock price first increases by 200%, then decreases by 60%. What is the net percent change relative to the original price? Reply with ONLY the number (e.g. 25 for +25%).",
+      "scorer": "numeric_decimal",
+      "expected": "20"
+    },
+    {
+      "id": "a4-harmonic",
+      "family": "arithmetic",
+      "prompt": "A driver travels 60 miles at 30 mph, then returns the same 60 miles at 60 mph. What is the average speed for the whole trip in mph? Reply with ONLY the number.",
+      "scorer": "numeric_decimal",
+      "expected": "40"
+    },
+    {
+      "id": "a5-bogo",
+      "family": "arithmetic",
+      "prompt": "A store runs buy-2-get-1-free on $4.50 items. You need exactly 17 items. What is the lowest total cost in dollars? Reply with ONLY the number.",
+      "scorer": "numeric_decimal",
+      "expected": "54.00"
+    },
+    {
+      "id": "a6-compound",
+      "family": "arithmetic",
+      "prompt": "$1000 is invested at a 5% annual rate compounded quarterly for 3 years. What is the final amount in dollars, to the nearest cent? Reply with ONLY the number.",
+      "scorer": "numeric_decimal",
+      "expected": "1160.75"
+    },
+    {
+      "id": "w1-double-constraint",
+      "family": "writing",
+      "prompt": "Write exactly 4 sentences. Sentence 1 must start with the letter G, sentence 2 with O, sentence 3 with L, sentence 4 with D. Every sentence must end with the word 'done' (followed by its terminal period). Do not use the word 'done' anywhere else. Reply with ONLY the 4 sentences.",
+      "scorer": "constraint_alpha",
+      "n_sentences": 4,
+      "starts": "gold",
+      "word_counts": {
+        "done": 4
+      }
+    },
+    {
+      "id": "w2-word-count",
+      "family": "writing",
+      "prompt": "Write exactly 5 sentences. Each sentence must contain exactly 6 words. Reply with ONLY the 5 sentences.",
+      "scorer": "constraint_words",
+      "n_sentences": 5,
+      "words_per_sentence": 6
+    },
+    {
+      "id": "w3-acrostic",
+      "family": "writing",
+      "prompt": "Write exactly 4 sentences about the sea. The first letters of the four sentences must spell MARS (sentence 1 starts with M, sentence 2 with A, sentence 3 with R, sentence 4 with S). The last letters of the four sentences (the final letter before each terminal period) must spell SEEN (sentence 1 ends with ...s., sentence 2 with ...e., sentence 3 with ...e., sentence 4 with ...n.). Reply with ONLY the 4 sentences.",
+      "scorer": "constraint_acrostic",
+      "n_sentences": 4,
+      "first_spell": "mars",
+      "last_spell": "seen"
+    },
+    {
+      "id": "w4-comma-exact",
+      "family": "writing",
+      "prompt": "Write exactly 3 sentences. Each sentence must contain exactly 2 commas. Reply with ONLY the 3 sentences.",
+      "scorer": "constraint_commas",
+      "n_sentences": 3,
+      "commas_per_sentence": 2
+    },
+    {
+      "id": "w5-lines-words",
+      "family": "writing",
+      "prompt": "Write exactly 6 lines. Odd-numbered lines (1, 3, 5) must start with '- ' (dash, space). Even-numbered lines (2, 4, 6) must start with '* ' (asterisk, space). After the bullet marker, each line must contain exactly 4 words. Reply with ONLY the 6 lines.",
+      "scorer": "constraint_list_alt",
+      "n_lines": 6,
+      "odd_prefix": "- ",
+      "even_prefix": "* ",
+      "words_per_line": 4
+    },
+    {
+      "id": "w6-n-words",
+      "family": "writing",
+      "prompt": "Write a single paragraph of exactly 41 words about deserts. Reply with ONLY the paragraph.",
+      "scorer": "constraint_words",
+      "n_sentences": null,
+      "total_words": 41
+    },
+    {
+      "id": "x1-count-word",
+      "family": "counting",
+      "prompt": "Read the passage below, then answer the question. Count carefully.\n\nThe inspection team arrived before dawn. Coolant pressure held Reactor prereactor steady. A junior engineer Reactor logged the valve readings. Reactor The shift supervisor signed off. Reactor Backup generators were tested reactors at noon. Radiation badges prereactor were collected. The control reactor room stayed quiet through the night. A pump seal Reactor was replaced. prereactor Turbine vibration remained within reactor tolerance. The safety reactors drill ran Reactor long. New gaskets were installed on the east loop. The logbook was updated twice. An reactor inspector prereactor asked about the welds. The night crew prereactor Reactor took over at six. Fuel reactors rod reactor alignment was verified. reactor A sensor was recalibrated. The reactor containment prereactor doors were cycled. Waste heat vented normally. The reactor duty officer filed the report. A crane lifted the shield plug.\n\nQuestion: how many times does the word 'reactor' appear in the passage above? Count exact matches of the word, case-insensitive. Do NOT count 'reactors' or 'prereactor'. Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "14"
+    },
+    {
+      "id": "x2-salient-wrong",
+      "family": "counting",
+      "prompt": "Regional results (all figures in $ millions):\nNorth: gross revenue 82, operating cost 30, net 52.\nSouth: gross revenue 64, operating cost 20, net 44.\nEast: gross revenue 91, operating cost 55, net 36.\nWest: gross revenue 55, operating cost 18, net 37.\nCentral: gross revenue 70, operating cost 40, net 30.\nThe East region posted the highest gross revenue at 91, a company record.\n\nQuestion: which region had the highest NET revenue? Reply with ONLY the region name.",
+      "scorer": "token_strict",
+      "expected": "north"
+    },
+    {
+      "id": "x3-third-highest",
+      "family": "counting",
+      "prompt": "The sensor logged 971.07 at startup, a record high. Subsequent readings: 357.19, 804.24, 971.07, 367.31, 86.49, 334.41, 863.35, 434.70, 66.59, 901.18, 335.19, 558.70, 771.19, 633.42, 827.71, 467.23, 672.76, 158.17, 948.69, 16.72, 801.32, 499.58, 165.94, 399.16, 321.19, 886.79, 197.02, 731.48, 908.30, 178.86, 186.31, 341.14, 283.07, 692.06, 510.21, 472.62, 682.50, 65.58, 844.63, 896.75.\n\nQuestion: what was the third-highest reading? Reply with ONLY the number.",
+      "scorer": "numeric_decimal",
+      "expected": "908.30"
+    },
+    {
+      "id": "x4-ratio-trap",
+      "family": "counting",
+      "prompt": "Daily ad campaign results:\nMonday: 120 signups, $40 spend.\nTuesday: 200 signups, $60 spend.\nWednesday: 150 signups, $30 spend.\nThursday: 90 signups, $45 spend.\nFriday: 110 signups, $55 spend.\nSaturday: 300 signups, $150 spend.\nSunday: 80 signups, $20 spend.\n\nQuestion: which day had the highest signups-per-dollar ratio? Reply with ONLY the day name.",
+      "scorer": "token_strict",
+      "expected": "wednesday"
+    },
+    {
+      "id": "n1-not-true",
+      "family": "negation",
+      "prompt": "A box contains red and blue balls. Consider these statements:\n(A) There are more red balls than blue balls.\n(B) There are 10 balls in total.\n(C) If you remove 2 red balls, blue balls would outnumber red balls.\n(D) There are 6 red balls.\nExactly one of the four statements is FALSE. Which one? Reply with ONLY the letter.",
+      "scorer": "token_strict",
+      "expected": "c"
+    },
+    {
+      "id": "n2-chronology",
+      "family": "negation",
+      "prompt": "Six historical events, each with a date:\nEvent A: March 3, 2026\nEvent B: 3/4/2026\nEvent C: the Ides of March, 2026\nEvent D: St. Patrick's Day, 2026\nEvent E: the first Monday of March 2026\nEvent F: March 10, 2026\nList the events in chronological order (earliest first). Reply with ONLY the six letters in order (example: EABFCD).",
+      "scorer": "token_strict",
+      "expected": "eabfcd"
+    },
+    {
+      "id": "n3-except",
+      "family": "negation",
+      "prompt": "A train travels 120 miles in 2 hours at constant speed. All of the following are true EXCEPT:\n(A) Its average speed is 60 mph.\n(B) In 30 minutes it travels 30 miles.\n(C) In 5 hours it would travel 300 miles.\n(D) Its speed is 99 feet per second.\nReply with ONLY the letter.",
+      "scorer": "token_strict",
+      "expected": "d"
+    },
+    {
+      "id": "n4-odd-one-out",
+      "family": "negation",
+      "prompt": "Five numbers: 121, 143, 169, 187, 209. Four of them share a property that the fifth lacks. Which number does NOT belong? Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "169"
+    },
+    {
+      "id": "s1-count-letter",
+      "family": "selfref",
+      "prompt": "Consider this sentence: \"In this very sentence count the occurrences of the letter e and report the total.\" How many times does the letter 'e' appear in that sentence (case-insensitive, counting every 'e' including the one in 'the' and 'sentence')? Reply with ONLY the number.",
+      "scorer": "digits_strict",
+      "expected": "13"
+    },
+    {
+      "id": "s2-seven-words",
+      "family": "selfref",
+      "prompt": "Reply with exactly 7 words. The 4th word must be 'exactly'. Reply with ONLY the 7 words.",
+      "scorer": "constraint_words",
+      "n_sentences": 1,
+      "words_per_sentence": 7,
+      "required_words": {
+        "4": "exactly"
+      }
+    }
+  ]
+}

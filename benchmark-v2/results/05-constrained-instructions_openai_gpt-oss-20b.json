@@ -1,0 +1,18 @@
+{
+  "task": "05-constrained-instructions",
+  "generator": "openai/gpt-oss-20b",
+  "scorer": "mechanical_constraints",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "terminators=3, words=21",
+      "answer": "Light from the sun enters the atmosphere. Shorter wavelengths scatter more than longer ones. Our eyes detect that scattered blue light.\n"
+    }
+  ],
+  "final_pass": true,
+  "final_answer": "Light from the sun enters the atmosphere. Shorter wavelengths scatter more than longer ones. Our eyes detect that scattered blue light.\n",
+  "revisions_used": 0,
+  "total_calls": 1
+}

@@ -1,0 +1,95 @@
+```python
+import re
+from typing import Dict, Tuple, List
+
+def seval(s: str) -> float:
+    # Tokenize: separate parentheses and split on whitespace
+    tokens: List[str] = re.sub(r'([()])', r' \1 ', s).split()
+
+    def parse(idx: int, env: Dict[str, float]) -> Tuple[float, int]:
+        token = tokens[idx]
+
+        # literal number or variable
+        if token not in ('(', ')'):
+            try:
+                return float(token), idx + 1
+            except ValueError:
+                if token in env:
+                    return env[token], idx + 1
+                raise NameError(f'Undefined variable {token}')
+
+        # must be '('
+        if token != '(':
+            raise SyntaxError('Expected "("')
+        idx += 1
+        head = tokens[idx]
+
+        # ---------- let ----------
+        if head == 'let':
+            idx += 1                     # skip 'let'
+            if tokens[idx] != '(':
+                raise SyntaxError('Expected "(" after let')
+            idx += 1                     # skip '(' of bindings list
+
+            # sequential bindings
+            local_env = env.copy()
+            while tokens[idx] != ')':
+                if tokens[idx] != '(':
+                    raise SyntaxError('Expected "(" to start a binding')
+                idx += 1                 # skip '(' of a single binding
+                var = tokens[idx]
+                idx += 1
+                val, idx = parse(idx, local_env)
+                local_env[var] = val
+                if tokens[idx] != ')':
+                    raise SyntaxError('Expected ")" after a binding')
+                idx += 1                 # skip ')'
+            idx += 1                     # skip ')' ending bindings list
+
+            # body expression
+            result, idx = parse(idx, local_env)
+
+            if tokens[idx] != ')':
+                raise SyntaxError('Expected ")" after let body')
+            return result, idx + 1
+
+        # ---------- operators ----------
+        op = head
+        idx += 1                         # move past operator
+        args: List[float] = []
+
+        while tokens[idx] != ')':
+            val, idx = parse(idx, env)
+            args.append(val)
+
+        idx += 1                         # skip ')'
+
+        if op == '+':
+            return sum(args), idx
+        if op == '*':
+            prod = 1.0
+            for a in args:
+                prod *= a
+            return prod, idx
+        if op == '-':
+            if len(args) == 1:
+                return -args[0], idx
+            res = args[0]
+            for a in args[1:]:
+                res -= a
+            return res, idx
+        if op == '/':
+            if len(args) == 1:
+                return 1.0 / args[0], idx
+            res = args[0]
+            for a in args[1:]:
+                res /= a
+            return res, idx
+
+        raise ValueError(f'Unknown operator {op}')
+
+    value, next_idx = parse(0, {})
+    if next_idx != len(tokens):
+        raise SyntaxError('Extra tokens after complete expression')
+    return float(value)
+```

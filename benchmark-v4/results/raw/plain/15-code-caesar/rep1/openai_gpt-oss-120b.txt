@@ -1,0 +1,15 @@
+def caesar_decode(text: str, shift: int) -> str:
+    result = []
+    shift = shift % 26  # normalize shift
+    for ch in text:
+        if 'A' <= ch <= 'Z':
+            offset = ord('A')
+            new_char = chr((ord(ch) - offset - shift) % 26 + offset)
+            result.append(new_char)
+        elif 'a' <= ch <= 'z':
+            offset = ord('a')
+            new_char = chr((ord(ch) - offset - shift) % 26 + offset)
+            result.append(new_char)
+        else:
+            result.append(ch)
+    return ''.join(result)

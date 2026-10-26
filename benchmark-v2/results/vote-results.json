@@ -1,0 +1,851 @@
+{
+  "01-factual-precision": {
+    "task_id": "01-factual-precision",
+    "scorer": "exact_year",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "1889",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "1889",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "1889",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "1889",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "1889",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "1889",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "1889",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "1889",
+    "majority_voters": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "cohere/north-mini-code:free",
+      "dots-studio/dots-3-note-preview:free",
+      "gemini-3.5-flash-lite",
+      "gemini-3.8-flash",
+      "liquid/lfm-2.5-2.6b:free"
+    ],
+    "majority_scorable_text": "1889",
+    "pass": true,
+    "detail": "years_found=['1889']",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "1889"
+  },
+  "02-multi-step-arithmetic": {
+    "task_id": "02-multi-step-arithmetic",
+    "scorer": "numeric_exact",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "1665",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "1665",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "1665",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "1665",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "1539.38",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "1665",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "1665",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "1665",
+    "majority_voters": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "cohere/north-mini-code:free",
+      "dots-studio/dots-3-note-preview:free",
+      "gemini-3.8-flash",
+      "liquid/lfm-2.5-2.6b:free"
+    ],
+    "majority_scorable_text": "1665",
+    "pass": true,
+    "detail": "numbers_found=[1665.0]",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "1665"
+  },
+  "03-code-prime": {
+    "task_id": "03-code-prime",
+    "scorer": "code_tests",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    for i in range(3, int(n**0.5) + 1, 2):\n        if n % i == 0:\n            return False\n    return True",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n == 2:\n        return True\n    if n % 2 == 0:\n        return False\n    i = 3\n    while i * i <= n:\n        if n % i == 0:\n            return False\n        i += 2\n    return True",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+    "majority_voters": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "gemini-3.5-flash-lite",
+      "gemini-3.8-flash",
+      "liquid/lfm-2.5-2.6b:free"
+    ],
+    "majority_scorable_text": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True",
+    "pass": true,
+    "detail": "tests_passed=10/10",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "def is_prime(n):\n    if n <= 1:\n        return False\n    if n <= 3:\n        return True\n    if n % 2 == 0 or n % 3 == 0:\n        return False\n    i = 5\n    while i * i <= n:\n        if n % i == 0 or n % (i + 2) == 0:\n            return False\n        i += 6\n    return True"
+  },
+  "04-structured-json": {
+    "task_id": "04-structured-json",
+    "scorer": "json_exact",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}",
+    "majority_voters": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "cohere/north-mini-code:free",
+      "dots-studio/dots-3-note-preview:free",
+      "gemini-3.5-flash-lite",
+      "gemini-3.8-flash",
+      "liquid/lfm-2.5-2.6b:free"
+    ],
+    "majority_scorable_text": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}",
+    "pass": true,
+    "detail": "parsed={'age': 36, 'name': 'Ada', 'tags': ['math', 'code']}",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "{\"age\": 36, \"name\": \"Ada\", \"tags\": [\"math\", \"code\"]}"
+  },
+  "05-constrained-instructions": {
+    "task_id": "05-constrained-instructions",
+    "scorer": "mechanical_constraints",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "Sunlight contains many colors. The atmosphere scatters short wavelengths more than long ones. This scattering makes the sky appear blue.",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "Light from the sun enters the atmosphere. Shorter wavelengths scatter more than longer ones. Our eyes detect that scattered blue light.",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "The sun\u2019s light scatters shorter wavelengths more than longer ones. Blue light dominates the scattered light that reaches our eyes. This scattering makes the sky appear blue during the day.",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "Sunlight contains many colors. The air molecules scatter shorter wavelengths more strongly. This scattered blue light reaches our eyes.",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "Sunlight hits Earth's atmosphere. Gases scatter short blue wavelengths. Our eyes perceive this scattered light.",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "Sunlight contains every color of the rainbow. Earth's atmosphere scatters blue light more than other colors because of its short wavelength. We see this scattered light as a blue sky.",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "Sunlight contains many colors. Molecules in the air scatter short wavelengths more than long ones. The scattered blue light reaches our eyes and makes the sky appear blue.",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "Sunlight contains many colors. The atmosphere scatters short wavelengths more than long ones. This scattering makes the sky appear blue.",
+    "majority_voters": [
+      "openai/gpt-oss-120b"
+    ],
+    "majority_scorable_text": "Sunlight contains many colors. The atmosphere scatters short wavelengths more than long ones. This scattering makes the sky appear blue.",
+    "pass": true,
+    "detail": "terminators=3, words=20",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "Sunlight contains many colors. The atmosphere scatters short wavelengths more than long ones. This scattering makes the sky appear blue."
+  },
+  "06-summary-coverage": {
+    "task_id": "06-summary-coverage",
+    "scorer": "fact_substrings",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "9289|1891|8",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "9289|1891|8",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "9289|1891|8",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "9289|1891|8",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "9289|1891|8",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "9289|1891|8",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "9289|1891|8",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "9289|1891|8",
+    "majority_voters": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "cohere/north-mini-code:free",
+      "dots-studio/dots-3-note-preview:free",
+      "gemini-3.5-flash-lite",
+      "gemini-3.8-flash",
+      "liquid/lfm-2.5-2.6b:free"
+    ],
+    "majority_scorable_text": "The railway spans 9289 km, began in 1891, crosses 8 time zones.",
+    "pass": true,
+    "detail": "all present",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "9289|1891|8"
+  },
+  "07-date-reasoning": {
+    "task_id": "07-date-reasoning",
+    "scorer": "day_name",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "saturday",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "saturday",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "saturday",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "saturday",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "saturday",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "saturday",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "saturday",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "saturday",
+    "majority_voters": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "cohere/north-mini-code:free",
+      "dots-studio/dots-3-note-preview:free",
+      "gemini-3.5-flash-lite",
+      "gemini-3.8-flash",
+      "liquid/lfm-2.5-2.6b:free"
+    ],
+    "majority_scorable_text": "saturday",
+    "pass": true,
+    "detail": "normalized='saturday'",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "saturday"
+  },
+  "08-unit-conversion": {
+    "task_id": "08-unit-conversion",
+    "scorer": "numeric_tolerance",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "2.2352",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "2.2352",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "2.2352",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "5|1|1609.34|1|3600|60|60|60|60|3600|5|5|1609.34|3600|5|1609.34|8046.7|3600|8046.7|3600|8046.7|3600|100|3600|2|7200|8046.7|7200|846.7|2|846.7|3600|846.7|3600|846.7|3600|3600|0.2|720|846.7|720|126.7|0.2|126.7|3600|126.7|3600|3600|0.035|126|3600|0.03|108|3600|0.005|18|108|18|126|0.035|0.7|3600|0.035|0.0001944|0.0351944|2|0.2|2.2|2.2|0.0351944|2.23519|1|0.44704|1|1609.34|3600|1609.34|3600|1609.34|3600|1609.34|3600|2|804.67|1800|1609.34|3600|0.447039|0.44704|5|5|0.44704|2.2352|4|2.2352|5|1609.34|3600|1609.34|3600|1609.34|3600|1609.34|3600|0.447039|5|0.447039|2.23519|4|2.2352|9|5|1|2|2.23519|2.2351|9|9|5|1|2|2.2352|2.23519|9|1|2|2.2352|1|1609.34|1|1609.34|1609.34|1|1609.34|1|1609.34|1|1609.34|3600|1609.34|3600|1609.34|3600|1609.34|3600|0.44704|3600|0.44704|3600|0.4|1440|3600|0.047|169.2|3600|4e-05|0.144|1440|169.2|1609.2|0.144|1609.34|0.44704|1|5|5|0.44704|2.2352|4|2.2352|4|2.2352|2.2352|5|0.44704|2.2352|0.44704|2.2352|0.44704|1609.34|3600|2.2352|1609.34|2.23519|2.2352|2.2352|4|2.2352|2.2352|5|5|1609.34|8046.72|3600|8046.72|3600|8046.72|3600|3600|2|7200|8046.72|7200|846.72|2|846.72|3600|846.72|3600|0.2352|3600|0.2352|3600|0.2|720|360",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "2.2352",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "2.2352",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "2.2352",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "2.2352",
+    "majority_voters": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "cohere/north-mini-code:free",
+      "gemini-3.5-flash-lite",
+      "gemini-3.8-flash",
+      "liquid/lfm-2.5-2.6b:free"
+    ],
+    "majority_scorable_text": "2.2352",
+    "pass": true,
+    "detail": "numbers_found=[2.2352]",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "2.2352"
+  },
+  "09-classification": {
+    "task_id": "09-classification",
+    "scorer": "label_sequence",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "FRUIT|VEGETABLE|GRAIN|FRUIT|VEGETABLE",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "FRUIT|VEGETABLE|GRAIN|FRUIT|VEGETABLE",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "FRUIT|VEGETABLE|GRAIN|FRUIT|VEGETABLE",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "FRUIT|VEGETABLE|GRAIN|FRUIT|VEGETABLE",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "FRUIT|VEGETABLE|GRAIN|FRUIT|VEGETABLE",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "FRUIT|VEGETABLE|GRAIN|FRUIT|VEGETABLE",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "?|?|?|?|?",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "FRUIT|VEGETABLE|GRAIN|FRUIT|VEGETABLE",
+    "majority_voters": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "cohere/north-mini-code:free",
+      "dots-studio/dots-3-note-preview:free",
+      "gemini-3.5-flash-lite",
+      "gemini-3.8-flash"
+    ],
+    "majority_scorable_text": "FRUIT\nVEGETABLE\nGRAIN\nFRUIT\nVEGETABLE",
+    "pass": true,
+    "detail": "labels=['FRUIT', 'VEGETABLE', 'GRAIN', 'FRUIT', 'VEGETABLE']",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "FRUIT|VEGETABLE|GRAIN|FRUIT|VEGETABLE"
+  },
+  "10-calibration-refusal": {
+    "task_id": "10-calibration-refusal",
+    "scorer": "uncertainty_expressed",
+    "votes": [
+      {
+        "model": "openai/gpt-oss-120b",
+        "vote": "UNCERTAIN",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "openai/gpt-oss-20b",
+        "vote": "UNCERTAIN",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "cohere/north-mini-code:free",
+        "vote": "UNCERTAIN",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "dots-studio/dots-3-note-preview:free",
+        "vote": "UNCERTAIN",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3-flash-preview",
+        "vote": null,
+        "cached": null,
+        "status": "abstain"
+      },
+      {
+        "model": "gemini-3.5-flash-lite",
+        "vote": "UNCERTAIN",
+        "cached": null,
+        "status": "voted"
+      },
+      {
+        "model": "gemini-3.8-flash",
+        "vote": "UNCERTAIN",
+        "cached": true,
+        "status": "voted"
+      },
+      {
+        "model": "liquid/lfm-2.5-2.6b:free",
+        "vote": "UNCERTAIN",
+        "cached": true,
+        "status": "voted"
+      }
+    ],
+    "abstentions": [
+      "nvidia/nemotron-3.5-lightning:free",
+      "nvidia/nemotron-3-super-120b-a12b:free",
+      "gemini-3-flash-preview"
+    ],
+    "majority_normalized": "UNCERTAIN",
+    "majority_voters": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "cohere/north-mini-code:free",
+      "dots-studio/dots-3-note-preview:free",
+      "gemini-3.5-flash-lite",
+      "gemini-3.8-flash",
+      "liquid/lfm-2.5-2.6b:free"
+    ],
+    "majority_scorable_text": "I'm not sure; there was no such study.",
+    "pass": true,
+    "detail": "marker='no such'",
+    "diverged_from_120b": false,
+    "model_120b_normalized": "UNCERTAIN"
+  }
+}

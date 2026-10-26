@@ -1,0 +1,57 @@
+```python
+def add_business_days(date_str: str, n: int) -> str:
+    # ----- helpers for Gregorian calendar ----- #
+    def to_ordinal(y: int, m: int, d: int) -> int:
+        """Days since 0001‑01‑01 (ordinal 1)."""
+        if m <= 2:
+            y -= 1
+            m += 12
+        return (
+            365 * y
+            + y // 4
+            - y // 100
+            + y // 400
+            + (153 * (m - 3) + 2) // 5
+            + d
+        )  # 1‑based
+
+    def from_ordinal(ord_: int) -> tuple[int, int, int]:
+        """Inverse of to_ordinal, returns (year, month, day)."""
+        # algorithm from "Calendrical Calculations"
+        a = ord_ + 306
+        b = (10000 * a + 14780) // 3652425
+        c = a - (365 * b + b // 4 - b // 100 + b // 400)
+        if c < 0:
+            b -= 1
+            c = a - (365 * b + b // 4 - b // 100 + b // 400)
+        d = (100 * c + 52) // 3060
+        month = (d + 2) % 12 + 1
+        year = b + (d + 2) // 12
+        day = c - (d * 306 + 5) // 10 + 1
+        return year, month, day
+
+    # ----- parse input ----- #
+    y, m, d = map(int, date_str.split("-"))
+    ord_cur = to_ordinal(y, m, d)
+
+    # weekday: Monday=0 … Sunday=6, 0001‑01‑01 was Monday
+    def weekday(ord_: int) -> int:
+        return (ord_ - 1) % 7
+
+    # ----- move n business days ----- #
+    if n > 0:
+        while n:
+            ord_cur += 1
+            if weekday(ord_cur) < 5:   # Mon‑Fri
+                n -= 1
+    elif n < 0:
+        while n:
+            ord_cur -= 1
+            if weekday(ord_cur) < 5:
+                n += 1   # n is negative, add 1 moves it toward zero
+
+    # n == 0 -> unchanged (including weekends)
+
+    y2, m2, d2 = from_ordinal(ord_cur)
+    return f"{y2:04d}-{m2:02d}-{d2:02d}"
+```

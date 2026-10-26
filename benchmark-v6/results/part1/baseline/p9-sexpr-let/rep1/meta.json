@@ -1,0 +1,29 @@
+{
+  "mechanism": "baseline",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "tests_passed=0/5",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": true,
+      "detail": "tests_passed=5/5",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 617,
+      "completion_chars": 2760
+    },
+    {
+      "prompt_chars": 3642,
+      "completion_chars": 2977
+    }
+  ],
+  "task": "p9-sexpr-let",
+  "rep": "1"
+}

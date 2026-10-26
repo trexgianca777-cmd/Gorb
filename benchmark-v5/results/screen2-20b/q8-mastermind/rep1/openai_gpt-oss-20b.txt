@@ -1,0 +1,65 @@
+We need find code. Let's brute reasoning. Let code digits ABCD distinct.
+
+Clue 1539: 3 correct in right position, 0 wrong. So three positions match exactly, the other digit not in code. So from 1 5 3 9, three positions are correct. Which one is wrong? Could be any of four. The wrong digit not in code.
+
+Try possibilities. Also other clues.
+
+Let's try guess which digit is wrong. Suppose wrong is 1. Then code is 5 3 9 ?. Distinct. Now check other clues.
+
+Guess 6380: digits 6 3 8 0. Code has 3 at position2. So 3 is correct position. That gives 1 correct right pos. Also need 1 correct wrong pos. The other digits 6,8,0 none in code except maybe 0? code currently 5,3,9,?. 0 not in code. 6,8 not. So no other correct. So fails. So wrong not 1.
+
+Try wrong 5. Code: 1 3 9 ?. Check 6380: 3 at pos2 correct. Need 1 more correct wrong pos. None of 6,8,0 in code. So fail.
+
+Wrong 3. Code:1 5 9 ?. 6380: 6,3,8,0. 3 not in code. 6,8,0 none. So zero correct. Fail.
+
+Wrong 9. Code:1 5 3 ?. 6380: 6,3,8,0. 3 at pos3 correct. Need one more correct wrong pos. None. Fail.
+
+So maybe our assumption wrong: The clue says 3 correct in right position, 0 correct in wrong. Means exactly 3 positions match, the fourth digit not in code. We tried all. None fit clue1? Wait maybe code digits distinct; we tried all possibilities but each fails clue1. Did we misinterpret clue1? Maybe 6380: 1 correct right pos, 1 correct wrong pos. That could be satisfied with code 1 5 3 ?. Let's test again: code 1 5 3 ?. 6380: 6,3,8,0. 3 at pos3 correct? Wait 6380 pos3 is 8, not 3. So 3 not correct pos. So no correct pos. So fail.
+
+Thus our assumption wrong: maybe the code could have 3 correct right pos but the wrong digit could be one of the digits that are also in other guesses? But we tested all. So maybe code not from 1539? Wait clue says 3 digits correct and in right position, 0 correct digit in wrong position. So exactly 3 of the 4 digits match both value and position. So code must be 3 digits from 1539 in correct spots, the other digit is not 0-9? Wait could be 0-9 but not in set {1,5,3,9}. So code digits are 3 of those four and one other digit.
+
+We tried all possibilities, each fails clue1. Did we mis-evaluate clue1 for some? Let's re-evaluate each.
+
+Case wrong 1: code 5 3 9 ?. Clue1 6380: positions: 6-3-8-0. Code 5-3-9-?. Only 3 matches at pos2. Good. Need one correct wrong pos: none. So fail.
+
+Wrong 5: code 1 3 9 ?. 6380: only 3 at pos2? Wait pos2 is 3 in guess, code pos2 is 3. Good. Need one more correct wrong pos: none. Fail.
+
+Wrong 3: code 1 5 9 ?. 6380: any matches? 6? no. 3? no. 8? no. 0? no. So fail.
+
+Wrong 9: code 1 5 3 ?. 6380: 6? no. 3? pos3 in guess is 8, so no. 8? no. 0? no. So fail.
+
+Thus no solution. Maybe we misinterpret clue1: maybe 1 digit correct right pos, 1 correct wrong pos, but could be same digit counted twice? No.
+
+Thus maybe our earlier assumption wrong: The code digits are four different digits 0-9. Clue 1539: 3 correct right position, 0 correct wrong. That means exactly 3 digits of the guess are in the code and in same position; the fourth digit is not in code at all. That we used.
+
+But we found none satisfy clue1. Maybe we mis-evaluated clue1 for wrong 5? Wait code 1 3 9 ?. 6380: 3 at pos2 matches. Need one more correct wrong pos: maybe 0? code has 0? no. 6? no. 8? no. So fail.
+
+Thus inconsistency suggests maybe our earlier assumption about clue1 wrong? Let's brute search all 4-digit codes distinct digits satisfying all clues. Let's quickly brute mentally? Maybe easier: Use logic.
+
+From clue4: 1539 has 3 correct positions. So code is either 153x, 15x9, 1x39, x539 with x not in {1,5,3,9}. Let's test each with other clues.
+
+Test code 153x. x not in {1,5,3,9}. Clue1: 6380. Code 1 5 3 x. Compare: pos1 6 vs1 no. pos2 3 vs5 no. pos3 8 vs3 no. pos4 0 vs x no. So 0 correct right pos. Need 1 correct wrong pos. Which digits of guess are in code? 6? no. 3? code has 3 at pos3. So 3 is correct digit wrong pos (since guess pos2). That's one. 8? no. 0? no. So we have 1 correct wrong pos satisfied. But we also need 1 correct right pos, which we don't have. So fail.
+
+Code 15x9. Code 1 5 x 9. Clue1: 6380. Check matches: pos1 6 vs1 no. pos2 3 vs5 no. pos3 8 vs x no. pos4 0 vs9 no. So 0 correct right pos. Need 1 correct wrong pos: guess digits 6,3,8,0. Which are in code? 6 no,3 no,8 no,0 no. So fail.
+
+Code 1x39. Code 1 x 3 9. Clue1: 6380. pos1 6 vs1 no. pos2 3 vs x no. pos3 8 vs3 no. pos4 0 vs9 no. 0 correct right pos. Need 1 correct wrong pos: guess digits 6,3,8,0. 3 is in code at pos3, guess pos2. That's one correct wrong pos. Good. Need 1 correct right pos: none. Fail.
+
+Code x539. Code x 5 3 9. Clue1: 6380. pos1 6 vs x no. pos2 3 vs5 no. pos3 8 vs3 no. pos4 0 vs9 no. 0 correct right pos. Need 1 correct wrong pos: guess digits 6,3,8,0. 3 in code pos3, guess pos2 => correct wrong pos. Good. Need 1 correct right pos: none. Fail.
+
+Thus no code works. Maybe we misinterpret clue1: maybe "1 digit correct and in the right position, 1 correct digit in the wrong position" means total 2 correct digits, one in right place, one in wrong place. We used that. So no solution. Something off.
+
+Maybe clue4 means 3 digits correct and in right position, but the 4th digit could be correct but in wrong position? No it says 0 correct digit in wrong position. So fine.
+
+Maybe code digits not distinct? But says four different digits. So.
+
+Possibility: we mis-evaluated clue1 for code 153x earlier: we had 0 correct right pos, but need 1. So fails.
+
+Thus maybe our assumption that code from 1539 is wrong; maybe 1539 clue is misinterpreted: could mean 3 digits correct but not necessarily in correct position? But says "in the right position". So okay.
+
+Maybe there's mistake in puzzle? But likely there is solution.
+
+Let's brute using quick script mentally? Too heavy.
+
+Maybe we mis-evaluated clue1 for code 1x39: we had 0 correct right pos. But maybe x could be 6? If x=6, code 1 6 3 9. Check clue1: 6380. pos1 6 vs1 no. pos2 3 vs6 no. pos3 8 vs3 no. pos4 0 vs9 no. 0 correct right pos none. Need 1 correct wrong pos: guess digits 6,3,8,0. 6 is in code pos2, guess pos1 => correct wrong pos. 3 in code pos3, guess pos2 => correct wrong pos. That's two wrong pos, not one. So fails.
+
+Try x=8: code 1 8 3 9. Clue1: 6380. 6 no,3? code pos3 3, guess pos2 3 => wrong pos. 

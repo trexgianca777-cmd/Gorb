@@ -1,0 +1,34 @@
+{
+  "mechanism": "bestof5",
+  "samples": [
+    {
+      "sample": 1,
+      "pass": false,
+      "detail": "code crashed: File \"/tmp/tmpl5rkj2n3.py\", line 64\n    nonlocal it\n    ^^^^^^^^^^^\nSyntaxError: name 'it' is used prior to nonlocal declaration"
+    },
+    {
+      "sample": 2,
+      "pass": false,
+      "detail": "code crashed: File \"/tmp/tmp6pmarfk_.py\", line 64\n    nonlocal it\n    ^^^^^^^^^^^\nSyntaxError: name 'it' is used prior to nonlocal declaration"
+    },
+    {
+      "sample": 3,
+      "pass": false,
+      "detail": "code crashed: File \"/tmp/tmpdopml845.py\", line 64\n    nonlocal it\n    ^^^^^^^^^^^\nSyntaxError: name 'it' is used prior to nonlocal declaration"
+    },
+    {
+      "sample": 4,
+      "pass": false,
+      "detail": "code crashed: File \"/tmp/tmppnj1zrc5.py\", line 64\n    nonlocal it\n    ^^^^^^^^^^^\nSyntaxError: name 'it' is used prior to nonlocal declaration"
+    },
+    {
+      "sample": 5,
+      "pass": false,
+      "detail": "code crashed: File \"/tmp/tmpsekov9i1.py\", line 64\n    nonlocal it\n    ^^^^^^^^^^^\nSyntaxError: name 'it' is used prior to nonlocal declaration"
+    }
+  ],
+  "picked": null,
+  "calls": 5,
+  "task": "p9-sexpr-let",
+  "rep": "3"
+}

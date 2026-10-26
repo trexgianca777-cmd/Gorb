@@ -1,0 +1,39 @@
+{
+  "mechanism": "baseline",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "repeated": false
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 662,
+      "completion_chars": 1584
+    },
+    {
+      "prompt_chars": 2512,
+      "completion_chars": 1771
+    },
+    {
+      "prompt_chars": 2699,
+      "completion_chars": 1640
+    }
+  ],
+  "task": "c1-expr-eval-3",
+  "rep": "1"
+}

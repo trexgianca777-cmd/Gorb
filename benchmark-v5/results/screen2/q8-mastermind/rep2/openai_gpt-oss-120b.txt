@@ -1,0 +1,65 @@
+We need solve. Let code ABCD.
+
+Guess1 6380: digits {6,3,8,0}. Exactly 1 correct in right place, and 1 correct wrong place. So total 2 correct digits among those, one positioned correctly.
+
+Guess2 3046: digits 3,0,4,6. 0 correct right place, 2 correct wrong place. So none in correct positions, but exactly two of these digits are in code, both misplaced.
+
+Guess3 8564: digits 8,5,6,4. 1 right place, 1 wrong place. total 2 correct digits.
+
+Guess4 1539: digits 1,5,3,9. 3 right place, 0 wrong place. So three digits are correct and in correct positions, and the fourth digit is not in code.
+
+Thus code shares three positions with 1539. Let's denote positions 1-4.
+
+Guess4: position1=1, pos2=5, pos3=3, pos4=9. Three of these are correct in place. Which one is wrong? Also the wrong digit is not in code at all.
+
+We need to test possibilities.
+
+Consider which position is wrong. Try each.
+
+Case A: pos1 wrong (so code not 1). Then positions 2=5,3=3,4=9 are correct. So code = _ 5 3 9 with first digit not 1 and also 1 not in code. Digits used: 5,3,9 plus unknown distinct not 1, also not equal to others.
+
+Check other clues.
+
+Guess1 6380: compare to code _ 5 3 9.
+Positions: 6 vs ?, 3 vs5,8 vs3,0 vs9. Right place matches? none (since pos2 is 5 not 3, pos3 is3 not8). So right place count 0, but need 1. So case A invalid.
+
+Case B: pos2 wrong (code not 5). Then pos1=1, pos3=3, pos4=9 correct. Code =1 _ 3 9, digit5 not in code. Also 5 not present elsewhere.
+
+Check guess1 6380 vs 1 _ 3 9:
+Positions: 6 vs1 no,3 vs?,8 vs3,0 vs9. Right place? none (pos3 is 3 vs8 no). Need 1 right place, so maybe pos2? but guess1 pos2 is 3, code pos2 unknown. Could be 3? but 3 already used at pos3, digits must be distinct, so no. So can't get right place. So invalid.
+
+Case C: pos3 wrong (code not 3). Then pos1=1,pos2=5,pos4=9 correct. Code =1 5 _ 9, digit3 not in code.
+
+Check guess1 6380 vs 1 5 _ 9:
+Positions: 6 vs1 no,3 vs5 no,8 vs?,0 vs9 no. Right place count 0, need 1. So maybe pos3? guess1 pos3 is 8, could be correct place if code pos3=8. That would give right place 1. Good. Also need one other correct digit wrong place among the remaining digits of guess1. Digits in guess1 are 6,3,8,0. We already used 8 as right place. Need one more digit from {6,3,0} present elsewhere in code but not in its guessed position. Code currently has digits 1,5,?,9. So possible extra digit could be 6 or 0 (3 is excluded). So unknown position could be 6 or 0, and that digit would be in code but not in its guessed position. In guess1, positions: 6 at pos1, 0 at pos4. If code unknown is 6 at pos3? but 6 is at pos1 in guess, so if code has 6 at pos3 that's wrong place (since guess pos3 is 8). That's acceptable. Or code has 0 at pos3, then 0 was at pos4 in guess, also wrong place. So possible.
+
+Now check other clues.
+
+Guess2 3046: digits 3,0,4,6. Need 0 right place, 2 correct wrong place. Our code currently 1 5 X 9. Positions: pos1=1 not 3, pos2=5 not0, pos3=X not4, pos4=9 not6. So right place 0 satisfied. Need exactly two of these digits are in code, both misplaced. The set {3,0,4,6}. Since 3 is not in code (excluded), we need two among {0,4,6}. So code must contain exactly two of 0,4,6. One of them is X (pos3) maybe, and another could be somewhere else but positions 1,2,4 are already 1,5,9 none of those. So the second must be at pos? none left. So impossible unless X accounts for two digits which can't. So case C invalid.
+
+Case D: pos4 wrong (code not 9). Then pos1=1,pos2=5,pos3=3 correct. Code =1 5 3 _. Digit9 not in code.
+
+Now evaluate guess1 6380 vs 1 5 3 ?:
+Positions: 6 vs1 no,3 vs5 no,8 vs3 no,0 vs? no. Right place 0, need 1. So maybe unknown ? equals one of guessed digits placed correctly. Could be 8 at pos3? but pos3 is 3 fixed. Could be 6 at pos1? no. Could be 0 at pos4? if code pos4=0 then guess pos4 is 0 matches right place -> gives 1 right place. Good. So set pos4=0. Then right place count satisfied. Need one additional correct digit wrong place among remaining digits {6,3,8}. 3 is already in code at pos3, but in guess it's at pos2. That's a correct digit wrong place (since 3 in code pos3, guess pos2). So that gives the second correct digit wrong place. So guess1 satisfied: right place=0 at pos4, wrong place=3. Good.
+
+Now check guess2 3046: code 1 5 3 0. Compare positions: pos1 guess3 vs1 no, pos2 0 vs5 no, pos3 4 vs3 no, pos4 6 vs0 no. Right place 0 ok. Need 2 correct digits wrong place. Digits set {3,0,4,6}. In code we have 3 and 0 present. Their positions in guess: 3 is at pos1, code pos3 -> wrong place good. 0 is at pos2, code pos4 -> wrong place good. So exactly 2 correct wrong place satisfied. Good.
+
+Guess3 8564: need 1 right place,1 wrong place. Compare code 1 5 3 0.
+
+Positions: pos1 8 vs1 no, pos2 5 vs5 yes right place! So one right place satisfied. Need one more correct digit wrong place among remaining digits {8,6,4}. Code has digits 1,5,3,0 none of those, so none. But we need exactly one wrong place. So fails.
+
+Thus our assumption maybe wrong: maybe pos4 not 0. Could be other digit giving right place elsewhere. Let's reconsider case D with pos4 unknown not 9.
+
+We need exactly one right place in guess1. Options: right place could be pos1=6, pos2=3, pos3=8, or pos4=0. But pos1 is 1 fixed, cannot be 6. pos2 is5 cannot be3. pos3 is3 cannot be8. So only possible right place is pos4=0. So pos4 must be 0. So case D leads to conflict with guess3. Therefore no solution? maybe our earlier assumption about which digit wrong in guess4 different: maybe the wrong digit is still present elsewhere? clue says 0 correct digit(s) in wrong position, meaning any digit that is correct must be in right position; the wrong digit could still appear elsewhere? But since digits are all different, the wrong digit could be elsewhere? If a digit appears elsewhere, that would be a correct digit but wrong position, which is prohibited. So the wrong digit is not in code at all. So our reasoning stands.
+
+Thus maybe we missed alternative: In case C, we could have two of {0,4,6} with one being at pos3 and another also at some other position? But other positions are fixed 1,5,9, cannot. So impossible.
+
+Thus maybe our earlier case B could work if right place from guess1 is pos3=8? but pos3 is 3 fixed, no.
+
+Thus only viable is case D but conflict with guess3. Maybe guess3 right place could be pos3=6? but code pos3=3 fixed. So no.
+
+Thus maybe our assumption of which digit wrong in guess4 is wrong: could be that the wrong digit is still in code but in different position, but that would count as wrong place correct digit, which contradicts 0 wrong place. So no.
+
+Thus maybe there is no solution? But problem says exactly one. Let's brute think: maybe code digits not all distinct? It says four different digits. ok.
+
+Let's try systematic maybe code is 1539 with three right places meaning one of them

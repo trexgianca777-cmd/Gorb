@@ -1,0 +1,170 @@
+```python
+import re
+
+def parse_sjson(s: str):
+    _WHITESPACE = re.compile(r'\s*')
+    _NUMBER = re.compile(r'-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?')
+    _TRUE = re.compile(r'true')
+    _FALSE = re.compile(r'false')
+    _NULL = re.compile(r'null')
+    idx = 0
+    n = len(s)
+
+    def skip_ws():
+        nonlocal idx
+        m = _WHITESPACE.match(s, idx)
+        idx = m.end()
+
+    def expect(pat):
+        nonlocal idx
+        m = pat.match(s, idx)
+        if not m:
+            raise ValueError(f'Unexpected token at position {idx}')
+        idx = m.end()
+        return m
+
+    def parse_value():
+        skip_ws()
+        if idx >= n:
+            raise ValueError('Unexpected end of input')
+        ch = s[idx]
+        if ch == '"':
+            return parse_string()
+        if ch == '{':
+            return parse_object()
+        if ch == '[':
+            return parse_array()
+        if s.startswith('true', idx):
+            expect(_TRUE)
+            return True
+        if s.startswith('false', idx):
+            expect(_FALSE)
+            return False
+        if s.startswith('null', idx):
+            expect(_NULL)
+            return None
+        m = _NUMBER.match(s, idx)
+        if m:
+            num_str = m.group()
+            idx_end = m.end()
+            nonlocal idx
+            idx = idx_end
+            if '.' in num_str or 'e' in num_str or 'E' in num_str:
+                return float(num_str)
+            return int(num_str)
+        raise ValueError(f'Invalid token at position {idx}')
+
+    def parse_string():
+        nonlocal idx
+        if s[idx] != '"':
+            raise ValueError('Expected string')
+        idx += 1
+        result = []
+        while True:
+            if idx >= n:
+                raise ValueError('Unterminated string')
+            ch = s[idx]
+            if ch == '"':
+                idx += 1
+                break
+            if ch == '\\':
+                idx += 1
+                if idx >= n:
+                    raise ValueError('Unterminated escape')
+                esc = s[idx]
+                idx += 1
+                if esc == '"':
+                    result.append('"')
+                elif esc == '\\':
+                    result.append('\\')
+                elif esc == '/':
+                    result.append('/')
+                elif esc == 'b':
+                    result.append('\b')
+                elif esc == 'f':
+                    result.append('\f')
+                elif esc == 'n':
+                    result.append('\n')
+                elif esc == 'r':
+                    result.append('\r')
+                elif esc == 't':
+                    result.append('\t')
+                elif esc == 'u':
+                    if idx + 4 > n:
+                        raise ValueError('Invalid \\u escape')
+                    hex_digits = s[idx:idx+4]
+                    if not re.fullmatch(r'[0-9a-fA-F]{4}', hex_digits):
+                        raise ValueError('Invalid \\u escape')
+                    result.append(chr(int(hex_digits, 16)))
+                    idx += 4
+                else:
+                    raise ValueError(f'Invalid escape character \\{esc}')
+            else:
+                result.append(ch)
+                idx += 1
+        return ''.join(result)
+
+    def parse_array():
+        nonlocal idx
+        if s[idx] != '[':
+            raise ValueError('Expected array')
+        idx += 1
+        skip_ws()
+        arr = []
+        if idx < n and s[idx] == ']':
+            idx += 1
+            return arr
+        while True:
+            arr.append(parse_value())
+            skip_ws()
+            if idx >= n:
+                raise ValueError('Unterminated array')
+            if s[idx] == ',':
+                idx += 1
+                skip_ws()
+                continue
+            if s[idx] == ']':
+                idx += 1
+                break
+            raise ValueError(f'Expected , or ] at position {idx}')
+        return arr
+
+    def parse_object():
+        nonlocal idx
+        if s[idx] != '{':
+            raise ValueError('Expected object')
+        idx += 1
+        skip_ws()
+        obj = {}
+        if idx < n and s[idx] == '}':
+            idx += 1
+            return obj
+        while True:
+            skip_ws()
+            if idx >= n or s[idx] != '"':
+                raise ValueError('Expected string key')
+            key = parse_string()
+            skip_ws()
+            if idx >= n or s[idx] != ':':
+                raise ValueError('Expected : after key')
+            idx += 1
+            value = parse_value()
+            obj[key] = value
+            skip_ws()
+            if idx >= n:
+                raise ValueError('Unterminated object')
+            if s[idx] == ',':
+                idx += 1
+                continue
+            if s[idx] == '}':
+                idx += 1
+                break
+            raise ValueError(f'Expected , or }} at position {idx}')
+        return obj
+
+    result = parse_value()
+    skip_ws()
+    if idx != n:
+        raise ValueError('Extra data after valid JSON')
+    return result
+```

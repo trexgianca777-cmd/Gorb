@@ -1,0 +1,103 @@
+```python
+def seval(expr: str) -> float:
+    import math
+    tokens = expr.replace('(',' ( ').replace(')',' ) ').split()
+    it = iter(tokens)
+
+    def parse(env):
+        token = next(it)
+        if token == '(':
+            head = next(it)
+            if head == 'let':
+                # parse bindings list
+                if next(it) != '(':
+                    raise SyntaxError("Expected '(' after let")
+                # new environment extending current one
+                local_env = env.copy()
+                while True:
+                    nxt = next(it)
+                    if nxt == ')':  # end of bindings
+                        break
+                    if nxt != '(':
+                        raise SyntaxError("Expected '(' in let binding")
+                    var = next(it)
+                    val = parse(local_env)
+                    if next(it) != ')':
+                        raise SyntaxError("Expected ')' after let binding")
+                    local_env[var] = val
+                # body expression
+                result = parse(local_env)
+                if next(it) != ')':
+                    raise SyntaxError("Expected ')' after let body")
+                return result
+            else:
+                # operator application
+                op = head
+                args = []
+                while True:
+                    # peek next token without consuming
+                    # we need to look ahead; use iterator trick
+                    # Convert iterator to list for peeking is heavy, so we fetch and push back if needed
+                    # Instead, we rely on recursion: when we see ')', we stop.
+                    try:
+                        nxt = next(it)
+                    except StopIteration:
+                        raise SyntaxError("Unexpected EOF")
+                    if nxt == ')':
+                        break
+                    # put back the token by creating a temporary iterator
+                    # we achieve this by using a generator that yields the token then the rest
+                    # but simpler: we set a flag and handle in parse by passing the token
+                    # To keep it simple, we treat nxt as start of a subexpression:
+                    # create a small wrapper iterator that yields nxt then the rest of it
+                    # and temporarily replace 'it' with this wrapper.
+                    # However, Python's iterator cannot be easily rewound.
+                    # So we instead restructure: when we see a token that is not ')',
+                    # we treat it as the start of a subexpression and handle cases:
+                    if nxt == '(':
+                        # we have already consumed '('; need to push it back for parse
+                        # create a new iterator that yields '(' then the rest of original iterator
+                        # using a generator:
+                        def prepend(val, iterator):
+                            yield val
+                            yield from iterator
+                        nonlocal it
+                        it = prepend('(', it)
+                        args.append(parse(env))
+                    else:
+                        # atom
+                        if nxt.replace('.','',1).lstrip('-').isdigit():
+                            args.append(float(nxt))
+                        else:
+                            args.append(env[nxt])
+                # evaluate operator
+                if op == '+':
+                    return sum(args)
+                if op == '*':
+                    prod = 1.0
+                    for a in args:
+                        prod *= a
+                    return prod
+                if op == '-':
+                    if len(args) == 1:
+                        return -args[0]
+                    res = args[0]
+                    for a in args[1:]:
+                        res -= a
+                    return res
+                if op == '/':
+                    if len(args) == 1:
+                        return 1.0 / args[0]
+                    res = args[0]
+                    for a in args[1:]:
+                        res /= a
+                    return res
+                raise ValueError(f"Unknown operator {op}")
+        else:
+            # atom
+            if token.replace('.','',1).lstrip('-').isdigit():
+                return float(token)
+            return env[token]
+
+    return parse({})
+```

@@ -1,0 +1,16 @@
+{
+  "task": "11-adversarial-list",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "constraint_list",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "lines=7/7, count_done=1/1",
+      "answer": "- Aware of the quiet sunrise  \n- Bright birds sing softly  \n- Autumn leaves drift down  \n- Berries burst with color  \n- A gentle breeze whispers  \n- Brisk winds hint at change  \n- All tasks are done now\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}

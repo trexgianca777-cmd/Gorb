@@ -1,0 +1,26 @@
+{
+  "mechanism": "revise",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "sentences=3/3, sentence_1_starts_wrong, sentence_2_starts_wrong, sentence_3_starts_wrong",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "sentences=3/3, sentence_1_starts_wrong, sentence_2_starts_wrong, sentence_3_starts_wrong",
+      "repeated": false
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "sentences=3/3, sentence_1_starts_wrong, sentence_2_starts_wrong",
+      "repeated": false
+    }
+  ],
+  "calls": 3,
+  "task": "r8-no-e",
+  "rep": "1"
+}

@@ -1,0 +1,14 @@
+{
+  "mechanism": "selfcon",
+  "votes": [
+    "6539",
+    "6539",
+    "6539",
+    "6539",
+    "6539"
+  ],
+  "winner": "6539",
+  "calls": 5,
+  "task": "q8-mastermind",
+  "rep": "1"
+}

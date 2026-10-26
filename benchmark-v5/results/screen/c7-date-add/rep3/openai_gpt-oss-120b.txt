@@ -1,0 +1,59 @@
+```python
+def add_days(date_str: str, n: int) -> str:
+    # --- helper functions -------------------------------------------------
+    def is_leap(y: int) -> bool:
+        return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
+
+    def days_in_month(y: int, m: int) -> int:
+        month_lengths = [31, 28 + is_leap(y), 31, 30, 31, 30,
+                         31, 31, 30, 31, 30, 31]
+        return month_lengths[m - 1]
+
+    def days_before_year(y: int) -> int:
+        # number of days before Jan 1 of year y (y >= 1)
+        y_minus_1 = y - 1
+        return (365 * y_minus_1
+                + y_minus_1 // 4
+                - y_minus_1 // 100
+                + y_minus_1 // 400)
+
+    def days_before_month(y: int, m: int) -> int:
+        # days before month m in year y (m 1‑based)
+        month_lengths = [31, 28 + is_leap(y), 31, 30, 31, 30,
+                         31, 31, 30, 31, 30, 31]
+        return sum(month_lengths[:m - 1])
+
+    # --- convert input date to an absolute day count -----------------------
+    year, month, day = map(int, date_str.split('-'))
+    absolute = (days_before_year(year)
+                + days_before_month(year, month)
+                + day)                     # Jan 1, 1 => 1
+
+    # --- add the offset ----------------------------------------------------
+    absolute += n
+
+    # --- convert back to year/month/day ------------------------------------
+    # find year
+    y = 1
+    while True:
+        days_this_year = 366 if is_leap(y) else 365
+        if absolute > days_this_year:
+            absolute -= days_this_year
+            y += 1
+        else:
+            break
+
+    # find month
+    m = 1
+    while True:
+        dim = days_in_month(y, m)
+        if absolute > dim:
+            absolute -= dim
+            m += 1
+        else:
+            break
+
+    d = absolute
+
+    return f"{y:04d}-{m:02d}-{d:02d}"
+```

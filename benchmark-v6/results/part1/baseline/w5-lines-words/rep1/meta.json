@@ -1,0 +1,19 @@
+{
+  "mechanism": "baseline",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "lines=6/6, line_1_words=4/4, line_2_words=4/4, line_3_words=4/4, line_4_words=4/4, line_5_words=4/4, line_6_words=4/4",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 251,
+      "completion_chars": 200
+    }
+  ],
+  "task": "w5-lines-words",
+  "rep": "1"
+}

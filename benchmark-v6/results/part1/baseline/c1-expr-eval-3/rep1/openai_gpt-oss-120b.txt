@@ -1,0 +1,68 @@
+```python
+import re
+
+def evaluate(expr: str) -> float:
+    tokens = re.findall(r'\s*(\d+|\*\*|[+\-*/()])', expr)
+    pos = 0
+
+    def peek():
+        return tokens[pos] if pos < len(tokens) else None
+
+    def advance():
+        nonlocal pos
+        pos += 1
+
+    def parse_expr():
+        node = parse_term()
+        while peek() in ('+', '-'):
+            op = peek()
+            advance()
+            right = parse_term()
+            node = node + right if op == '+' else node - right
+        return node
+
+    def parse_term():
+        node = parse_factor()
+        while peek() in ('*', '/'):
+            op = peek()
+            advance()
+            right = parse_factor()
+            node = node * right if op == '*' else node / right
+        return node
+
+    def parse_factor():
+        return parse_unary()
+
+    def parse_unary():
+        if peek() == '-':
+            advance()
+            return -parse_unary()
+        return parse_power()
+
+    def parse_power():
+        left = parse_atom()
+        if peek() == '**':
+            advance()
+            right = parse_power()
+            left = left ** right
+        return left
+
+    def parse_atom():
+        tk = peek()
+        if tk == '(':
+            advance()
+            val = parse_expr()
+            if peek() != ')':
+                raise SyntaxError("Missing closing parenthesis")
+            advance()
+            return val
+        if tk is None:
+            raise SyntaxError("Unexpected end of input")
+        advance()
+        return float(tk)
+
+    result = parse_expr()
+    if pos != len(tokens):
+        raise SyntaxError("Unexpected token")
+    return result
+```

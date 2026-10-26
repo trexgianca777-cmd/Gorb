@@ -1,0 +1,16 @@
+{
+  "task": "16-code-roman",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "code_function_deep_tests",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "tests_passed=12/12",
+      "answer": "def roman_to_int(s: str) -> int:\n    values = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}\n    total = 0\n    i = 0\n    while i < len(s):\n        if i + 1 < len(s) and values[s[i]] < values[s[i + 1]]:\n            total += values[s[i + 1]] - values[s[i]]\n            i += 2\n        else:\n            total += values[s[i]]\n            i += 1\n    return total\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}

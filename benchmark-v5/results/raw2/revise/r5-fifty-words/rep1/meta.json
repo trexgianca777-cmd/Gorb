@@ -1,0 +1,26 @@
+{
+  "mechanism": "revise",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "sentences=5/5, total_words=51/50",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "sentences=5/5, total_words=51/50",
+      "repeated": false
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "sentences=5/5, total_words=51/50",
+      "repeated": false
+    }
+  ],
+  "calls": 3,
+  "task": "r5-fifty-words",
+  "rep": "1"
+}

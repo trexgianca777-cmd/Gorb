@@ -1,0 +1,16 @@
+{
+  "task": "12-longctx-conflicting-2",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "numeric_tolerance",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "numbers_found=[8.7]",
+      "answer": "8.7\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}

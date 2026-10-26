@@ -1,0 +1,39 @@
+{
+  "mechanism": "ce",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "code crashed: File \"/tmp/tmp198jhlud.py\", line 5\n    \"\"\"\n    ^^^\nSyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 151-152: truncated \\uXXXX escape",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "tests_passed=0/3",
+      "repeated": false
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "tests_passed=0/3",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 378,
+      "completion_chars": 5047
+    },
+    {
+      "prompt_chars": 4759,
+      "completion_chars": 4957
+    },
+    {
+      "prompt_chars": 4896,
+      "completion_chars": 5043
+    }
+  ],
+  "task": "p3-unicode-json",
+  "rep": "1"
+}

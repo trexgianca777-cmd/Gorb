@@ -1,0 +1,14 @@
+{
+  "mechanism": "selfcon",
+  "votes": [
+    "5",
+    "5",
+    "5",
+    "5",
+    "5"
+  ],
+  "winner": "5",
+  "calls": 5,
+  "task": "q3-zebra-5",
+  "rep": "2"
+}

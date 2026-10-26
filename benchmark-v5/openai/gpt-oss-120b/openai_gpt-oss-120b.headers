@@ -1,0 +1,27 @@
+HTTP/1.1 200 OK
+Content-Security-Policy: default-src 'self';script-src 'self' 'sha256-4Mz/yZAENQGlTAAeE1WqXruXCripvlvl0s+Q9S1VS4A=';style-src 'self' 'unsafe-inline';img-src 'self' data:;connect-src 'self';font-src 'self';form-action 'self';base-uri 'self';frame-ancestors 'self';object-src 'none';script-src-attr 'none'
+Cross-Origin-Resource-Policy: same-origin
+Referrer-Policy: no-referrer
+X-Content-Type-Options: nosniff
+X-DNS-Prefetch-Control: off
+X-Download-Options: noopen
+X-Frame-Options: SAMEORIGIN
+X-Permitted-Cross-Domain-Policies: none
+X-XSS-Protection: 0
+Cross-Origin-Opener-Policy: same-origin
+Origin-Agent-Cluster: ?1
+Vary: Origin
+X-RateLimit-Limit: 120
+X-RateLimit-Remaining: 117
+X-RateLimit-Reset: 1792363960
+X-Request-ID: 998587c7-e4f7-447f-93bc-e732d0847e79
+X-FreeLLM-Compress: off; saved~=0
+X-Routed-Via: groq/openai/gpt-oss-120b
+X-FreeLLM-Cache: MISS
+Content-Type: application/json; charset=utf-8
+Content-Length: 964
+ETag: W/"3c4-FZ8Qp45DWwMYP4ovyYsjv9befEk"
+Date: Sun, 18 Oct 2026 22:51:50 GMT
+Connection: keep-alive
+Keep-Alive: timeout=75
+

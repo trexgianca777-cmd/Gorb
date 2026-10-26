@@ -1,0 +1,19 @@
+{
+  "mechanism": "ce",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "digits='6539'",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 571,
+      "completion_chars": 5
+    }
+  ],
+  "task": "q8-mastermind",
+  "rep": "1"
+}

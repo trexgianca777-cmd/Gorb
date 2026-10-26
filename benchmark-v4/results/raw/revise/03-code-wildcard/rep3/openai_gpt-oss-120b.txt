@@ -1,0 +1,30 @@
+def wildcard_match(s: str, pattern: str) -> bool:
+    """
+    Returns True if the string `s` matches the given `pattern`.
+    In the pattern:
+        *  matches any sequence of characters (including empty)
+        ?  matches exactly one character
+        all other characters match themselves literally.
+    """
+    # DP approach: dp[i][j] is True if s[:i] matches pattern[:j]
+    m, n = len(s), len(pattern)
+    dp = [[False] * (n + 1) for _ in range(m + 1)]
+    dp[0][0] = True
+
+    # Initialize first row (s is empty)
+    for j in range(1, n + 1):
+        if pattern[j - 1] == '*':
+            dp[0][j] = dp[0][j - 1]
+
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            p_char = pattern[j - 1]
+            if p_char == '*':
+                # '*' matches empty (dp[i][j-1]) or consumes a char (dp[i-1][j])
+                dp[i][j] = dp[i][j - 1] or dp[i - 1][j]
+            elif p_char == '?' or p_char == s[i - 1]:
+                dp[i][j] = dp[i - 1][j - 1]
+            else:
+                dp[i][j] = False
+
+    return dp[m][n]

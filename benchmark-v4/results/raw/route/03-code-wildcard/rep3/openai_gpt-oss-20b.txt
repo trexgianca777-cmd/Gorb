@@ -1,0 +1,12 @@
+def wildcard_match(s, pattern):
+    from functools import lru_cache
+    @lru_cache(None)
+    def match(i, j):
+        if j == len(pattern):
+            return i == len(s)
+        if pattern[j] == '*':
+            return match(i, j+1) or (i < len(s) and match(i+1, j))
+        if pattern[j] == '?':
+            return i < len(s) and match(i+1, j+1)
+        return i < len(s) and pattern[j] == s[i] and match(i+1, j+1)
+    return match(0, 0)

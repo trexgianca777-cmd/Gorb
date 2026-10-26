@@ -1,0 +1,179 @@
+```python
+def parse_sjson(s: str):
+    """Parse a simplified JSON string into Python values without using json module."""
+    import sys
+
+    i = 0
+    n = len(s)
+
+    def skip_ws():
+        nonlocal i
+        while i < n and s[i] in " \t\n\r":
+            i += 1
+
+    def parse_value():
+        nonlocal i
+        skip_ws()
+        if i >= n:
+            raise ValueError("Unexpected end of input")
+        ch = s[i]
+        if ch == '{':
+            return parse_object()
+        if ch == '[':
+            return parse_array()
+        if ch == '"':
+            return parse_string()
+        if ch in '-0123456789':
+            return parse_number()
+        if s.startswith("true", i):
+            i += 4
+            return True
+        if s.startswith("false", i):
+            i += 5
+            return False
+        if s.startswith("null", i):
+            i += 4
+            return None
+        raise ValueError(f"Unexpected character {ch!r} at position {i}")
+
+    def parse_object():
+        nonlocal i
+        obj = {}
+        i += 1  # skip '{'
+        skip_ws()
+        if i < n and s[i] == '}':
+            i += 1
+            return obj
+        while True:
+            skip_ws()
+            if i >= n or s[i] != '"':
+                raise ValueError("Expected string key")
+            key = parse_string()
+            skip_ws()
+            if i >= n or s[i] != ':':
+                raise ValueError("Expected ':' after key")
+            i += 1
+            val = parse_value()
+            obj[key] = val
+            skip_ws()
+            if i >= n:
+                raise ValueError("Unexpected end in object")
+            if s[i] == '}':
+                i += 1
+                break
+            if s[i] != ',':
+                raise ValueError("Expected ',' in object")
+            i += 1
+        return obj
+
+    def parse_array():
+        nonlocal i
+        arr = []
+        i += 1  # skip '['
+        skip_ws()
+        if i < n and s[i] == ']':
+            i += 1
+            return arr
+        while True:
+            val = parse_value()
+            arr.append(val)
+            skip_ws()
+            if i >= n:
+                raise ValueError("Unexpected end in array")
+            if s[i] == ']':
+                i += 1
+                break
+            if s[i] != ',':
+                raise ValueError("Expected ',' in array")
+            i += 1
+        return arr
+
+    def parse_string():
+        nonlocal i
+        if s[i] != '"':
+            raise ValueError("Expected '\"' at start of string")
+        i += 1
+        res = []
+        while i < n:
+            ch = s[i]
+            if ch == '"':
+                i += 1
+                return ''.join(res)
+            if ch == '\\':
+                i += 1
+                if i >= n:
+                    raise ValueError("Unexpected end in escape sequence")
+                esc = s[i]
+                if esc == '"':
+                    res.append('"')
+                elif esc == '\\':
+                    res.append('\\')
+                elif esc == '/':
+                    res.append('/')
+                elif esc == 'b':
+                    res.append('\b')
+                elif esc == 'f':
+                    res.append('\f')
+                elif esc == 'n':
+                    res.append('\n')
+                elif esc == 'r':
+                    res.append('\r')
+                elif esc == 't':
+                    res.append('\t')
+                elif esc == 'u':
+                    if i + 4 >= n:
+                        raise ValueError("Invalid Unicode escape")
+                    hex_digits = s[i+1:i+5]
+                    try:
+                        code = int(hex_digits, 16)
+                    except ValueError:
+                        raise ValueError("Invalid Unicode escape")
+                    res.append(chr(code))
+                    i += 4
+                else:
+                    raise ValueError(f"Invalid escape character \\{esc}")
+            else:
+                res.append(ch)
+            i += 1
+        raise ValueError("Unterminated string")
+
+    def parse_number():
+        nonlocal i
+        start = i
+        if s[i] == '-':
+            i += 1
+        if i < n and s[i] == '0':
+            i += 1
+        else:
+            if i >= n or not s[i].isdigit():
+                raise ValueError("Invalid number")
+            while i < n and s[i].isdigit():
+                i += 1
+        if i < n and s[i] == '.':
+            i += 1
+            if i >= n or not s[i].isdigit():
+                raise ValueError("Invalid number")
+            while i < n and s[i].isdigit():
+                i += 1
+        if i < n and s[i] in 'eE':
+            i += 1
+            if i < n and s[i] in '+-':
+                i += 1
+            if i >= n or not s[i].isdigit():
+                raise ValueError("Invalid number")
+            while i < n and s[i].isdigit():
+                i += 1
+        num_str = s[start:i]
+        try:
+            if '.' in num_str or 'e' in num_str or 'E' in num_str:
+                return float(num_str)
+            return int(num_str)
+        except ValueError:
+            raise ValueError(f"Invalid number {num_str!r}")
+
+    result = parse_value()
+    skip_ws()
+    if i != n:
+        raise ValueError("Extra data after valid JSON")
+    return result
+```

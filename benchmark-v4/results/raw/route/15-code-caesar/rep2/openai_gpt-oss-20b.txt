@@ -1,0 +1,14 @@
+def caesar_decode(text, shift):
+    result = []
+    for ch in text:
+        if 'A' <= ch <= 'Z':
+            idx = ord(ch) - ord('A')
+            new_idx = (idx - shift) % 26
+            result.append(chr(new_idx + ord('A')))
+        elif 'a' <= ch <= 'z':
+            idx = ord(ch) - ord('a')
+            new_idx = (idx - shift) % 26
+            result.append(chr(new_idx + ord('a')))
+        else:
+            result.append(ch)
+    return ''.join(result)

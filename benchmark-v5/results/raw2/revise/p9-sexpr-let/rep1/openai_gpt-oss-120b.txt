@@ -1,0 +1,79 @@
+```python
+def seval(expr: str) -> float:
+    # Tokenize
+    tokens = expr.replace('(', ' ( ').replace(')', ' ) ').split()
+    pos = [0]  # mutable position holder
+
+    def peek():
+        return tokens[pos[0]] if pos[0] < len(tokens) else None
+
+    def consume():
+        t = tokens[pos[0]]
+        pos[0] += 1
+        return t
+
+    def parse(env: dict) -> float:
+        token = consume()
+        if token == '(':
+            head = consume()
+            if head == 'let':
+                # new environment (copy of current)
+                local_env = env.copy()
+                # expect '(' starting bindings list
+                if consume() != '(':
+                    raise SyntaxError("Expected '(' after let")
+                # parse bindings until ')'
+                while True:
+                    if peek() == ')':
+                        consume()  # consume closing ')'
+                        break
+                    if consume() != '(':
+                        raise SyntaxError("Expected '(' in let binding")
+                    var = consume()
+                    val = parse(local_env)
+                    if consume() != ')':
+                        raise SyntaxError("Expected ')' after let binding")
+                    local_env[var] = val
+                # body
+                result = parse(local_env)
+                if consume() != ')':
+                    raise SyntaxError("Expected ')' after let body")
+                return result
+            else:
+                # operator application
+                op = head
+                args = []
+                while peek() != ')':
+                    args.append(parse(env))
+                consume()  # consume ')'
+                if op == '+':
+                    return sum(args)
+                if op == '*':
+                    prod = 1.0
+                    for a in args:
+                        prod *= a
+                    return prod
+                if op == '-':
+                    if len(args) == 1:
+                        return -args[0]
+                    res = args[0]
+                    for a in args[1:]:
+                        res -= a
+                    return res
+                if op == '/':
+                    if len(args) == 1:
+                        return 1.0 / args[0]
+                    res = args[0]
+                    for a in args[1:]:
+                        res /= a
+                    return res
+                raise SyntaxError(f"Unknown operator {op}")
+        else:
+            # atom: number or variable
+            if token.replace('.', '', 1).lstrip('-').isdigit():
+                return float(token)
+            else:
+                return env[token]
+
+    return parse({})
+```

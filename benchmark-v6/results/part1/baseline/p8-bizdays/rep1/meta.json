@@ -1,0 +1,19 @@
+{
+  "mechanism": "baseline",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "tests_passed=6/6",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 412,
+      "completion_chars": 2145
+    }
+  ],
+  "task": "p8-bizdays",
+  "rep": "1"
+}

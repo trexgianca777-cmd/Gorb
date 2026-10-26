@@ -1,0 +1,29 @@
+{
+  "mechanism": "ce",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "tests_passed=2/6",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": true,
+      "detail": "tests_passed=6/6",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 447,
+      "completion_chars": 1384
+    },
+    {
+      "prompt_chars": 2208,
+      "completion_chars": 1212
+    }
+  ],
+  "task": "c10-sexpr",
+  "rep": "1"
+}

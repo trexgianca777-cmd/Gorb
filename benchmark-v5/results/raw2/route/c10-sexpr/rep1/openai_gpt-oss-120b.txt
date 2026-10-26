@@ -1,0 +1,82 @@
+```python
+def seval(expr: str) -> float:
+    import operator
+
+    # map operator symbols to functions handling variable arity
+    def op_add(args):
+        return sum(args)
+
+    def op_mul(args):
+        prod = 1
+        for a in args:
+            prod *= a
+        return prod
+
+    def op_sub(args):
+        if len(args) == 1:
+            return -args[0]
+        result = args[0]
+        for a in args[1:]:
+            result -= a
+        return result
+
+    def op_div(args):
+        if len(args) == 1:
+            return 1 / args[0]
+        result = args[0]
+        for a in args[1:]:
+            result /= a
+        return result
+
+    ops = {
+        '+': op_add,
+        '*': op_mul,
+        '-': op_sub,
+        '/': op_div,
+    }
+
+    # Tokenize: keep parentheses as separate tokens
+    tokens = []
+    i = 0
+    while i < len(expr):
+        c = expr[i]
+        if c.isspace():
+            i += 1
+        elif c in '()':
+            tokens.append(c)
+            i += 1
+        else:
+            j = i
+            while j < len(expr) and not expr[j].isspace() and expr[j] not in '()':
+                j += 1
+            tokens.append(expr[i:j])
+            i = j
+
+    # Recursive descent parser
+    def parse(idx):
+        token = tokens[idx]
+        if token == '(':
+            # next token is operator
+            op = tokens[idx + 1]
+            if op not in ops:
+                raise ValueError(f'Unknown operator {op}')
+            args = []
+            i = idx + 2
+            while tokens[i] != ')':
+                if tokens[i] == '(':
+                    val, i = parse(i)
+                else:
+                    val = int(tokens[i])
+                    i += 1
+                args.append(float(val))
+            return ops[op](args), i + 1  # skip ')'
+        else:
+            # plain number
+            return int(token), idx + 1
+
+    result, next_idx = parse(0)
+    # Ensure all tokens consumed
+    if next_idx != len(tokens):
+        raise ValueError('Extra tokens after parsing')
+    return float(result)
+```

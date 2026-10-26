@@ -1,0 +1,123 @@
+import re
+from math import pow
+
+def evaluate(expr: str) -> float:
+    # Tokenizer
+    token_spec = [
+        ('NUMBER',   r'\d+(\.\d*)?'),   # Integer or decimal number
+        ('OP',       r'\*\*|[+\-*/]'),  # Operators (including **)
+        ('LPAREN',   r'\('),            # Left parenthesis
+        ('RPAREN',   r'\)'),            # Right parenthesis
+        ('SKIP',     r'[ \t\r\n]+'),    # Skip whitespace
+        ('MISMATCH', r'.'),             # Any other character
+    ]
+    tok_regex = '|'.join('(?P<%s>%s)' % pair for pair in token_spec)
+    tokens = []
+    for mo in re.finditer(tok_regex, expr):
+        kind = mo.lastgroup
+        value = mo.group()
+        if kind == 'NUMBER':
+            tokens.append(('NUMBER', float(value)))
+        elif kind == 'OP':
+            tokens.append(('OP', value))
+        elif kind == 'LPAREN':
+            tokens.append(('LPAREN', value))
+        elif kind == 'RPAREN':
+            tokens.append(('RPAREN', value))
+        elif kind == 'SKIP':
+            continue
+        else:
+            raise SyntaxError(f'Unexpected character {value!r}')
+    tokens.append(('EOF', None))
+
+    # Recursive descent parser with precedence
+    pos = 0
+    def peek():
+        return tokens[pos][0]
+
+    def advance():
+        nonlocal pos
+        pos += 1
+
+    def current():
+        return tokens[pos]
+
+    def parse_expression():
+        return parse_add_sub()
+
+    # precedence levels
+    def parse_add_sub():
+        node = parse_mul_div()
+        while peek() == 'OP' and current()[1] in ('+', '-'):
+            op = current()[1]
+            advance()
+            right = parse_mul_div()
+            node = (op, node, right)
+        return node
+
+    def parse_mul_div():
+        node = parse_power()
+        while peek() == 'OP' and current()[1] in ('*', '/'):
+            op = current()[1]
+            advance()
+            right = parse_power()
+            node = (op, node, right)
+        return node
+
+    def parse_power():
+        node = parse_unary()
+        if peek() == 'OP' and current()[1] == '**':
+            # right-associative: parse right side as power again
+            op = '**'
+            advance()
+            right = parse_power()
+            node = (op, node, right)
+        return node
+
+    def parse_unary():
+        if peek() == 'OP' and current()[1] == '-':
+            advance()
+            operand = parse_unary()
+            return ('neg', operand)
+        return parse_primary()
+
+    def parse_primary():
+        if peek() == 'NUMBER':
+            val = current()[1]
+            advance()
+            return ('num', val)
+        if peek() == 'LPAREN':
+            advance()
+            node = parse_expression()
+            if peek() != 'RPAREN':
+                raise SyntaxError('Missing closing parenthesis')
+            advance()
+            return node
+        raise SyntaxError('Unexpected token')
+
+    ast = parse_expression()
+    if peek() != 'EOF':
+        raise SyntaxError('Unexpected trailing characters')
+
+    # Evaluator
+    def eval_node(node):
+        typ = node[0]
+        if typ == 'num':
+            return node[1]
+        if typ == 'neg':
+            return -eval_node(node[1])
+        op, left, right = node
+        l = eval_node(left)
+        r = eval_node(right)
+        if op == '+':
+            return l + r
+        if op == '-':
+            return l - r
+        if op == '*':
+            return l * r
+        if op == '/':
+            return l / r
+        if op == '**':
+            return pow(l, r)
+        raise ValueError('Unknown operator')
+    return eval_node(ast)

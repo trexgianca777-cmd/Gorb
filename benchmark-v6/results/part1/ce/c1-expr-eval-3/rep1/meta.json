@@ -1,0 +1,29 @@
+{
+  "mechanism": "ce",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": true,
+      "detail": "tests_passed=10/10",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 662,
+      "completion_chars": 1584
+    },
+    {
+      "prompt_chars": 2641,
+      "completion_chars": 1693
+    }
+  ],
+  "task": "c1-expr-eval-3",
+  "rep": "1"
+}

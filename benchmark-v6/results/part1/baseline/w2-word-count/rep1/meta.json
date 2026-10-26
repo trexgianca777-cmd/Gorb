@@ -1,0 +1,19 @@
+{
+  "mechanism": "baseline",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "sentences=5/5, sent_1_words=6/6, sent_2_words=6/6, sent_3_words=6/6, sent_4_words=6/6, sent_5_words=6/6",
+      "repeated": false
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 103,
+      "completion_chars": 211
+    }
+  ],
+  "task": "w2-word-count",
+  "rep": "1"
+}

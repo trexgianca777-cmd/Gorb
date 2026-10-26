@@ -1,0 +1,88 @@
+```python
+import re
+
+def evaluate(s: str) -> float:
+    tokens = re.findall(r'\s*(\d+|\*\*|[+\-*/()])', s)
+    pos = 0
+
+    def peek():
+        return tokens[pos] if pos < len(tokens) else None
+
+    def get():
+        nonlocal pos
+        tok = tokens[pos]
+        pos += 1
+        return tok
+
+    def parse_expression():
+        node = parse_term()
+        while peek() in ('+', '-'):
+            op = get()
+            right = parse_term()
+            node = (op, node, right)
+        return node
+
+    def parse_term():
+        node = parse_factor()
+        while peek() in ('*', '/'):
+            op = get()
+            right = parse_factor()
+            node = (op, node, right)
+        return node
+
+    def parse_factor():
+        node = parse_power()
+        return node
+
+    def parse_power():
+        node = parse_unary()
+        if peek() == '**':
+            get()
+            right = parse_power()          # right‑associative
+            node = ('**', node, right)
+        return node
+
+    def parse_unary():
+        if peek() == '-':
+            get()
+            operand = parse_unary()
+            return ('neg', operand)
+        return parse_primary()
+
+    def parse_primary():
+        if peek() == '(':
+            get()
+            node = parse_expression()
+            if peek() != ')':
+                raise SyntaxError("Missing ')'")
+            get()
+            return node
+        tok = get()
+        if re.fullmatch(r'\d+', tok):
+            return ('num', float(tok))
+        raise SyntaxError(f'Unexpected token: {tok}')
+
+    def eval_node(node):
+        if node[0] == 'num':
+            return node[1]
+        if node[0] == 'neg':
+            return -eval_node(node[1])
+        op, left, right = node
+        a, b = eval_node(left), eval_node(right)
+        if op == '+':
+            return a + b
+        if op == '-':
+            return a - b
+        if op == '*':
+            return a * b
+        if op == '/':
+            return a / b
+        if op == '**':
+            return a ** b
+        raise ValueError(f'Unknown operator {op}')
+
+    ast = parse_expression()
+    if pos != len(tokens):
+        raise SyntaxError('Extra input')
+    return eval_node(ast)
+```

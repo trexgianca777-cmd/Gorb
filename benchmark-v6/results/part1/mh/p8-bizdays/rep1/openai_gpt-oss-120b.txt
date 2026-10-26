@@ -1,0 +1,71 @@
+```python
+def add_business_days(date_str: str, n: int) -> str:
+    # ----- helper functions -----
+    def is_leap(y: int) -> bool:
+        return (y % 4 == 0 and y % 100 != 0) or (y % 400 == 0)
+
+    def dim(y: int, m: int) -> int:
+        return [31, 29 if is_leap(y) else 28, 31, 30, 31, 30,
+                31, 31, 30, 31, 30, 31][m - 1]
+
+    def date_to_ordinal(y: int, m: int, d: int) -> int:
+        # days before this year
+        y1 = y - 1
+        days = y1 * 365 + y1 // 4 - y1 // 100 + y1 // 400
+        # days before this month
+        month_days = [31, 28 + is_leap(y), 31, 30, 31, 30,
+                      31, 31, 30, 31, 30, 31]
+        days += sum(month_days[:m - 1])
+        # days in current month
+        days += d
+        return days
+
+    def ordinal_to_date(ord_: int):
+        # estimate year
+        y = (ord_ * 400) // 146097  # rough start
+        while date_to_ordinal(y + 1, 1, 1) <= ord_:
+            y += 1
+        # month
+        m = 1
+        while ord_ > date_to_ordinal(y, m, dim(y, m)):
+            m += 1
+        d = ord_ - date_to_ordinal(y, m, 1) + 1
+        return y, m, d
+
+    def dow_from_ordinal(ord_: int) -> int:
+        # 0 = Monday, 6 = Sunday; 1 Jan 1 AD was Monday
+        return (ord_ - 1) % 7
+
+    # ----- main logic -----
+    y, m, d = map(int, date_str.split('-'))
+    start_ord = date_to_ordinal(y, m, d)
+
+    if n == 0:
+        return date_str
+
+    start_dow = dow_from_ordinal(start_ord)          # 0=Mon … 6=Sun
+    days_shift = 0
+
+    if n > 0:
+        weeks, rem = divmod(n, 5)
+        days_shift += weeks * 7
+        cur_dow = start_dow
+        while rem:
+            cur_dow = (cur_dow + 1) % 7
+            days_shift += 1
+            if cur_dow < 5:          # Monday‑Friday
+                rem -= 1
+    else:  # n < 0
+        weeks, rem = divmod(-n, 5)
+        days_shift -= weeks * 7
+        cur_dow = start_dow
+        while rem:
+            cur_dow = (cur_dow - 1) % 7
+            days_shift -= 1
+            if cur_dow < 5:
+                rem -= 1
+
+    result_ord = start_ord + days_shift
+    ry, rm, rd = ordinal_to_date(result_ord)
+    return f"{ry:04d}-{rm:02d}-{rd:02d}"
+```

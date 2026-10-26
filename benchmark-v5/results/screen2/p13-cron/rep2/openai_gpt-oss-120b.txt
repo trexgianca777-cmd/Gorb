@@ -1,0 +1,83 @@
+```python
+def cron_minutes(field: str) -> list[int]:
+    """
+    Parse a cron minute field and return a sorted list of minutes (0‑59).
+
+    Supported syntax:
+        *                – every minute
+        0,5,10           – comma‑separated list of numbers
+        a-b              – inclusive range
+        */n              – step through the whole range 0‑59
+        a-b/n            – step through a specific range
+
+    Raises:
+        ValueError: for empty input, out‑of‑range values, reversed ranges,
+                    zero or negative step, or any non‑numeric junk.
+    """
+    if not field or not isinstance(field, str):
+        raise ValueError("empty or non‑string input")
+
+    # Helper to validate a minute value
+    def _check_min(v: int):
+        if not 0 <= v <= 59:
+            raise ValueError(f"minute {v} out of range 0‑59")
+
+    # Expand a single token (no commas)
+    def _expand_token(tok: str) -> set[int]:
+        # step syntax
+        if '/' in tok:
+            base, step_str = tok.split('/', 1)
+            if not step_str.isdigit() or int(step_str) == 0:
+                raise ValueError("step must be a positive integer")
+            step = int(step_str)
+
+            # base can be '*' or a range a-b
+            if base == '*':
+                start, end = 0, 59
+            elif '-' in base:
+                a_str, b_str = base.split('-', 1)
+                if not (a_str.isdigit() and b_str.isdigit()):
+                    raise ValueError("invalid range in step expression")
+                start, end = int(a_str), int(b_str)
+                if start > end:
+                    raise ValueError("range start greater than end")
+                _check_min(start)
+                _check_min(end)
+            else:
+                raise ValueError("invalid step base")
+            return set(range(start, end + 1, step))
+
+        # plain '*'
+        if tok == '*':
+            return set(range(0, 60))
+
+        # range without step
+        if '-' in tok:
+            a_str, b_str = tok.split('-', 1)
+            if not (a_str.isdigit() and b_str.isdigit()):
+                raise ValueError("invalid range")
+            a, b = int(a_str), int(b_str)
+            if a > b:
+                raise ValueError("range start greater than end")
+            _check_min(a)
+            _check_min(b)
+            return set(range(a, b + 1))
+
+        # single number
+        if tok.isdigit():
+            v = int(tok)
+            _check_min(v)
+            return {v}
+
+        raise ValueError(f"unrecognised token: {tok}")
+
+    # Split by commas and combine results
+    result: set[int] = set()
+    for token in field.split(','):
+        token = token.strip()
+        if token == '':
+            raise ValueError("empty token in list")
+        result.update(_expand_token(token))
+
+    return sorted(result)
+```

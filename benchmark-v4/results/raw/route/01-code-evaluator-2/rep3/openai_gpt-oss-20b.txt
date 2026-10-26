@@ -1,0 +1,95 @@
+import re
+
+def evaluate(expr: str) -> float:
+    # Tokenization
+    token_pattern = re.compile(r'\s*(?:(\d+(?:\.\d*)?)|(\*\*)|([()+\-*/]))')
+    tokens = []
+    pos = 0
+    while pos < len(expr):
+        m = token_pattern.match(expr, pos)
+        if not m:
+            raise ValueError(f"Invalid character at position {pos}")
+        num, power, op = m.groups()
+        if num is not None:
+            tokens.append(('NUM', float(num)))
+        elif power is not None:
+            tokens.append(('OP', '**'))
+        elif op is not None:
+            tokens.append(('OP', op))
+        pos = m.end()
+    # Handle unary minus
+    processed = []
+    prev_type = 'OP'  # start as operator to allow leading unary
+    for typ, val in tokens:
+        if typ == 'OP' and val == '-':
+            if prev_type in ('OP', 'LPAREN'):
+                processed.append(('OP', 'UNARY-'))
+            else:
+                processed.append(('OP', '-'))
+        else:
+            processed.append((typ, val))
+        if typ == 'NUM':
+            prev_type = 'NUM'
+        elif typ == 'OP':
+            if val == '(':
+                prev_type = 'LPAREN'
+            else:
+                prev_type = 'OP'
+    # Shunting-yard
+    out = []
+    stack = []
+    prec = {'UNARY-': 4, '**': 3, '*': 2, '/': 2, '+': 1, '-': 1}
+    assoc = {'UNARY-': 'R', '**': 'R', '*': 'L', '/': 'L', '+': 'L', '-': 'L'}
+    for typ, val in processed:
+        if typ == 'NUM':
+            out.append(val)
+        elif typ == 'OP':
+            if val == '(':
+                stack.append(val)
+            elif val == ')':
+                while stack and stack[-1] != '(':
+                    out.append(stack.pop())
+                if not stack:
+                    raise ValueError("Mismatched parentheses")
+                stack.pop()
+            else:
+                while stack:
+                    top = stack[-1]
+                    if top == '(':
+                        break
+                    if (prec[top] > prec[val]) or (prec[top] == prec[val] and assoc[val] == 'L'):
+                        out.append(stack.pop())
+                    else:
+                        break
+                stack.append(val)
+    while stack:
+        top = stack.pop()
+        if top in ('(', ')'):
+            raise ValueError("Mismatched parentheses")
+        out.append(top)
+    # Evaluate RPN
+    stack_vals = []
+    for token in out:
+        if isinstance(token, float):
+            stack_vals.append(token)
+        else:
+            if token == 'UNARY-':
+                a = stack_vals.pop()
+                stack_vals.append(-a)
+            else:
+                b = stack_vals.pop()
+                a = stack_vals.pop()
+                if token == '+':
+                    stack_vals.append(a + b)
+                elif token == '-':
+                    stack_vals.append(a - b)
+                elif token == '*':
+                    stack_vals.append(a * b)
+                elif token == '/':
+                    stack_vals.append(a / b)
+                elif token == '**':
+                    stack_vals.append(a ** b)
+    if len(stack_vals) != 1:
+        raise ValueError("Invalid expression")
+    return float(stack_vals[0])
+

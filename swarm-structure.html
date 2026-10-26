@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Swarm Structure</title>
+<style>
+body { font-family: system-ui, sans-serif; background: #0a0a0a; color: #e0e0e0; padding: 40px; }
+h1 { text-align: center; color: #fff; margin-bottom: 40px; }
+.flow { display: flex; flex-direction: column; align-items: center; gap: 0; max-width: 800px; margin: 0 auto; }
+.box { background: #1a1a2e; border: 2px solid #4a4a6e; border-radius: 12px; padding: 16px 32px; text-align: center; min-width: 280px; }
+.box.input { border-color: #4caf50; background: #1a2e1a; }
+.box.models { border-color: #2196f3; background: #1a1a2e; }
+.box.process { border-color: #ff9800; background: #2e1a0a; }
+.box.output { border-color: #9c27b0; background: #2a1a2e; }
+.box.cache { border-color: #00bcd4; background: #0a2e2e; font-size: 0.9em; }
+.arrow { font-size: 28px; color: #666; line-height: 1; margin: 4px 0; }
+.label { font-size: 0.8em; color: #888; margin-top: 4px; }
+.row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.chunk { background: #1a1a2e; border: 1px solid #3a3a5e; border-radius: 8px; padding: 10px 16px; font-size: 0.85em; text-align: center; }
+.chunk b { color: #64b5f6; }
+.small { font-size: 0.8em; color: #999; margin-top: 8px; }
+h2 { color: #888; font-size: 1em; margin: 32px 0 16px; text-align: center; font-weight: normal; }
+</style>
+</head>
+<body>
+<h1>Swarm Structure</h1>
+
+<div class="flow">
+  <div class="box input">
+    <b>Brief</b> (task description)
+    <div class="label">+ prior context + schema</div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="box cache">
+    <b>Cache check</b> — exact match → normalized match → miss
+  </div>
+  <div class="arrow">↓</div>
+  <div class="box input">
+    <b>Alt Data Enrichment</b>
+    <div class="label">SEC EDGAR Form 4 + Reddit sentiment (auto per ticker)</div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="box models">
+    <b>Model Chunk</b> (pick one)
+    <div class="row" style="margin-top:12px">
+      <div class="chunk"><b>fast</b><br>3 models<br>triage/grading</div>
+      <div class="chunk"><b>smart</b><br>4 models<br>best overall</div>
+      <div class="chunk"><b>deep-think</b><br>3 models<br>reasoning</div>
+      <div class="chunk"><b>balanced</b><br>3 models<br>general</div>
+      <div class="chunk"><b>code</b><br>2 models<br>code only</div>
+    </div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="box process">
+    <b>Run</b> (parallel, staggered)
+    <div class="label">swarm-call.sh → each model independently</div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="box process">
+    <b>Verify</b>
+    <div class="label">verify-pick.py — schema check + failure ledger</div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="box process">
+    <b>Grade</b> (isolated)
+    <div class="label">one model + rubric, no cross-talk</div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="box process">
+    <b>Synthesize</b>
+    <div class="label">compressed brief + grades only (never raw outputs)</div>
+  </div>
+  <div class="arrow">↓</div>
+  <div class="box output">
+    <b>Final Pick</b>
+    <div class="label">with conviction, falsifiers, P&L</div>
+  </div>
+</div>
+
+<h2>Alternative paths</h2>
+<div class="flow">
+  <div class="box cache">
+    <b>Cascade mode</b> — cheap model first, escalate only if quality gate fails
+    <div class="small">20b → qwen3.8 → 120b</div>
+  </div>
+</div>
+
+<div style="text-align:center; margin-top:40px; color:#555; font-size:0.85em">
+$0 cost · no new accounts · FreeLLMAPI backend
+</div>
+</body>
+</html>

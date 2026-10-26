@@ -1,0 +1,26 @@
+{
+  "mechanism": "revise",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "timeout",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "tests_passed=1/6",
+      "repeated": false
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "tests_passed=0/6",
+      "repeated": false
+    }
+  ],
+  "calls": 3,
+  "task": "p8-bizdays",
+  "rep": "3"
+}

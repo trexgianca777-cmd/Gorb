@@ -1,0 +1,16 @@
+def base_to_int(s: str, base: int) -> int:
+    if not isinstance(s, str) or not isinstance(base, int):
+        raise ValueError("Invalid input types")
+    if not (2 <= base <= 36):
+        raise ValueError("Base must be between 2 and 36")
+    s = s.strip()
+    if not s:
+        raise ValueError("Empty string")
+    s = s.lower()
+    digit_map = {c: i for i, c in enumerate("0123456789abcdefghijklmnopqrstuvwxyz")}
+    value = 0
+    for char in s:
+        if char not in digit_map or digit_map[char] >= base:
+            raise ValueError(f"Invalid digit '{char}' for base {base}")
+        value = value * base + digit_map[char]
+    return value

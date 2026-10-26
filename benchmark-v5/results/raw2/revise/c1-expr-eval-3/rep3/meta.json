@@ -1,0 +1,26 @@
+{
+  "mechanism": "revise",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "repeated": false
+    },
+    {
+      "attempt": 3,
+      "pass": true,
+      "detail": "tests_passed=10/10",
+      "repeated": false
+    }
+  ],
+  "calls": 3,
+  "task": "c1-expr-eval-3",
+  "rep": "3"
+}

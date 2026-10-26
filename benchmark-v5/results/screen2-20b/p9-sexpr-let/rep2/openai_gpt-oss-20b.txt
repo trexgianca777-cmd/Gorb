@@ -1,0 +1,90 @@
+```python
+def seval(expr: str) -> float:
+    from collections import deque
+
+    tokens = deque(expr.replace('(', ' ( ').replace(')', ' ) ').split())
+
+    def parse() -> any:
+        """Parse next token into an AST node."""
+        if not tokens:
+            raise ValueError("Unexpected EOF")
+        tok = tokens.popleft()
+        if tok == '(':
+            sub = []
+            while tokens[0] != ')':
+                sub.append(parse())
+            tokens.popleft()  # consume ')'
+            return sub
+        elif tok == ')':
+            raise ValueError("Unmatched ')'")
+        else:
+            # number or variable
+            try:
+                return float(tok)
+            except ValueError:
+                return tok  # variable name
+
+    def eval_node(node, env):
+        if isinstance(node, float):
+            return node
+        if isinstance(node, str):
+            if node in env:
+                return env[node]
+            raise NameError(f"Unbound variable: {node}")
+
+        # node is a list
+        if not node:
+            raise ValueError("Empty expression")
+        op = node[0]
+        if op == 'let':
+            # node: ['let', [[binding1], [binding2], ...], body]
+            if len(node) != 3:
+                raise ValueError("Invalid let syntax")
+            bindings = node[1]
+            body = node[2]
+            # create new env frame
+            new_env = env.copy()
+            for bind in bindings:
+                if not isinstance(bind, list) or len(bind) != 2:
+                    raise ValueError("Invalid binding")
+                var, val_expr = bind
+                if not isinstance(var, str):
+                    raise ValueError("Binding name must be a variable")
+                new_env[var] = eval_node(val_expr, new_env)
+            return eval_node(body, new_env)
+
+        # arithmetic operators
+        if op in ('+', '*'):
+            values = [eval_node(arg, env) for arg in node[1:]]
+            if op == '+':
+                return sum(values)
+            else:
+                prod = 1.0
+                for v in values:
+                    prod *= v
+                return prod
+        if op in ('-', '/'):
+            values = [eval_node(arg, env) for arg in node[1:]]
+            if len(values) == 0:
+                raise ValueError(f"{op} requires at least one operand")
+            if op == '-':
+                if len(values) == 1:
+                    return -values[0]
+                res = values[0]
+                for v in values[1:]:
+                    res -= v
+                return res
+            else:  # '/'
+                if len(values) == 1:
+                    return 1.0 / values[0]
+                res = values[0]
+                for v in values[1:]:
+                    res /= v
+                return res
+        raise ValueError(f"Unknown operator: {op}")
+
+    ast = parse()
+    if tokens:
+        raise ValueError("Unexpected tokens after parsing")
+    return float(eval_node(ast, {}))
+```

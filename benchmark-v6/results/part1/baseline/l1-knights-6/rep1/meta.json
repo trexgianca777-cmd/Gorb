@@ -1,0 +1,39 @@
+{
+  "mechanism": "baseline",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "normalized='tffftt'",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "normalized='tffftt'",
+      "repeated": false
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "normalized='tffftt'",
+      "repeated": true
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 505,
+      "completion_chars": 8
+    },
+    {
+      "prompt_chars": 781,
+      "completion_chars": 7
+    },
+    {
+      "prompt_chars": 780,
+      "completion_chars": 8
+    }
+  ],
+  "task": "l1-knights-6",
+  "rep": "1"
+}

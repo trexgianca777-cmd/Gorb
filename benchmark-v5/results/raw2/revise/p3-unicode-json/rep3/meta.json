@@ -1,0 +1,20 @@
+{
+  "mechanism": "revise",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "code crashed: File \"/tmp/tmpk0dv1f3c.py\", line 162\n    raise ValueError(f\"Expected ',' or '}' in object at position {i}\")\n                                        ^\nSyntaxError: f-string: single '}' is not allowed",
+      "repeated": false
+    },
+    {
+      "attempt": 2,
+      "pass": true,
+      "detail": "tests_passed=3/3",
+      "repeated": false
+    }
+  ],
+  "calls": 2,
+  "task": "p3-unicode-json",
+  "rep": "3"
+}

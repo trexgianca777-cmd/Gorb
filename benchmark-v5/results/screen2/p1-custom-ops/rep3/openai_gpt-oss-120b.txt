@@ -1,0 +1,112 @@
+```python
+def ceval(expr: str) -> float:
+    import re
+    # Tokenizer
+    token_spec = [
+        ('NUM',   r'\d+(\.\d*)?'),          # Integer or decimal number
+        ('OP',    r'[+\-*/⊕⊗]'),            # Operators
+        ('LPAR',  r'\('),                   # Left parenthesis
+        ('RPAR',  r'\)'),                   # Right parenthesis
+        ('SKIP',  r'\s+'),                  # Skip whitespace
+        ('MISM',  r'.'),                    # Any other character
+    ]
+    tok_regex = '|'.join('(?P<%s>%s)' % pair for pair in token_spec)
+    tokens = []
+    for mo in re.finditer(tok_regex, expr):
+        kind = mo.lastgroup
+        val = mo.group()
+        if kind == 'NUM':
+            tokens.append(('NUM', float(val)))
+        elif kind == 'OP':
+            tokens.append(('OP', val))
+        elif kind == 'LPAR':
+            tokens.append(('LPAR', val))
+        elif kind == 'RPAR':
+            tokens.append(('RPAR', val))
+        elif kind == 'SKIP':
+            continue
+        else:
+            raise ValueError(f'Invalid character {val!r}')
+    # Insert unary minus tokens
+    out = []
+    prev_type = None
+    for typ, val in tokens:
+        if typ == 'OP' and val == '-':
+            if prev_type in (None, 'OP', 'LPAR'):
+                out.append(('OP', 'u-'))   # unary minus
+            else:
+                out.append((typ, val))
+        else:
+            out.append((typ, val))
+        prev_type = out[-1][0] if out else None
+    tokens = out
+
+    # Operator precedence and associativity
+    prec = {'u-': 5, '⊗': 4, '⊕': 3, '*': 2, '/': 2, '+': 1, '-': 1}
+    assoc = {'u-': 'right', '⊗': 'left', '⊕': 'left', '*': 'left', '/': 'left', '+': 'left', '-': 'left'}
+
+    def apply(op, a, b=None):
+        if op == 'u-':
+            return -a
+        if op == '+':
+            return a + b
+        if op == '-':
+            return a - b
+        if op == '*':
+            return a * b
+        if op == '/':
+            return a / b
+        if op == '⊕':
+            return a * b + a + b
+        if op == '⊗':
+            return a * a - b * b
+        raise ValueError(f'Unknown operator {op}')
+
+    # Shunting-yard to RPN
+    output = []
+    opstack = []
+    for typ, val in tokens:
+        if typ == 'NUM':
+            output.append(('NUM', val))
+        elif typ == 'OP':
+            while opstack:
+                top = opstack[-1]
+                if top[0] != 'OP':
+                    break
+                top_op = top[1]
+                if (assoc[val] == 'left' and prec[val] <= prec[top_op]) or \
+                   (assoc[val] == 'right' and prec[val] < prec[top_op]):
+                    output.append(opstack.pop())
+                else:
+                    break
+            opstack.append((typ, val))
+        elif typ == 'LPAR':
+            opstack.append((typ, val))
+        elif typ == 'RPAR':
+            while opstack and opstack[-1][0] != 'LPAR':
+                output.append(opstack.pop())
+            if not opstack:
+                raise ValueError('Mismatched parentheses')
+            opstack.pop()  # discard '('
+    while opstack:
+        if opstack[-1][0] in ('LPAR', 'RPAR'):
+            raise ValueError('Mismatched parentheses')
+        output.append(opstack.pop())
+
+    # Evaluate RPN
+    stack = []
+    for typ, val in output:
+        if typ == 'NUM':
+            stack.append(val)
+        else:  # operator
+            if val == 'u-':
+                a = stack.pop()
+                stack.append(apply(val, a))
+            else:
+                b = stack.pop()
+                a = stack.pop()
+                stack.append(apply(val, a, b))
+    if len(stack) != 1:
+        raise ValueError('Invalid expression')
+    return float(stack[0])
+```

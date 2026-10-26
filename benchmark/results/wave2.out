@@ -1,0 +1,56 @@
+=== 01-factual-precision ===
+[openai/gpt-oss-20b] OK in 1.2s, 1 attempt(s)
+output: /tmp/bench-out-m9mTtn
+=== 02-multi-step-arithmetic ===
+[openai/gpt-oss-20b] OK in 0.6s, 1 attempt(s)
+output: /tmp/bench-out-SomorB
+=== 03-code-prime ===
+[openai/gpt-oss-20b] OK in 0.5s, 1 attempt(s)
+output: /tmp/bench-out-1GjWGD
+=== 04-structured-json ===
+[openai/gpt-oss-20b] OK in 0.3s, 1 attempt(s)
+output: /tmp/bench-out-6AuZ8N
+=== 05-constrained-instructions ===
+[openai/gpt-oss-20b] OK in 0.4s, 1 attempt(s)
+output: /tmp/bench-out-ubwlcr
+=== 06-summary-coverage ===
+[openai/gpt-oss-20b] OK in 0.3s, 1 attempt(s)
+output: /tmp/bench-out-YL2UUP
+=== 07-date-reasoning ===
+[openai/gpt-oss-20b] OK in 0.3s, 1 attempt(s)
+output: /tmp/bench-out-Bgm1td
+=== 08-unit-conversion ===
+[openai/gpt-oss-20b] OK in 0.4s, 1 attempt(s)
+output: /tmp/bench-out-S8p2x1
+=== 09-classification ===
+[openai/gpt-oss-20b] OK in 0.3s, 1 attempt(s)
+output: /tmp/bench-out-dIPQaq
+=== 10-calibration-refusal ===
+[openai/gpt-oss-20b] OK in 0.3s, 1 attempt(s)
+output: /tmp/bench-out-qY6oFu
+done. raw outputs in results/raw/
+=== 01-factual-precision ===
+[gemini-3.8-flash] FAILED http=502 after 3 attempt(s), 93.4s
+output: /tmp/bench-out-Pjft95
+=== 02-multi-step-arithmetic ===
+[gemini-3.8-flash] FAILED http=429 after 3 attempt(s), 85.0s
+output: /tmp/bench-out-DRmoo5
+=== 03-code-prime ===
+[gemini-3.8-flash] OK in 601.9s, 2 attempt(s)
+output: /tmp/bench-out-OiA2Yy
+=== 04-structured-json ===
+[gemini-3.8-flash] FAILED http=502 after 3 attempt(s), 105.7s
+output: /tmp/bench-out-zMguH9
+=== 05-constrained-instructions ===
+[gemini-3.8-flash] OK in 127.8s, 2 attempt(s)
+output: /tmp/bench-out-0sidYQ
+=== 06-summary-coverage ===
+[gemini-3.8-flash] FAILED http=502 after 3 attempt(s), 151.4s
+output: /tmp/bench-out-zHUA1W
+=== 07-date-reasoning ===
+[gemini-3.8-flash] FAILED http=429 after 3 attempt(s), 84.9s
+output: /tmp/bench-out-M3SK6h
+=== 08-unit-conversion ===
+[gemini-3.8-flash] OK in 593.0s, 2 attempt(s)
+output: /tmp/bench-out-FGvFgN
+=== 09-classification ===

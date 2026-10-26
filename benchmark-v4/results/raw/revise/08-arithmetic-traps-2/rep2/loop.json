@@ -1,0 +1,28 @@
+{
+  "task": "08-arithmetic-traps-2",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "numeric_tolerance",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "numbers_found=[1144.63]",
+      "answer": "1144.63\n"
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "numbers_found=[1357.13]",
+      "answer": "1357.13\n"
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "numbers_found=[1144.63]",
+      "answer": "1144.63\n"
+    }
+  ],
+  "final_pass": false,
+  "revisions_used": 2
+}

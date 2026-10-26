@@ -1,0 +1,14 @@
+{
+  "mechanism": "bestof5",
+  "samples": [
+    {
+      "sample": 1,
+      "pass": true,
+      "detail": "digits='6539'"
+    }
+  ],
+  "picked": 1,
+  "calls": 1,
+  "task": "q8-mastermind",
+  "rep": "1"
+}

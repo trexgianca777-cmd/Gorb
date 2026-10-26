@@ -1,0 +1,949 @@
+{
+ "window_start_utc": "2026-10-19T22:02:04.203207+00:00",
+ "window_canary": "42966c2d607a1b71173f871a945471c2ab29bb5b63d7027febd1f15076cc3ca6",
+ "tasks": [
+  "p9-sexpr-let",
+  "q3-zebra-5",
+  "r5-fifty-words",
+  "r8-no-e",
+  "c1-expr-eval-3",
+  "c10-sexpr",
+  "l1-knights-6"
+ ],
+ "mechs": [
+  "plain",
+  "120b>120b",
+  "20b>120b",
+  "20b>20b",
+  "20b>nemotron-super",
+  "20b>cohere-code",
+  "20b>qwen27b",
+  "qwen27b>qwen27b",
+  "cascade"
+ ],
+ "cells": [
+  {
+   "task": "p9-sexpr-let",
+   "mech": "plain",
+   "final_pass": false,
+   "trajectory": [
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 1
+  },
+  {
+   "task": "p9-sexpr-let",
+   "mech": "120b>120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "p9-sexpr-let",
+   "mech": "20b>120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 2
+  },
+  {
+   "task": "p9-sexpr-let",
+   "mech": "20b>20b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "p9-sexpr-let",
+   "mech": "20b>nemotron-super",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "nvidia_nemotron-3-super-120b-a12b_free",
+    "nvidia_nemotron-3-super-120b-a12b_free"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "p9-sexpr-let",
+   "mech": "20b>cohere-code",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "cohere_north-mini-code_free",
+    "cohere_north-mini-code_free"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "p9-sexpr-let",
+   "mech": "20b>qwen27b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "p9-sexpr-let",
+   "mech": "qwen27b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 0,
+   "calls": 2
+  },
+  {
+   "task": "p9-sexpr-let",
+   "mech": "cascade",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 2,
+   "calls": 2
+  },
+  {
+   "task": "q3-zebra-5",
+   "mech": "plain",
+   "final_pass": false,
+   "trajectory": [
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 1
+  },
+  {
+   "task": "q3-zebra-5",
+   "mech": "120b>120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "q3-zebra-5",
+   "mech": "20b>120b",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 0,
+   "calls": 1
+  },
+  {
+   "task": "q3-zebra-5",
+   "mech": "20b>20b",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "q3-zebra-5",
+   "mech": "20b>nemotron-super",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "q3-zebra-5",
+   "mech": "20b>cohere-code",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "q3-zebra-5",
+   "mech": "20b>qwen27b",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "q3-zebra-5",
+   "mech": "qwen27b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 0,
+   "calls": 2
+  },
+  {
+   "task": "q3-zebra-5",
+   "mech": "cascade",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "r5-fifty-words",
+   "mech": "plain",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 1
+  },
+  {
+   "task": "r5-fifty-words",
+   "mech": "120b>120b",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "r5-fifty-words",
+   "mech": "20b>120b",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 0,
+   "calls": 1
+  },
+  {
+   "task": "r5-fifty-words",
+   "mech": "20b>20b",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "r5-fifty-words",
+   "mech": "20b>nemotron-super",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "r5-fifty-words",
+   "mech": "20b>cohere-code",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "r5-fifty-words",
+   "mech": "20b>qwen27b",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "r5-fifty-words",
+   "mech": "qwen27b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 0,
+   "calls": 2
+  },
+  {
+   "task": "r5-fifty-words",
+   "mech": "cascade",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 1
+  },
+  {
+   "task": "r8-no-e",
+   "mech": "plain",
+   "final_pass": false,
+   "trajectory": [
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 1
+  },
+  {
+   "task": "r8-no-e",
+   "mech": "120b>120b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "r8-no-e",
+   "mech": "20b>120b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 3
+  },
+  {
+   "task": "r8-no-e",
+   "mech": "20b>20b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "r8-no-e",
+   "mech": "20b>nemotron-super",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "nvidia_nemotron-3-super-120b-a12b_free",
+    "nvidia_nemotron-3-super-120b-a12b_free"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "r8-no-e",
+   "mech": "20b>cohere-code",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "cohere_north-mini-code_free",
+    "cohere_north-mini-code_free"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "r8-no-e",
+   "mech": "20b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "r8-no-e",
+   "mech": "qwen27b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "r8-no-e",
+   "mech": "cascade",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 3,
+   "calls": 5
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "mech": "plain",
+   "final_pass": false,
+   "trajectory": [
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 1
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "mech": "120b>120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "mech": "20b>120b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 3
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "mech": "20b>20b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "mech": "20b>nemotron-super",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "nvidia_nemotron-3-super-120b-a12b_free",
+    "nvidia_nemotron-3-super-120b-a12b_free"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "mech": "20b>cohere-code",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "cohere_north-mini-code_free",
+    "cohere_north-mini-code_free"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "mech": "20b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "mech": "qwen27b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "mech": "cascade",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 2,
+   "calls": 5
+  },
+  {
+   "task": "c10-sexpr",
+   "mech": "plain",
+   "final_pass": false,
+   "trajectory": [
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 1
+  },
+  {
+   "task": "c10-sexpr",
+   "mech": "120b>120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "c10-sexpr",
+   "mech": "20b>120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 2
+  },
+  {
+   "task": "c10-sexpr",
+   "mech": "20b>20b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "c10-sexpr",
+   "mech": "20b>cohere-code",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "cohere_north-mini-code_free",
+    "cohere_north-mini-code_free"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "c10-sexpr",
+   "mech": "20b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "c10-sexpr",
+   "mech": "qwen27b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "c10-sexpr",
+   "mech": "cascade",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 2,
+   "calls": 2
+  },
+  {
+   "task": "l1-knights-6",
+   "mech": "plain",
+   "final_pass": false,
+   "trajectory": [
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 0,
+   "calls": 1
+  },
+  {
+   "task": "l1-knights-6",
+   "mech": "120b>120b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-120b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "l1-knights-6",
+   "mech": "20b>120b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-120b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "l1-knights-6",
+   "mech": "20b>20b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "l1-knights-6",
+   "mech": "20b>cohere-code",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "cohere_north-mini-code_free",
+    "cohere_north-mini-code_free"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "l1-knights-6",
+   "mech": "20b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 1,
+   "calls": 3
+  },
+  {
+   "task": "l1-knights-6",
+   "mech": "qwen27b>qwen27b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "qwen_qwen3.8-27b",
+    "qwen_qwen3.8-27b"
+   ],
+   "cache_hits": 1,
+   "calls": 2
+  },
+  {
+   "task": "l1-knights-6",
+   "mech": "cascade",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "models": [
+    "openai_gpt-oss-20b",
+    "openai_gpt-oss-20b"
+   ],
+   "cache_hits": 2,
+   "calls": 2
+  }
+ ]
+}

@@ -1,0 +1,85 @@
+```python
+def seval(expr: str) -> float:
+    # Tokenize
+    tokens = expr.replace('(', ' ( ').replace(')', ' ) ').split()
+
+    def parse(tokens, i, env):
+        token = tokens[i]
+        i += 1
+        if token == '(':
+            head = tokens[i]
+            i += 1
+            if head == 'let':
+                # parse bindings list
+                if tokens[i] != '(':
+                    raise SyntaxError("Expected '(' after let")
+                i += 1
+                local_env = env.copy()
+                while tokens[i] != ')':
+                    if tokens[i] != '(':
+                        raise SyntaxError("Expected '(' in let binding")
+                    i += 1
+                    var = tokens[i]
+                    i += 1
+                    val, i = parse(tokens, i, local_env)
+                    if tokens[i] != ')':
+                        raise SyntaxError("Expected ')' after let binding")
+                    i += 1
+                    local_env[var] = val
+                i += 1  # skip ')'
+                # body
+                result, i = parse(tokens, i, local_env)
+                if tokens[i] != ')':
+                    raise SyntaxError("Expected ')' after let body")
+                i += 1
+                return result, i
+            else:
+                # operator application
+                op = head
+                args = []
+                while tokens[i] != ')':
+                    if tokens[i] == '(':
+                        val, i = parse(tokens, i, env)
+                        args.append(val)
+                    else:
+                        atom = tokens[i]
+                        i += 1
+                        if atom.replace('.', '', 1).lstrip('-').isdigit():
+                            args.append(float(atom))
+                        else:
+                            args.append(env[atom])
+                i += 1  # skip ')'
+
+                if op == '+':
+                    return sum(args), i
+                if op == '*':
+                    prod = 1.0
+                    for a in args:
+                        prod *= a
+                    return prod, i
+                if op == '-':
+                    if len(args) == 1:
+                        return -args[0], i
+                    res = args[0]
+                    for a in args[1:]:
+                        res -= a
+                    return res, i
+                if op == '/':
+                    if len(args) == 1:
+                        return 1.0 / args[0], i
+                    res = args[0]
+                    for a in args[1:]:
+                        res /= a
+                    return res, i
+                raise SyntaxError(f"Unknown operator {op}")
+        else:
+            # atom
+            if token.replace('.', '', 1).lstrip('-').isdigit():
+                return float(token), i
+            return env[token], i
+
+    value, next_i = parse(tokens, 0, {})
+    if next_i != len(tokens):
+        raise SyntaxError("Extra tokens after parsing")
+    return float(value)
+```

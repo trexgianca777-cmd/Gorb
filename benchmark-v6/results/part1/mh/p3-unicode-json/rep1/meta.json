@@ -1,0 +1,39 @@
+{
+  "mechanism": "mh",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "code crashed: File \"/tmp/tmpge6xkwfr.py\", line 5\n    \"\"\"\n    ^^^\nSyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 151-152: truncated \\uXXXX escape",
+      "framing": "initial"
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "tests_passed=0/3",
+      "framing": "minimal"
+    },
+    {
+      "attempt": 3,
+      "pass": true,
+      "detail": "tests_passed=3/3",
+      "framing": "rewrite"
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 378,
+      "completion_chars": 5047
+    },
+    {
+      "prompt_chars": 4774,
+      "completion_chars": 5377
+    },
+    {
+      "prompt_chars": 4833,
+      "completion_chars": 5419
+    }
+  ],
+  "task": "p3-unicode-json",
+  "rep": "1"
+}

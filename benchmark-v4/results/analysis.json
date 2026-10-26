@@ -1,0 +1,251 @@
+{
+  "per_task": {
+    "01-code-evaluator-2": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "0/3",
+      "unstable": []
+    },
+    "02-code-sjson": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "03-code-wildcard": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "04-code-base-convert": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "05-knights-knaves-5": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "06-scheduling-trap-2": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "07-zebra-lite": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "08-arithmetic-traps-2": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "09-adversarial-alpha-2": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "10-adversarial-paragraphs-2": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "11-adversarial-list": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "12-longctx-conflicting-2": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "13-longctx-count": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "14-temporal": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "15-code-caesar": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    },
+    "16-code-roman": {
+      "plain": "3/3",
+      "revise": "3/3",
+      "route": "3/3",
+      "unstable": []
+    }
+  },
+  "mechanism_means": {
+    "plain": 1.0,
+    "revise": 1.0,
+    "route": 0.9375
+  },
+  "comparisons": {
+    "route": {
+      "wins": 0,
+      "losses": 1,
+      "ties": 15,
+      "sign_test_p_one_sided": 1.0,
+      "detail": [
+        [
+          "01-code-evaluator-2",
+          "loss 0/3 vs 3/3"
+        ],
+        [
+          "02-code-sjson",
+          "tie 3/3"
+        ],
+        [
+          "03-code-wildcard",
+          "tie 3/3"
+        ],
+        [
+          "04-code-base-convert",
+          "tie 3/3"
+        ],
+        [
+          "05-knights-knaves-5",
+          "tie 3/3"
+        ],
+        [
+          "06-scheduling-trap-2",
+          "tie 3/3"
+        ],
+        [
+          "07-zebra-lite",
+          "tie 3/3"
+        ],
+        [
+          "08-arithmetic-traps-2",
+          "tie 3/3"
+        ],
+        [
+          "09-adversarial-alpha-2",
+          "tie 3/3"
+        ],
+        [
+          "10-adversarial-paragraphs-2",
+          "tie 3/3"
+        ],
+        [
+          "11-adversarial-list",
+          "tie 3/3"
+        ],
+        [
+          "12-longctx-conflicting-2",
+          "tie 3/3"
+        ],
+        [
+          "13-longctx-count",
+          "tie 3/3"
+        ],
+        [
+          "14-temporal",
+          "tie 3/3"
+        ],
+        [
+          "15-code-caesar",
+          "tie 3/3"
+        ],
+        [
+          "16-code-roman",
+          "tie 3/3"
+        ]
+      ]
+    },
+    "revise": {
+      "wins": 0,
+      "losses": 0,
+      "ties": 16,
+      "sign_test_p_one_sided": 1.0,
+      "detail": [
+        [
+          "01-code-evaluator-2",
+          "tie 3/3"
+        ],
+        [
+          "02-code-sjson",
+          "tie 3/3"
+        ],
+        [
+          "03-code-wildcard",
+          "tie 3/3"
+        ],
+        [
+          "04-code-base-convert",
+          "tie 3/3"
+        ],
+        [
+          "05-knights-knaves-5",
+          "tie 3/3"
+        ],
+        [
+          "06-scheduling-trap-2",
+          "tie 3/3"
+        ],
+        [
+          "07-zebra-lite",
+          "tie 3/3"
+        ],
+        [
+          "08-arithmetic-traps-2",
+          "tie 3/3"
+        ],
+        [
+          "09-adversarial-alpha-2",
+          "tie 3/3"
+        ],
+        [
+          "10-adversarial-paragraphs-2",
+          "tie 3/3"
+        ],
+        [
+          "11-adversarial-list",
+          "tie 3/3"
+        ],
+        [
+          "12-longctx-conflicting-2",
+          "tie 3/3"
+        ],
+        [
+          "13-longctx-count",
+          "tie 3/3"
+        ],
+        [
+          "14-temporal",
+          "tie 3/3"
+        ],
+        [
+          "15-code-caesar",
+          "tie 3/3"
+        ],
+        [
+          "16-code-roman",
+          "tie 3/3"
+        ]
+      ]
+    }
+  }
+}

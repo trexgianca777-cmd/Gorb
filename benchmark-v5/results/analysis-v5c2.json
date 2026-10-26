@@ -1,0 +1,81 @@
+{
+  "rates": {
+    "bestof5": {
+      "p3-unicode-json": 0.0,
+      "p8-bizdays": 0.0,
+      "p9-sexpr-let": 0.0,
+      "q3-zebra-5": 0.0,
+      "q8-mastermind": 1.0,
+      "r5-fifty-words": 0.0,
+      "r8-no-e": 0.0,
+      "c1-expr-eval-3": 0.0,
+      "c10-sexpr": 0.0,
+      "l1-knights-6": 0.0,
+      "w2-word-count": 0.0,
+      "w5-lines-words": 0.0
+    },
+    "plain": {
+      "p3-unicode-json": 0.0,
+      "p8-bizdays": 0.0,
+      "p9-sexpr-let": 0.0,
+      "q3-zebra-5": 0.0,
+      "q8-mastermind": 1.0,
+      "r5-fifty-words": 0.0,
+      "r8-no-e": 0.0,
+      "c1-expr-eval-3": 0.0,
+      "c10-sexpr": 0.0,
+      "l1-knights-6": 0.0,
+      "w2-word-count": 0.0,
+      "w5-lines-words": 0.0
+    },
+    "revise": {
+      "p3-unicode-json": 1.0,
+      "p8-bizdays": 0.0,
+      "p9-sexpr-let": 1.0,
+      "q3-zebra-5": 1.0,
+      "q8-mastermind": 1.0,
+      "r5-fifty-words": 0.0,
+      "r8-no-e": 0.0,
+      "c1-expr-eval-3": 1.0,
+      "c10-sexpr": 1.0,
+      "l1-knights-6": 0.0,
+      "w2-word-count": 0.0,
+      "w5-lines-words": 1.0
+    },
+    "route": {
+      "p3-unicode-json": 1.0,
+      "p8-bizdays": 1.0,
+      "p9-sexpr-let": 1.0,
+      "q3-zebra-5": 1.0,
+      "q8-mastermind": 1.0,
+      "r5-fifty-words": 0.0,
+      "r8-no-e": 0.0,
+      "c1-expr-eval-3": 0.0,
+      "c10-sexpr": 1.0,
+      "l1-knights-6": 0.0,
+      "w2-word-count": 1.0,
+      "w5-lines-words": 1.0
+    },
+    "selfcon": {
+      "p3-unicode-json": 0.0,
+      "p8-bizdays": 0.0,
+      "p9-sexpr-let": 0.0,
+      "q3-zebra-5": 0.0,
+      "q8-mastermind": 1.0,
+      "r5-fifty-words": 0.0,
+      "r8-no-e": 0.0,
+      "c1-expr-eval-3": 0.0,
+      "c10-sexpr": 0.0,
+      "l1-knights-6": 0.0,
+      "w2-word-count": 0.0,
+      "w5-lines-words": 0.0
+    }
+  },
+  "means": {
+    "bestof5": 0.08333333333333333,
+    "plain": 0.08333333333333333,
+    "revise": 0.5833333333333334,
+    "route": 0.6666666666666666,
+    "selfcon": 0.08333333333333333
+  }
+}

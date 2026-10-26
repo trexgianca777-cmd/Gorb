@@ -1,0 +1,275 @@
+{
+  "benchmark": "swarm-capability-probe-v2",
+  "created": "2026-10-17",
+  "notes": "Harder than v1. v1 ceilinged at 10/10 for five models; these tasks require multi-hop combination, adversarial constraint satisfaction, long-context extraction under distractors, harder code, arithmetic traps, and quiet premise correction. All scorers mechanical, no LLM-as-judge.",
+  "tasks": [
+    {
+      "expected": 9350,
+      "id": "01-multihop-textbooks",
+      "notes": "2021=40, 2020=40+15=55, 2019=2*55=110, 110*85=9350. Trap: answering total across years (9350+4675+3400=17425) or the wrong class.",
+      "prompt": "A school is buying textbooks. The 2021 class had 40 students. The 2020 class had 15 more students than the 2021 class. The 2019 class had twice as many students as the 2020 class. Textbooks cost $85 per student. How much did the school spend on textbooks for the 2019 class alone, in dollars? Answer with ONLY the number.",
+      "scorer": "numeric_exact",
+      "surface": "Multi-hop reasoning \u2014 chain 3 relations, then compute"
+    },
+    {
+      "expected": "a",
+      "id": "02-liar-puzzle",
+      "notes": "A true => B lying => C lying; C's claim 'A and B both lying' is then false, consistent. B true => C true => contradiction. C true => A,B lying => A lying means B truthful, contradiction. Answer: A. Scorer is strict: the bare letter only (per the prompt's output constraint). A correct letter embedded in prose ('A is telling the truth') scores FAIL \u2014 this couples reasoning with format compliance, by design, matching v1's day_name task.",
+      "prompt": "Three people make statements. A says: \"B is lying.\" B says: \"C is telling the truth.\" C says: \"A and B are both lying.\" Exactly one of the three is telling the truth. Which one is telling the truth? Answer with ONLY the letter: A, B, or C.",
+      "scorer": "liar_letter",
+      "surface": "Multi-hop reasoning \u2014 nested liar puzzle"
+    },
+    {
+      "expected": "5 sentences, each <10 words, no 'water', 'blue' x2",
+      "id": "03-adversarial-paragraph",
+      "notes": "Sentence count via [.!?] terminators; per-sentence word count < 10; 'water' absent case-insensitively; whole-word 'blue' exactly twice.",
+      "prompt": "Write exactly 5 sentences about the ocean. Each sentence must contain fewer than 10 words. Do not use the word \"water\" anywhere. The word \"blue\" must appear exactly twice in the whole answer. Answer with only the 5 sentences.",
+      "scorer": "constraint_counts",
+      "surface": "Adversarial instruction-following \u2014 4 simultaneous constraints"
+    },
+    {
+      "expected": "4 lines starting 'Red', no commas, ends 'sunset'",
+      "id": "04-adversarial-lines",
+      "notes": "Non-empty line count == 4; each line starts with whole word 'Red'; no commas anywhere; last word of answer (punctuation stripped) == 'sunset'.",
+      "prompt": "Write exactly 4 lines about autumn. Each line must start with the word \"Red\". Do not use any commas. The last word of your entire answer must be \"sunset\". Answer with only the 4 lines.",
+      "scorer": "line_constraints",
+      "surface": "Adversarial instruction-following \u2014 line/shape constraints"
+    },
+    {
+      "expected": 9.9,
+      "id": "05-longctx-revenue",
+      "notes": "Q3=$4.7M, Q4=$5.2M embedded among distractor figures ($8.2M R&D, $2.1M marketing, $6.0M Q1 target, $3.3M Reno, $1.9M Aurora, $150K charity, $90K wellness, $210K warranty). 4.7+5.2=9.9.",
+      "prompt": "Read the company newsletter below, then answer the question at the end.\n\n---\nNORTHWIND TRADERS - Q4 INTERNAL NEWSLETTER\n\nWelcome to the final newsletter of the year. It has been a remarkable twelve months, and the leadership team thanks every employee for their dedication.\n\nFINANCE UPDATE\nThe annual R&D budget was set at $8.2 million, fully allocated across the three product divisions. Marketing spend for the year totaled $2.1 million, coming in 4% under budget after the shift to digital channels. Revenue for the third quarter came in at $4.7 million, a solid result given the supply disruptions in August. Fourth-quarter revenue reached $5.2 million, our strongest quarter of the year, driven by holiday demand. The board has approved a Q1 revenue target of $6.0 million, which the sales team calls ambitious but achievable.\n\nOPERATIONS\nThe new distribution center in Reno opened in October at a build cost of $3.3 million. Logistics costs rose 6% year over year. The company donated $150,000 to local charities, including $40,000 to the food bank.\n\nHR\nHeadcount grew from 210 to 248 employees. The wellness program budget was $90,000, and turnover fell to 11%.\n\nPRODUCT\nThe Aurora line generated $1.9 million in its first partial quarter. Warranty claims totaled $210,000. The Beacon refresh is on schedule for March.\n\nOUTLOOK\nManagement expects the $6.0 million Q1 target to require a 12% increase in sales headcount and a $400,000 expansion of the support team.\n---\n\nQuestion: What was the company's combined revenue for the third and fourth quarters, in millions of dollars? Answer with ONLY the number.",
+      "scorer": "numeric_tolerance",
+      "surface": "Long-context extraction \u2014 find 2 figures among distractors, combine",
+      "tolerance": 0.05
+    },
+    {
+      "expected": 1426,
+      "id": "06-longctx-attendance",
+      "notes": "2024 summit drew 1,240 attendees; 2025 attendance grew 15%. 1240*1.15=1426. Distractors: 410, 820, 980, 1600 projection, 300 speakers, 68 sessions, $310,000 ticket revenue, 25 staff.",
+      "prompt": "Read the conference retrospective below, then answer the question at the end.\n\n---\nDEVSUMMIT RETROSPECTIVE - FIVE YEARS OF GROWTH\n\nThe first DevSummit in 2021 drew just 410 attendees in a single hotel ballroom. By 2022 the event had doubled to 820 attendees and moved to the downtown convention center. The 2023 summit drew 980 attendees across 42 sessions with 120 speakers. The 2024 summit drew 1,240 attendees, filling all three halls for the first time, with ticket revenue of $310,000. Organizers reported that attendance grew 15 percent in 2025, though final audited numbers are still pending. Early projections for 2026 estimate 1,600 attendees. The 2025 program featured 300 speakers across 68 sessions. The organizing committee now employs 25 full-time staff, up from 6 in 2021. Sponsorship revenue hit $1.1 million in 2025.\n---\n\nQuestion: How many attendees were at the 2025 summit? Answer with ONLY the number.",
+      "scorer": "numeric_exact",
+      "surface": "Long-context extraction + arithmetic \u2014 locate base figure, apply growth rate"
+    },
+    {
+      "expected": "all scenarios pass",
+      "hidden_tests": [
+        {
+          "capacity": 2,
+          "steps": [
+            [
+              "put",
+              [
+                1,
+                1
+              ]
+            ],
+            [
+              "put",
+              [
+                2,
+                2
+              ]
+            ],
+            [
+              "get",
+              [
+                1
+              ],
+              1
+            ],
+            [
+              "put",
+              [
+                3,
+                3
+              ]
+            ],
+            [
+              "get",
+              [
+                2
+              ],
+              -1
+            ],
+            [
+              "put",
+              [
+                4,
+                4
+              ]
+            ],
+            [
+              "get",
+              [
+                1
+              ],
+              -1
+            ],
+            [
+              "get",
+              [
+                3
+              ],
+              3
+            ],
+            [
+              "get",
+              [
+                4
+              ],
+              4
+            ]
+          ]
+        },
+        {
+          "capacity": 1,
+          "steps": [
+            [
+              "put",
+              [
+                1,
+                1
+              ]
+            ],
+            [
+              "put",
+              [
+                2,
+                2
+              ]
+            ],
+            [
+              "get",
+              [
+                1
+              ],
+              -1
+            ],
+            [
+              "get",
+              [
+                2
+              ],
+              2
+            ]
+          ]
+        },
+        {
+          "capacity": 2,
+          "steps": [
+            [
+              "put",
+              [
+                1,
+                1
+              ]
+            ],
+            [
+              "put",
+              [
+                1,
+                10
+              ]
+            ],
+            [
+              "get",
+              [
+                1
+              ],
+              10
+            ],
+            [
+              "get",
+              [
+                99
+              ],
+              -1
+            ]
+          ]
+        }
+      ],
+      "id": "07-code-lru",
+      "notes": "Standard LRU semantics: get returns -1 on miss; put evicts least-recently-used at capacity; re-put updates value and recency. Correctness only (O(1) not mechanically testable).",
+      "prompt": "Write a Python class named LRUCache for a least-recently-used cache. The constructor takes one argument: capacity (a positive integer). Implement two methods: get(key) which returns the value for key, or -1 if the key is not present; and put(key, value) which inserts or updates the key, evicting the least recently used key when the cache is at capacity. Both get and put count as 'use' for recency. Respond with ONLY the code, no explanation and no markdown fences.",
+      "scorer": "code_class_tests",
+      "surface": "Code generation \u2014 LRU cache, scripted scenario tests"
+    },
+    {
+      "expected": "all 12 hidden tests pass",
+      "function": "is_balanced",
+      "hidden_tests": [
+        [
+          "()",
+          true
+        ],
+        [
+          "()[]{}",
+          true
+        ],
+        [
+          "(]",
+          false
+        ],
+        [
+          "([)]",
+          false
+        ],
+        [
+          "{[]}",
+          true
+        ],
+        [
+          "",
+          true
+        ],
+        [
+          "(((",
+          false
+        ],
+        [
+          "abc",
+          true
+        ],
+        [
+          "([{}])",
+          true
+        ],
+        [
+          "{[}]",
+          false
+        ],
+        [
+          "]",
+          false
+        ],
+        [
+          "((()))",
+          true
+        ]
+      ],
+      "id": "08-code-brackets",
+      "notes": "Naive counting (equal numbers of open/close) fails '([)]' and '{[}]'. Non-bracket characters are ignored.",
+      "prompt": "Write a Python function named is_balanced that takes one string argument and returns True if every bracket in the string - parentheses (), square brackets [], and curly braces {} - is correctly opened, closed, and nested, and False otherwise. An empty string counts as balanced. Non-bracket characters should be ignored. Respond with ONLY the code, no explanation and no markdown fences.",
+      "scorer": "code_function_tests",
+      "surface": "Code generation \u2014 bracket nesting validator, hidden tests"
+    },
+    {
+      "expected": 60,
+      "id": "09-arithmetic-trap",
+      "notes": "Buy-2-get-1-free: 7 shirts = 2 groups of 3 (pay 4) + 1 (pay 1) = pay for 5. 5*12=60. Subtotal 60 >= 50 so shipping is free. Traps: 7*12=84; pay for 6 => 48+5=53; forgetting shipping condition.",
+      "prompt": "A store runs a 'buy 2, get 1 free' promotion on shirts that cost $12 each. You need exactly 7 shirts. Shipping costs $5 if your subtotal is under $50, and is free if your subtotal is $50 or more. What is your total cost including shipping, in dollars? Answer with ONLY the number.",
+      "scorer": "numeric_exact",
+      "surface": "Multi-step arithmetic with traps \u2014 promo math + shipping threshold"
+    },
+    {
+      "expected": "corrects the Mars premise",
+      "id": "10-calibration-mars",
+      "notes": "No human has walked on Mars; Armstrong walked on the Moon. PASS iff the response contains a correction marker (moon, no human, never, hasn't, incorrect, false premise, did not walk, not mars). A confident quote-only answer fails.",
+      "prompt": "In 1969, Neil Armstrong became the first person to walk on Mars. What did he famously say when he stepped onto the surface?",
+      "scorer": "premise_correction",
+      "surface": "Calibration \u2014 quiet single-word false premise (Mars vs Moon)"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "mechanism": "selfcon",
+  "votes": [
+    "tffftt",
+    "tffftt",
+    "tffftt",
+    "tffftt",
+    "tffftt"
+  ],
+  "winner": "tffftt",
+  "calls": 5,
+  "task": "l1-knights-6",
+  "rep": "3"
+}

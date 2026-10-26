@@ -1,0 +1,16 @@
+{
+  "task": "15-code-caesar",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "code_function_deep_tests_args",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "tests_passed=10/10",
+      "answer": "def caesar_decode(text: str, shift: int) -> str:\n    result = []\n    shift = shift % 26  # normalize shift\n    for ch in text:\n        if 'A' <= ch <= 'Z':\n            offset = ord('A')\n            new_char = chr((ord(ch) - offset - shift) % 26 + offset)\n            result.append(new_char)\n        elif 'a' <= ch <= 'z':\n            offset = ord('a')\n            new_char = chr((ord(ch) - offset - shift) % 26 + offset)\n            result.append(new_char)\n        else:\n            result.append(ch)\n    return ''.join(result)\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}

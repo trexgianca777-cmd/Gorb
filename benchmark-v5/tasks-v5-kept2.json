@@ -1,0 +1,316 @@
+{
+  "tasks": [
+    {
+      "id": "p3-unicode-json",
+      "family": "code",
+      "prompt": "Write a Python function named parse_sjson that takes one string argument: a simplified JSON document, and returns the parsed Python value. Strict JSON: objects, arrays, double-quoted strings with escapes (\\\", \\\\, \\n, \\t, \\uXXXX including \\u00e9-style non-ASCII), numbers, true/false/null, arbitrary nesting. Do NOT use the json module or eval. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests",
+      "function": "parse_sjson",
+      "hidden_tests": [
+        [
+          "{\"caf\\u00e9\": \"\\u2603\", \"n\": [1, {\"x\": \"\\u0041\"}]}",
+          {
+            "caf\u00e9": "\u2603",
+            "n": [
+              1,
+              {
+                "x": "A"
+              }
+            ]
+          }
+        ],
+        [
+          "{\"a\": {\"b\": {\"c\": [true, {\"d\": null}]}}}",
+          {
+            "a": {
+              "b": {
+                "c": [
+                  true,
+                  {
+                    "d": null
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        [
+          "\"\\u00e9\\u00e8\\u00ea\"",
+          "\u00e9\u00e8\u00ea"
+        ]
+      ],
+      "ban_modules": [
+        "json"
+      ]
+    },
+    {
+      "id": "p8-bizdays",
+      "family": "code",
+      "prompt": "Write a Python function named add_business_days that takes a date string YYYY-MM-DD and an integer n (positive, negative, or zero), and returns the date n business days later as YYYY-MM-DD. Business days are Monday-Friday; Saturday and Sunday are skipped. n=0 returns the input unchanged (even on a weekend). Handle leap years and century rules. Do NOT use the datetime module. Reply with ONLY the function code.",
+      "scorer": "code_function_deep_tests_args",
+      "function": "add_business_days",
+      "hidden_tests": [
+        [
+          [
+            "2026-10-16",
+            1
+          ],
+          "2026-10-19"
+        ],
+        [
+          [
+            "2026-10-16",
+            0
+          ],
+          "2026-10-16"
+        ],
+        [
+          [
+            "2026-10-19",
+            -1
+          ],
+          "2026-10-16"
+        ],
+        [
+          [
+            "2026-10-17",
+            1
+          ],
+          "2026-10-19"
+        ],
+        [
+          [
+            "2026-12-24",
+            2
+          ],
+          "2026-12-28"
+        ],
+        [
+          [
+            "2024-02-28",
+            2
+          ],
+          "2024-03-01"
+        ]
+      ],
+      "ban_modules": [
+        "datetime",
+        "calendar"
+      ]
+    },
+    {
+      "id": "p9-sexpr-let",
+      "family": "code",
+      "prompt": "Write a Python function named seval that takes a string: an arithmetic expression in fully-parenthesized prefix notation with let-bindings. Operators: + * - / (+ and * take 1+ operands; - and / take 1+ operands, unary minus for one operand; / is float division). A let form looks like (let ((x 2) (y 3)) (+ x y)): it binds each name to its value expression, then evaluates the body. Bindings are sequential within one let (later bindings see earlier ones), and inner lets shadow outer bindings. Variable names are lowercase letters. Operands separated by whitespace. Return a float. Reply with ONLY the function code.",
+      "scorer": "code_function_numeric_tests",
+      "function": "seval",
+      "hidden_tests": [
+        [
+          "(let ((x 2) (y 3)) (+ x y))",
+          5.0
+        ],
+        [
+          "(let ((x 2)) (let ((x 5) (y x)) (+ x y)))",
+          10.0
+        ],
+        [
+          "(let ((a 10)) (* a (let ((a 3)) (+ a 1))))",
+          40.0
+        ],
+        [
+          "(+ (let ((x 4)) (* x x)) 1)",
+          17.0
+        ],
+        [
+          "(let ((x 2) (y (* x 3))) (+ x y))",
+          8.0
+        ]
+      ],
+      "tolerance": 1e-09
+    },
+    {
+      "id": "q3-zebra-5",
+      "family": "logic",
+      "prompt": "Five houses stand in a row, numbered 1 to 5 left to right. Each house has a color (red, green, blue, yellow, white), a pet (cat, dog, bird, fish, horse), and a drink (tea, coffee, milk, juice, water) \u2014 each value used exactly once.\nClues:\n- The green house is immediately right of the red house.\n- The dog owner drinks coffee.\n- The tea drinker owns the bird.\n- The blue house is house 3.\n- The milk drinker lives next to the cat owner.\n- The white house owner drinks water.\n- The horse is kept in house 1.\n- The blue house owner drinks milk.\nThe fish's house is uniquely determined. Which house number (1-5) keeps the fish? Reply with ONLY the digit.",
+      "scorer": "digits_strict",
+      "expected": "3"
+    },
+    {
+      "id": "q8-mastermind",
+      "family": "logic",
+      "prompt": "A 4-digit code uses four different digits (0-9). Clues from guesses:\n- Guess 6380: 1 digit(s) correct and in the right position, 1 correct digit(s) in the wrong position.\n- Guess 3046: 0 digit(s) correct and in the right position, 2 correct digit(s) in the wrong position.\n- Guess 8564: 1 digit(s) correct and in the right position, 1 correct digit(s) in the wrong position.\n- Guess 1539: 3 digit(s) correct and in the right position, 0 correct digit(s) in the wrong position.\nThere is exactly one code consistent with all clues. What is it? Reply with ONLY the 4 digits.",
+      "scorer": "digits_strict",
+      "expected": "6539"
+    },
+    {
+      "id": "r5-fifty-words",
+      "family": "writing",
+      "prompt": "Write exactly 5 sentences with exactly 50 words in total. Reply with ONLY the 5 sentences.",
+      "scorer": "constraint_words",
+      "n_sentences": 5,
+      "total_words": 50
+    },
+    {
+      "id": "r8-no-e",
+      "family": "writing",
+      "prompt": "Write exactly 3 sentences about the night sky. Do not use the letter 'e' or 'E' anywhere in your answer \u2014 not in any word. Reply with ONLY the 3 sentences.",
+      "scorer": "constraint_alpha",
+      "n_sentences": 3,
+      "starts": "abc",
+      "banned_chars": [
+        "e",
+        "E"
+      ]
+    },
+    {
+      "id": "c1-expr-eval-3",
+      "family": "code",
+      "prompt": "Write a Python function named evaluate that takes one string argument: an arithmetic expression, and returns a float. The expression contains non-negative integers, the binary operators + - * / and ** (exponentiation), parentheses, and unary minus. Unary minus may appear at the start of the expression, right after '(', or right after another operator (including after **). Unary minus binds LESS tightly than **, as in Python: -2**2 is -4, not 4. ** is right-associative: 2**3**2 is 512. Whitespace may appear anywhere and must be ignored. Division is float division. Do NOT use eval, exec, or the ast module. Reply with ONLY the function code, no explanation.",
+      "scorer": "code_function_numeric_tests",
+      "function": "evaluate",
+      "hidden_tests": [
+        [
+          "3*-2",
+          -6.0
+        ],
+        [
+          "2**3**2",
+          512.0
+        ],
+        [
+          "-(2+3)*-2",
+          10.0
+        ],
+        [
+          " 4 + 2 * -3 ",
+          -2.0
+        ],
+        [
+          "10/4",
+          2.5
+        ],
+        [
+          "2**-1",
+          0.5
+        ],
+        [
+          "(1+2)*(3- -1)",
+          12.0
+        ],
+        [
+          "--5",
+          5.0
+        ],
+        [
+          "-2**2",
+          -4.0
+        ],
+        [
+          "3 * -(2 + -1)",
+          -3.0
+        ]
+      ],
+      "tolerance": 1e-06,
+      "ban_eval": true
+    },
+    {
+      "id": "c10-sexpr",
+      "family": "code",
+      "prompt": "Write a Python function named seval that takes a string: an arithmetic expression in fully-parenthesized prefix notation, e.g. '(+ 1 (* 2 3) (- 10 4))'. Operators: + * - /. + and * take one or more operands; - and / take one or more operands (unary minus for a single operand, left-associative otherwise); / is float division. Operands are integers or nested expressions, separated by whitespace. Return a float. Reply with ONLY the function code.",
+      "scorer": "code_function_numeric_tests",
+      "function": "seval",
+      "hidden_tests": [
+        [
+          "(+ 1 (* 2 3) (- 10 4))",
+          13.0
+        ],
+        [
+          "(* (+ 1 2) (+ 3 4))",
+          21.0
+        ],
+        [
+          "(- 5)",
+          -5.0
+        ],
+        [
+          "(/ 7 2)",
+          3.5
+        ],
+        [
+          "(+ (* 2 3) (/ 9 3) (- 1))",
+          8.0
+        ],
+        [
+          "(- (* 2 5) 3 2)",
+          5.0
+        ]
+      ],
+      "tolerance": 1e-09
+    },
+    {
+      "id": "l1-knights-6",
+      "family": "logic",
+      "prompt": "Six islanders \u2014 A, B, C, D, E, F \u2014 are each either a knight (always tells the truth) or a knave (always lies). Each makes one statement:\nA says: \"C is a knave.\"\nB says: \"D is a knight.\"\nC says: \"if E is a knight then A is a knave.\"\nD says: \"A is a knave.\"\nE says: \"if C is a knight then D is a knave.\"\nF says: \"if B is a knight then F is a knave.\"\nThere is exactly one consistent assignment. Reply with ONLY a 6-letter string for A,B,C,D,E,F in order, using T for knight and F for knave (example: TFTFTF).",
+      "scorer": "token_strict",
+      "expected": "tttttf"
+    },
+    {
+      "id": "w2-word-count",
+      "family": "writing",
+      "prompt": "Write exactly 5 sentences. Each sentence must contain exactly 6 words. Reply with ONLY the 5 sentences.",
+      "scorer": "constraint_words",
+      "n_sentences": 5,
+      "words_per_sentence": 6
+    },
+    {
+      "id": "w5-lines-words",
+      "family": "writing",
+      "prompt": "Write exactly 6 lines. Odd-numbered lines (1, 3, 5) must start with '- ' (dash, space). Even-numbered lines (2, 4, 6) must start with '* ' (asterisk, space). After the bullet marker, each line must contain exactly 4 words. Reply with ONLY the 6 lines.",
+      "scorer": "constraint_list_alt",
+      "n_lines": 6,
+      "odd_prefix": "- ",
+      "even_prefix": "* ",
+      "words_per_line": 4
+    }
+  ],
+  "kept_ids": [
+    "p3-unicode-json",
+    "p8-bizdays",
+    "p9-sexpr-let",
+    "q3-zebra-5",
+    "q8-mastermind",
+    "r5-fifty-words",
+    "r8-no-e",
+    "c1-expr-eval-3",
+    "c10-sexpr",
+    "l1-knights-6",
+    "w2-word-count",
+    "w5-lines-words"
+  ],
+  "dropped_ids": [
+    "p1-custom-ops",
+    "p4-csv-multiline",
+    "p6-tally",
+    "p12-ipv4",
+    "p13-cron",
+    "q1-knights-7",
+    "q2-knights-exact2",
+    "q4-schedule-6",
+    "q5-tournament-5",
+    "q6-seating-6",
+    "r1-six-seven",
+    "r2-acrostic-5",
+    "r3-para-words",
+    "r4-lines-8",
+    "r6-commas-3",
+    "r7-growing",
+    "m1-prime100",
+    "m2-modexp",
+    "m3-anagram",
+    "m4-clock",
+    "m5-mississippi",
+    "m6-password",
+    "m7-trailing-zeros",
+    "m8-prime-sum"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "mechanism": "bestof5",
+  "samples": [
+    {
+      "sample": 1,
+      "pass": false,
+      "detail": "digits='5'"
+    },
+    {
+      "sample": 2,
+      "pass": false,
+      "detail": "digits='5'"
+    },
+    {
+      "sample": 3,
+      "pass": false,
+      "detail": "digits='5'"
+    },
+    {
+      "sample": 4,
+      "pass": false,
+      "detail": "digits='5'"
+    },
+    {
+      "sample": 5,
+      "pass": false,
+      "detail": "digits='5'"
+    }
+  ],
+  "picked": null,
+  "calls": 5,
+  "task": "q3-zebra-5",
+  "rep": "3"
+}

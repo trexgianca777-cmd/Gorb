@@ -1,0 +1,77 @@
+We need solve. Let code ABCD.
+
+Guess1 6380: positions:6 A,3 B,8 C,0 D. Exactly 1 correct in right place, and 1 correct wrong place. So total correct digits =2.
+
+Guess2 3046: positions 3 A,0 B,4 C,6 D. 0 right place, 2 correct wrong place. So total correct digits =2, none in right spot.
+
+Guess3 8564: 8 A,5 B,6 C,4 D. 1 right place, 1 wrong place. total 2.
+
+Guess4 1539: 1 A,5 B,3 C,9 D. 3 right place, 0 wrong. So three positions are exact.
+
+Thus code matches three of those positions. Which guess gives 3 right? Guess4. So code has three of those digits in same positions as 1,5,3,9.
+
+Let’s denote code = a b c d.
+
+From guess4: positions: a?=1? maybe; b?=5?; c?=3?; d?=9? with exactly three correct in right place, and the fourth digit is not in code at all (since 0 wrong place). So three of the four digits are correct and placed; the remaining digit is not in code.
+
+We need determine which position is wrong. Try possibilities.
+
+Case 1: a wrong, b=5, c=3, d=9 correct. Then code = ? 5 3 9. Digits used:5,3,9 plus another not 1. Also all digits distinct.
+
+Check other clues.
+
+Guess1 6380: compare to code ? 5 3 9.
+
+Positions:6 vs ?, 3 vs5,8 vs3,0 vs9. Right place matches? none (since ? not 6, 5!=3,3!=8,9!=0). Need exactly 1 right place, so this case fails.
+
+Case2: b wrong, a=1, c=3, d=9 correct. Code =1 ? 3 9.
+
+Check Guess1: 6 vs1 no,3 vs?,8 vs3,0 vs9. Right place? position3: guess has 8 vs code 3 no. So none right. Need 1 right place, fails.
+
+Case3: c wrong, a=1,b=5,d=9 correct. Code =1 5 ? 9.
+
+Check Guess1: positions:6 vs1 no,3 vs5 no,8 vs?,0 vs9 no. No right place. Fail.
+
+Case4: d wrong, a=1,b=5,c=3 correct. Code =1 5 3 ?. Good.
+
+Now test clues.
+
+Guess1 6380 vs 1 5 3 ?. Positions:6 vs1 no,3 vs5 no,8 vs3 no,0 vs? unknown. Right place count currently 0. Need 1 right place, so ? must be 0 to give right place at position4. Then code =1 5 3 0.
+
+Check distinct digits yes.
+
+Now evaluate total matches for guess1: digits present? code digits {1,5,3,0}. Guess1 digits {6,3,8,0}. Overlap =3 and0 => two digits correct. One of them (0) is right place (pos4). The other (3) is in wrong place (guess pos2, code pos3). So satisfies 1 right,1 wrong. Good.
+
+Guess2 3046 vs 1 5 3 0. Positions:3 vs1 no,0 vs5 no,4 vs3 no,6 vs0 no. Right place 0 good. Need 2 correct wrong place. Overlap digits: guess digits {3,0,4,6}. Code digits {1,5,3,0}. Overlap =3 and0 two digits. Both are not in correct position (3 is guess pos1 vs code pos3, 0 guess pos2 vs code pos4). So 2 wrong place satisfied.
+
+Guess3 8564 vs 1 5 3 0. Positions:8 vs1 no,5 vs5 yes right place at pos2. So 1 right place accounted. Need 1 more correct wrong place. Overlap digits: guess digits {8,5,6,4} intersect code {1,5,3,0}= {5}. Already counted as right place. Need another wrong place but none. So fails. Wait maybe other digit matches? No. So case fails.
+
+Thus our assumption maybe wrong; maybe d wrong but code not 0? But need one right place in guess1, could be other position right. Let's reconsider case4 with unknown ? not necessarily 0, but need exactly one right place in guess1. Which positions could match? Compare guess1 6380 with code 1 5 3 ?. Right place possibilities: position3 guess has 8 vs code 3 no; position2 3 vs5 no; position1 6 vs1 no; position4 0 vs ?. So only if ?=0 gives right place. So must be 0. So code fixed 1 5 3 0 but fails guess3. Therefore our earlier assumption maybe wrong about which three are correct in guess4. Need consider that the wrong digit could still be present elsewhere? But clue says 0 correct digit(s) in wrong position, meaning the wrong digit is not in code at all. So our logic stands.
+
+Thus maybe there is no solution? Let's brute think other case maybe multiple? Let's test case where three correct but maybe different arrangement? Wait clue: 3 digits correct and in the right position, 0 correct digits in wrong position. So exactly three positions match, the fourth digit is not in code. So we tried each. Only case4 gave possible right place counts. But fails guess3. Did we mis-evaluate guess3? Let's recalc with code 1 5 3 0.
+
+Guess3 8564: positions:8 vs1 no,5 vs5 yes (right),6 vs3 no,4 vs0 no. So right place count =1 good. Need 1 correct wrong place. Overlap digits: guess digits {8,5,6,4} intersect code {1,5,3,0}= {5}. Only 5 which already right place. No other. So fails.
+
+Thus maybe our assumption of which three are correct is wrong because maybe the wrong digit could still appear elsewhere? But clue says 0 correct digits in wrong position, meaning no other correct digits at all, so wrong digit not in code. So correct.
+
+Thus maybe there is no solution? But problem says exactly one. Let's try brute mental maybe code = 1 5 9 3? Check which three? Suppose correct positions are a=1,b=5,c=9,d=3 (swap). That's 2 right? Not.
+
+We need three matches with guess4. Let's enumerate which position is wrong and see if any satisfies all.
+
+We tested a wrong, b wrong, c wrong, d wrong. All failed except d wrong gave partial but fails guess3. Maybe we made mistake on other clues for other cases? Let's quickly test case3: code 1 5 ? 9 with c wrong digit not 3 and not 1,5,9. Need satisfy guess1 etc. Let's brute maybe.
+
+Let code =1 5 X 9, X not 3, distinct.
+
+Guess1 6380: compare: positions:6 vs1 no,3 vs5 no,8 vsX?,0 vs9 no. Right place count 0 need 1, so maybe X=8 gives right place at pos3. Then code 1 5 8 9.
+
+Check total matches: overlap with guess1 digits {6,3,8,0} =8 only one digit, but need two correct digits. So fails.
+
+Thus case3 impossible.
+
+Case2: code =1 X 3 9 with b wrong. Need satisfy guess1 right place 1. Compare guess1:6 vs1 no,3 vsX?,8 vs3 no,0 vs9 no. Right place maybe if X=3? but X cannot be 3 (already used). So no right place. fails.
+
+Case1: code =X 5 3 9 with a wrong. Need right place 1 in guess1. Compare:6 vsX?,3 vs5 no,8 vs3 no,0 vs9 no. Right place possible if X=6 gives pos1 match. Then code 6 5 3 9. Check total matches with guess1: overlap digits {6,3,8,0} intersect {6,5,3,9}= {6,3} two digits, one right place (6) other wrong place (3 at pos2 vs code pos3) good. Now test other clues.
+
+Guess2 3046 vs 6 5 3 9: positions:3 vs6 no,0 vs5 no,4 vs3 no,6 vs9 no. Right place 0 good. Need 2 wrong place. Overlap digits: guess {3,0,4,6} intersect code {6,5,3,9}= {3,6}. Both not in correct position? 3 guess pos1 vs code pos3, 6 guess pos4 vs code pos1. So 2 wrong place satisfied.
+
+Guess3 8564 vs 6 5 3 9: positions:8 vs6 no,5 vs5 yes right place at pos2. Need one more wrong place. Overlap digits: guess {8,

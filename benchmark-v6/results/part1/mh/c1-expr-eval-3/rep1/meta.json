@@ -1,0 +1,59 @@
+{
+  "mechanism": "mh",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "framing": "initial"
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "framing": "minimal"
+    },
+    {
+      "attempt": 3,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "framing": "rewrite"
+    },
+    {
+      "attempt": 4,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "framing": "minimal"
+    },
+    {
+      "attempt": 5,
+      "pass": false,
+      "detail": "tests_passed=9/10",
+      "framing": "rewrite"
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 662,
+      "completion_chars": 1584
+    },
+    {
+      "prompt_chars": 2479,
+      "completion_chars": 1687
+    },
+    {
+      "prompt_chars": 2538,
+      "completion_chars": 1730
+    },
+    {
+      "prompt_chars": 2479,
+      "completion_chars": 1687
+    },
+    {
+      "prompt_chars": 2538,
+      "completion_chars": 1730
+    }
+  ],
+  "task": "c1-expr-eval-3",
+  "rep": "1"
+}

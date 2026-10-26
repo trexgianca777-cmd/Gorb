@@ -1,0 +1,16 @@
+{
+  "task": "09-adversarial-alpha-2",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "constraint_alpha",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "sentences=5/5, dup_words=0, count_seven=1/1",
+      "answer": "Zany explorers discovered seven hidden ruins. Youthful travelers trekked across barren dunes. Xylophone melodies echoed within crystal chambers. Wandering scholars documented ancient glyphs. Vivid sunrise painted horizons golden.\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}

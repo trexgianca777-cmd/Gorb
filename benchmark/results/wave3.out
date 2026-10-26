@@ -1,0 +1,43 @@
+=== 05-constrained-instructions ===
+[gemini-3.5-flash-lite] OK in 3.5s, 1 attempt(s)
+output: /tmp/bench-out-dCXvIf
+=== 06-summary-coverage ===
+=== 01-factual-precision ===
+[openai/gpt-oss-120b] OK in 1.8s, 1 attempt(s)
+output: /tmp/bench-out-s7QKFM
+=== 02-multi-step-arithmetic ===
+[openai/gpt-oss-120b] OK in 0.7s, 1 attempt(s)
+output: /tmp/bench-out-4rU1Bg
+=== 03-code-prime ===
+[openai/gpt-oss-120b] OK in 0.6s, 1 attempt(s)
+output: /tmp/bench-out-e6SMJ5
+=== 04-structured-json ===
+[openai/gpt-oss-120b] OK in 0.5s, 1 attempt(s)
+output: /tmp/bench-out-h3ZLvl
+=== 05-constrained-instructions ===
+[openai/gpt-oss-120b] OK in 0.7s, 1 attempt(s)
+output: /tmp/bench-out-HhR6qo
+=== 06-summary-coverage ===
+[openai/gpt-oss-120b] OK in 0.6s, 1 attempt(s)
+output: /tmp/bench-out-zJDJcD
+=== 07-date-reasoning ===
+[openai/gpt-oss-120b] OK in 0.4s, 1 attempt(s)
+output: /tmp/bench-out-UvGvWJ
+=== 08-unit-conversion ===
+[openai/gpt-oss-120b] OK in 0.7s, 1 attempt(s)
+output: /tmp/bench-out-nnQUh9
+=== 09-classification ===
+[openai/gpt-oss-120b] OK in 0.5s, 1 attempt(s)
+output: /tmp/bench-out-VUBHMG
+=== 10-calibration-refusal ===
+[openai/gpt-oss-120b] OK in 0.5s, 1 attempt(s)
+output: /tmp/bench-out-3dq7Tb
+done. raw outputs in results/raw/
+=== 10-calibration-refusal ===
+=== 09-classification ===
+[gemini-3.8-flash] FAILED http=502 after 3 attempt(s), 94.6s
+output: /tmp/bench-out-KXsVOt
+=== 10-calibration-refusal ===
+[gemini-3.8-flash] OK in 95.1s, 2 attempt(s)
+output: /tmp/bench-out-VM8dy2
+done. raw outputs in results/raw/

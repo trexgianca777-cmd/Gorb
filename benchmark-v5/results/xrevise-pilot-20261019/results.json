@@ -1,0 +1,279 @@
+{
+ "window_start_utc": "2026-10-19T21:40:18.808247+00:00",
+ "tasks": [
+  "c1-expr-eval-3",
+  "p9-sexpr-let",
+  "q3-zebra-5",
+  "c10-sexpr"
+ ],
+ "arms": [
+  {
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-120b"
+  },
+  {
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-120b"
+  },
+  {
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-20b"
+  },
+  {
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-20b"
+  }
+ ],
+ "cells": [
+  {
+   "task": "c1-expr-eval-3",
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "calls": 2,
+   "attempt_models": [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-120b"
+   ]
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-120b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "calls": 3,
+   "attempt_models": [
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-120b"
+   ]
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-20b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "calls": 3,
+   "attempt_models": [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-20b"
+   ]
+  },
+  {
+   "task": "c1-expr-eval-3",
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-20b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "calls": 3,
+   "attempt_models": [
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-20b"
+   ]
+  },
+  {
+   "task": "p9-sexpr-let",
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-120b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false
+   ],
+   "calls": 2,
+   "attempt_models": [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-120b"
+   ]
+  },
+  {
+   "task": "p9-sexpr-let",
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "calls": 2,
+   "attempt_models": [
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-120b"
+   ]
+  },
+  {
+   "task": "p9-sexpr-let",
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-20b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "calls": 3,
+   "attempt_models": [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-20b"
+   ]
+  },
+  {
+   "task": "p9-sexpr-let",
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-20b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "calls": 2,
+   "attempt_models": [
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-20b"
+   ]
+  },
+  {
+   "task": "q3-zebra-5",
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "calls": 2,
+   "attempt_models": [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-120b"
+   ]
+  },
+  {
+   "task": "q3-zebra-5",
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-120b",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "calls": 1,
+   "attempt_models": [
+    "openai/gpt-oss-20b"
+   ]
+  },
+  {
+   "task": "q3-zebra-5",
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-20b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "calls": 3,
+   "attempt_models": [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-20b"
+   ]
+  },
+  {
+   "task": "q3-zebra-5",
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-20b",
+   "final_pass": true,
+   "trajectory": [
+    true
+   ],
+   "calls": 1,
+   "attempt_models": [
+    "openai/gpt-oss-20b"
+   ]
+  },
+  {
+   "task": "c10-sexpr",
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    false,
+    true
+   ],
+   "calls": 3,
+   "attempt_models": [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-120b"
+   ]
+  },
+  {
+   "task": "c10-sexpr",
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-120b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "calls": 2,
+   "attempt_models": [
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-120b"
+   ]
+  },
+  {
+   "task": "c10-sexpr",
+   "gen": "openai/gpt-oss-120b",
+   "rev": "openai/gpt-oss-20b",
+   "final_pass": false,
+   "trajectory": [
+    false,
+    false,
+    false
+   ],
+   "calls": 3,
+   "attempt_models": [
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-20b"
+   ]
+  },
+  {
+   "task": "c10-sexpr",
+   "gen": "openai/gpt-oss-20b",
+   "rev": "openai/gpt-oss-20b",
+   "final_pass": true,
+   "trajectory": [
+    false,
+    true
+   ],
+   "calls": 2,
+   "attempt_models": [
+    "openai/gpt-oss-20b",
+    "openai/gpt-oss-20b"
+   ]
+  }
+ ]
+}

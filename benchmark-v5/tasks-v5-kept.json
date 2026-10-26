@@ -1,0 +1,160 @@
+{
+  "tasks": [
+    {
+      "id": "c1-expr-eval-3",
+      "family": "code",
+      "prompt": "Write a Python function named evaluate that takes one string argument: an arithmetic expression, and returns a float. The expression contains non-negative integers, the binary operators + - * / and ** (exponentiation), parentheses, and unary minus. Unary minus may appear at the start of the expression, right after '(', or right after another operator (including after **). Unary minus binds LESS tightly than **, as in Python: -2**2 is -4, not 4. ** is right-associative: 2**3**2 is 512. Whitespace may appear anywhere and must be ignored. Division is float division. Do NOT use eval, exec, or the ast module. Reply with ONLY the function code, no explanation.",
+      "scorer": "code_function_numeric_tests",
+      "function": "evaluate",
+      "hidden_tests": [
+        [
+          "3*-2",
+          -6.0
+        ],
+        [
+          "2**3**2",
+          512.0
+        ],
+        [
+          "-(2+3)*-2",
+          10.0
+        ],
+        [
+          " 4 + 2 * -3 ",
+          -2.0
+        ],
+        [
+          "10/4",
+          2.5
+        ],
+        [
+          "2**-1",
+          0.5
+        ],
+        [
+          "(1+2)*(3- -1)",
+          12.0
+        ],
+        [
+          "--5",
+          5.0
+        ],
+        [
+          "-2**2",
+          -4.0
+        ],
+        [
+          "3 * -(2 + -1)",
+          -3.0
+        ]
+      ],
+      "tolerance": 1e-06,
+      "ban_eval": true
+    },
+    {
+      "id": "c10-sexpr",
+      "family": "code",
+      "prompt": "Write a Python function named seval that takes a string: an arithmetic expression in fully-parenthesized prefix notation, e.g. '(+ 1 (* 2 3) (- 10 4))'. Operators: + * - /. + and * take one or more operands; - and / take one or more operands (unary minus for a single operand, left-associative otherwise); / is float division. Operands are integers or nested expressions, separated by whitespace. Return a float. Reply with ONLY the function code.",
+      "scorer": "code_function_numeric_tests",
+      "function": "seval",
+      "hidden_tests": [
+        [
+          "(+ 1 (* 2 3) (- 10 4))",
+          13.0
+        ],
+        [
+          "(* (+ 1 2) (+ 3 4))",
+          21.0
+        ],
+        [
+          "(- 5)",
+          -5.0
+        ],
+        [
+          "(/ 7 2)",
+          3.5
+        ],
+        [
+          "(+ (* 2 3) (/ 9 3) (- 1))",
+          8.0
+        ],
+        [
+          "(- (* 2 5) 3 2)",
+          5.0
+        ]
+      ],
+      "tolerance": 1e-09
+    },
+    {
+      "id": "l1-knights-6",
+      "family": "logic",
+      "prompt": "Six islanders \u2014 A, B, C, D, E, F \u2014 are each either a knight (always tells the truth) or a knave (always lies). Each makes one statement:\nA says: \"C is a knave.\"\nB says: \"D is a knight.\"\nC says: \"if E is a knight then A is a knave.\"\nD says: \"A is a knave.\"\nE says: \"if C is a knight then D is a knave.\"\nF says: \"if B is a knight then F is a knave.\"\nThere is exactly one consistent assignment. Reply with ONLY a 6-letter string for A,B,C,D,E,F in order, using T for knight and F for knave (example: TFTFTF).",
+      "scorer": "token_strict",
+      "expected": "tttttf"
+    },
+    {
+      "id": "w2-word-count",
+      "family": "writing",
+      "prompt": "Write exactly 5 sentences. Each sentence must contain exactly 6 words. Reply with ONLY the 5 sentences.",
+      "scorer": "constraint_words",
+      "n_sentences": 5,
+      "words_per_sentence": 6
+    },
+    {
+      "id": "w5-lines-words",
+      "family": "writing",
+      "prompt": "Write exactly 6 lines. Odd-numbered lines (1, 3, 5) must start with '- ' (dash, space). Even-numbered lines (2, 4, 6) must start with '* ' (asterisk, space). After the bullet marker, each line must contain exactly 4 words. Reply with ONLY the 6 lines.",
+      "scorer": "constraint_list_alt",
+      "n_lines": 6,
+      "odd_prefix": "- ",
+      "even_prefix": "* ",
+      "words_per_line": 4
+    }
+  ],
+  "kept_ids": [
+    "c1-expr-eval-3",
+    "c10-sexpr",
+    "l1-knights-6",
+    "w2-word-count",
+    "w5-lines-words"
+  ],
+  "dropped_ids": [
+    "c2-csv-2",
+    "c3-sjson-2",
+    "c4-wildcard-2",
+    "c5-base-convert-2",
+    "c6-roman-validate",
+    "c7-date-add",
+    "c8-rle-decode",
+    "c9-brackets",
+    "c11-morse",
+    "c12-caesar-2",
+    "l2-schedule-5",
+    "l3-zebra-4",
+    "l4-exactly-one",
+    "l5-tournament",
+    "l6-seating",
+    "l7-liar-chain",
+    "l8-syllogism",
+    "a1-fee-order",
+    "a2-tip-pretax",
+    "a3-percent-trap",
+    "a4-harmonic",
+    "a5-bogo",
+    "a6-compound",
+    "w1-double-constraint",
+    "w3-acrostic",
+    "w4-comma-exact",
+    "w6-n-words",
+    "x1-count-word",
+    "x2-salient-wrong",
+    "x3-third-highest",
+    "x4-ratio-trap",
+    "n1-not-true",
+    "n2-chronology",
+    "n3-except",
+    "n4-odd-one-out",
+    "s1-count-letter",
+    "s2-seven-words"
+  ]
+}

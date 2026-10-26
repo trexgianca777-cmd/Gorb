@@ -1,0 +1,16 @@
+{
+  "task": "06-scheduling-trap-2",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "token_strict",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "normalized='eve'",
+      "answer": "Eve\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}

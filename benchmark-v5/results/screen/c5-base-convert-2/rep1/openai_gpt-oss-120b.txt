@@ -1,0 +1,60 @@
+```python
+def base_to_int(s: str, base: int) -> int:
+    """
+    Convert a string representation of a number in a given base (2‑36) to an integer.
+
+    Parameters
+    ----------
+    s : str
+        The string to convert. Leading/trailing whitespace is ignored.
+        An optional leading '+' or '-' sets the sign.
+        Digits may be 0‑9 or a‑z / A‑Z (case‑insensitive).
+    base : int
+        The numeric base, must be between 2 and 36 inclusive.
+
+    Returns
+    -------
+    int
+        The integer value represented by `s` in the given base.
+
+    Raises
+    ------
+    ValueError
+        * If `base` is not in the range 2..36.
+        * If the stripped string is empty or consists only of a sign.
+        * If any character is not a valid digit for the specified base.
+    """
+    # Validate base
+    if not (2 <= base <= 36):
+        raise ValueError("base must be between 2 and 36 inclusive")
+
+    # Strip whitespace
+    s = s.strip()
+    if not s:
+        raise ValueError("input string is empty after stripping whitespace")
+
+    # Determine sign
+    sign = 1
+    if s[0] in '+-':
+        if s[0] == '-':
+            sign = -1
+        s = s[1:]
+        if not s:
+            raise ValueError("input string contains only a sign without digits")
+
+    # Mapping for digit characters to their numeric values
+    digit_map = {c: i for i, c in enumerate('0123456789abcdefghijklmnopqrstuvwxyz')}
+    # Include uppercase equivalents
+    digit_map.update({c.upper(): i for c, i in digit_map.items() if c.isalpha()})
+
+    value = 0
+    for ch in s:
+        if ch not in digit_map:
+            raise ValueError(f"invalid character '{ch}' for base {base}")
+        digit = digit_map[ch]
+        if digit >= base:
+            raise ValueError(f"digit '{ch}' out of range for base {base}")
+        value = value * base + digit
+
+    return sign * value
+```

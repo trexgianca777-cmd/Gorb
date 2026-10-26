@@ -1,0 +1,39 @@
+{
+  "mechanism": "mh",
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": false,
+      "detail": "tests_passed=0/5",
+      "framing": "initial"
+    },
+    {
+      "attempt": 2,
+      "pass": false,
+      "detail": "tests_passed=2/5",
+      "framing": "minimal"
+    },
+    {
+      "attempt": 3,
+      "pass": true,
+      "detail": "tests_passed=5/5",
+      "framing": "rewrite"
+    }
+  ],
+  "calls": [
+    {
+      "prompt_chars": 617,
+      "completion_chars": 2760
+    },
+    {
+      "prompt_chars": 3609,
+      "completion_chars": 2573
+    },
+    {
+      "prompt_chars": 3668,
+      "completion_chars": 3037
+    }
+  ],
+  "task": "p9-sexpr-let",
+  "rep": "1"
+}

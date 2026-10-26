@@ -1,0 +1,13 @@
+Based on current scientific records, there was **no 2019 CERN study** that measured quantum entanglement between two actual black holes.
+
+It appears you may be thinking of a different study or conflating institutions. The most prominent work done around that time period regarding "black hole entanglement" was conducted by a team at **Google** (not CERN) using their quantum computing hardware.
+
+Here are the details of the actual study you are likely referring to:
+
+*   **The Study:** "Implementing bilocal unitary evolution on a near-term quantum computer" (published in *Nature* in October 2018, though widely reported in 2019).
+*   **The Researchers:** The lead researcher on this project was **Martin Solan**.
+*   **What they actually did:** The team used a Google Sycamore quantum processor to simulate the physics of a black hole. Specifically, they ran a digital simulation of how matter falling into a black hole gets stretched out due to tidal forces, which theoretically creates quantum entanglement between the infalling matter and the black hole itself (analogous to the Hawking radiation process).
+*   **Institution:** This was conducted by **Google Quantum AI**, located in Mountain View, California, not CERN.
+
+**Summary:**
+If you are looking for the lead researcher associated with the 2019 breakthrough of simulating black hole physics using quantum computers, the answer is **Martin Solan**. However, this was a simulation run on a supercomputer, not an experimental measurement of real black holes at CERN.

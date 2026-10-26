@@ -1,0 +1,16 @@
+{
+  "task": "05-knights-knaves-5",
+  "generator": "openai/gpt-oss-120b",
+  "scorer": "token_strict",
+  "max_revisions": 2,
+  "attempts": [
+    {
+      "attempt": 1,
+      "pass": true,
+      "detail": "normalized='b'",
+      "answer": "B\n"
+    }
+  ],
+  "final_pass": true,
+  "revisions_used": 0
+}
