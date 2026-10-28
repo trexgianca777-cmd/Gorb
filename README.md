@@ -12,6 +12,10 @@ https://raw.githubusercontent.com/trexgianca777-cmd/Gorb/main/swarmzero-bundle.m
 Regenerate after changes with `./make-bundle.sh`. The full repo also
 downloads as a zip from Code > Download ZIP.
 
+New here? Start with BOOTSTRAP.md inside the bundle: one upload,
+autonomous setup, each part explained with why it is needed, and the
+whole account batch up front.
+
 A delegation-first orchestration layer that fans work out across free-tier
 and open model APIs at zero inference cost. Per-model health tracking
 reroutes around rate limits and outages so the swarm degrades gracefully

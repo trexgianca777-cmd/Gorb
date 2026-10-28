@@ -6,6 +6,7 @@ set -e
 cd "$(dirname "$0")"
 
 FILES="
+BOOTSTRAP.md
 README.md
 BUDGET.md
 LIMITATIONS.md

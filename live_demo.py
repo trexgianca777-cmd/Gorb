@@ -40,7 +40,14 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SWARM_CALL = os.path.expanduser("~/workspace/freellmapi/swarm-call.sh")
+# Portable paths (2026-10-28): on the original machine the swarm caller
+# and key vault live under ~/workspace/freellmapi. Anywhere else, use the
+# repo-local swarm-call.sh and a plain FREELLMAPI_API_KEY from the
+# environment — no vault required. Vault path wins when it exists, so
+# existing setups are unchanged.
+_FREELLMAPI_CALL = os.path.expanduser("~/workspace/freellmapi/swarm-call.sh")
+SWARM_CALL = (_FREELLMAPI_CALL if os.path.exists(_FREELLMAPI_CALL)
+              else os.path.join(HERE, "swarm-call.sh"))
 VAULT = os.path.expanduser("~/workspace/freellmapi/vault/vault.sh")
 CHEAP = "openai/gpt-oss-20b"
 STRONG = "openai/gpt-oss-120b"
@@ -54,10 +61,15 @@ def _safe(model):
 def swarm_call(model, prompt, system=None):
     """One single-model call through swarm-call.sh. Returns text or None."""
     outdir = tempfile.mkdtemp(prefix="live-demo-")
-    cmd = ["bash", "-c",
-           f'. "{VAULT}"; swarm_vault_load || exit 2; '
-           f'exec "{SWARM_CALL}" "$@"',
-           "live-demo", prompt, outdir]
+    if os.path.exists(VAULT):
+        cmd = ["bash", "-c",
+               f'. "{VAULT}"; swarm_vault_load || exit 2; '
+               f'exec "{SWARM_CALL}" "$@"',
+               "live-demo", prompt, outdir]
+    else:
+        # No vault: swarm-call.sh reads FREELLMAPI_API_KEY and
+        # FREELLMAPI_BASE_URL straight from the environment.
+        cmd = ["bash", SWARM_CALL, prompt, outdir]
     env = dict(os.environ)
     env["SWARM_MODELS"] = model
     env["SWARM_MAX_TOKENS"] = os.environ.get("SWARM_MAX_TOKENS", "2048")
