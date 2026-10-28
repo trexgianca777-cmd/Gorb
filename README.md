@@ -1,5 +1,17 @@
 # SwarmZero — $0 multi-agent orchestration on open-weights models
 
+## Single-file download
+
+One file carries the whole project for upload into a fresh Muse session
+from a phone: [swarmzero-bundle.md](swarmzero-bundle.md) (about 210 KB,
+30 files: docs, demo loop, cost-guard proxy, swarm caller, benchmark
+reports). Raw download link:
+
+https://raw.githubusercontent.com/trexgianca777-cmd/Gorb/main/swarmzero-bundle.md
+
+Regenerate after changes with `./make-bundle.sh`. The full repo also
+downloads as a zip from Code > Download ZIP.
+
 A delegation-first orchestration layer that fans work out across free-tier
 and open model APIs at zero inference cost. Per-model health tracking
 reroutes around rate limits and outages so the swarm degrades gracefully
